@@ -54,7 +54,7 @@ It stays on Python 3.12 / FastAPI and TypeScript / React. The PRD's roadmap runs
 Each step is one small change set, usually 3–8 files. Run it as a loop:
 
 1. **Open the step.**
-   - Add a row to `markdown/MASTER.md`. IDs continue after T038: `T039…`.
+   - MASTER rows are pre-created: T039 = S00, T040–T122 = P0-01…P5-09 in order (P2-02–06 is split into one row per template family). Set the step's row to `IN_PROGRESS`.
    - Columns: `ID | Task | Status | Depends on | Required Docs | Evidence`.
    - Set the status to `IN_PROGRESS`.
 2. **Sequential Thinking MCP.** Break the step down: invariants, edge cases, which design pattern, and the file split.
