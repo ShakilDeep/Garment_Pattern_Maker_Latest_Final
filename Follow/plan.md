@@ -103,7 +103,13 @@ Each step is one small change set, usually 3–8 files. Run it as a loop:
 
 ---
 
-## S00: Tooling prerequisites (do before P0)
+**Constraints found while running S00:**
+- **Planning cadence.** `protect-validation-gate.js` blocks the 4th and later edit made without a sequential-thinking call. Call Sequential Thinking at least every 3 edits, not just once per step.
+- **Ruff scope.** Gate A runs `ruff check app tests` from `backend/`. The old `scripts/inspect_references.py` and `scripts/verify_artifacts.py` have I001 import-order issues; they are out of scope and are only fixed if a step touches them.
+- **Baseline.** 192 pytest tests (about 114 s) and 44 vitest tests (about 73 s). The hook's test command takes about 3 minutes, inside its 5-minute timeout. If the suite grows past about 4 minutes, split fast and slow markers.
+- **Git.** Baseline commit `3404e86`. The local git identity is set. `.claude/.*` hook state and `*.egg-info/` are gitignored.
+
+## S00: Tooling prerequisites ✅ DONE (commit 5dd23c6)
 
 - `git init` and a first baseline commit, so each step can be rolled back. `.gitignore` already exists.
 - Create `.claude/test-command`. It runs pytest, then `npm --prefix frontend test`, and exits non-zero if either fails, so the Stop hook actually runs the tests.
@@ -117,12 +123,12 @@ Each step is one small change set, usually 3–8 files. Run it as a loop:
 
 | Step | Goal | Files (new → / modified ~) | Pattern | Done when |
 |---|---|---|---|---|
-| P0-01 | Split `domain/geometry.py` (201 lines) | → `domain/geom/{vectors,curves,paths,transform,bbox}.py`; ~`domain/geometry.py` becomes a re-export Facade | Facade | Every import still works; geometry tests green |
-| P0-02 | Split `service.py`, `main.py`, `exports.py`, `catalog.py`, `projections.py` | → `api/error_handlers.py`, `api/middleware.py`, `application/project_import.py`, `infrastructure/export_{svg,pdf,json}.py`, `domain/catalog_{sizes,mapping}.py`, `infrastructure/projection_{pattern,source}.py` | Facade | Behaviour unchanged; every file ≤100 lines |
+| P0-01 | Split `domain/geometry.py` (201 lines) | → `domain/geom/{primitives,curves,paths,transform,polyline_ops,piece_builder}.py`; ~`domain/geometry.py` becomes a re-export Facade. Its current importers (`shirt_set`, `drafting`, `marker_pack`, `pattern_checks`, `placement_checks`, and 4 tests) must not change | Facade | Every import still works; geometry tests green |
+| P0-02 | Split `service.py`, `main.py`, `exports.py`, `catalog.py`, `projections.py`, and the oversized tests `test_ai_context.py` (176), `test_ai_trust.py` (129), `test_demo_goldens.py` (112), `test_tolerance_boundaries.py` (112) | → `api/error_handlers.py`, `api/middleware.py`, `application/project_import.py`, `infrastructure/export_{svg,pdf,json}.py`, `domain/catalog_{sizes,mapping}.py`, `infrastructure/projection_{pattern,source}.py`; tests split by behaviour, with no test removed or weakened | Facade | Behaviour unchanged; test count unchanged or higher; `check_lines` clean for the backend |
 | P0-03 | Split the frontend files | → `useProjectState.ts`, `useKeyboard.ts`, `mutations/{measurement,source,lifecycle}.ts`, `Measurements.edit.test.tsx` | Custom hooks | vitest and e2e green |
 | P0-04 | Defect d: grading an older version | ~`pattern_workflow.build`, which takes an explicit `inputs` bundle (measurements, resolutions, allowance) taken from the stored version; ~`pattern_routes.grade_version` calls `check_operation` and rejects grade ids | Parameter object | New test: grading v1 after measurements change reproduces v1 inputs, and `input_hash` matches |
 | P0-05 | Defect e: version selection | → `application/version_select.py` `select_for_size(project, size)` (grade first); used by `assistant_context.py`; the frontend mirrors it in `versionSelect.ts` and `App.tsx` | Single rule | Parity test: backend and frontend pick the same id when grades include the base size |
-| P0-06 | Harden the import and archive lifecycle | ~`import_geometry.py` (checks placements, unique grade sizes, schema_version, marker `pattern_ids`); ~`lifecycle_routes` (archive calls `_ensure_active`, restore calls `invalidate`); ~`readiness.py` (checks source blockers) | Chain of Responsibility validators | Failure-path tests return 422, 409 and 400 with specific codes |
+| P0-06 | Harden the import and archive lifecycle | ~`import_geometry.py` (checks placements, unique grade sizes, schema_version, marker `pattern_ids`, and stops importing FastAPI's `HTTPException` in infrastructure: raise a domain `ImportInvalid` error that `api/error_handlers.py` maps to 422); ~`lifecycle_routes` (archive calls `_ensure_active`, restore calls `invalidate`); ~`readiness.py` (checks source blockers) | Chain of Responsibility validators | Failure-path tests return 422, 409 and 400 with specific codes |
 | P0-07 | Per-measurement ranges | ~`measurement_write.bound_changes` uses per-code min/max from the catalog; the bulk route rejects unknown keys | Table-driven | A −3 cm sleeve is rejected; an unknown key returns 422 |
 | P0-08 | Typed responses | → `api/models/{project,pattern,marker,source,requirement,review}.py` replace `ObjectResponse`/`ListResponse`; → `api/pagination.py` `Page[T]` | DTO | OpenAPI has no `RootModel[dict]`; e2e green |
 | P0-09 | **Phase gate P0** | `artifacts/qa/v6-P0.md` | | Everything green; `check_lines` passes on the whole repo |
