@@ -4,13 +4,15 @@ import type {Project, Requirements} from './types';
 import {guardedGo} from './navigationGuard';
 import {projectMutations} from './projectMutations';
 import {bootProjectsDialog, shouldRestoreLastProject} from './startup';
+import {useHashPage} from './useHashPage';
+import {useKeyboardShortcuts} from './useKeyboardShortcuts';
 
 export type ProjectListItem = {id: string; name: string; archived?: boolean};
 
 export function useAppController() {
   const [project, setProject] = useState<Project | null>(null);
   const [projects, setProjects] = useState<ProjectListItem[]>([]);
-  const [page, setPage] = useState(decodeURIComponent(location.hash.slice(1)) || 'Measurements');
+  const [page, setPage] = useHashPage();
   const [size, setSize] = useState('M');
   const [requirements, setRequirements] = useState<Requirements | null>(null);
   const [selected, select] = useState('');
@@ -64,12 +66,6 @@ export function useAppController() {
     }
   }, [size, project?.id]);
 
-  useEffect(() => {
-    const listener = () => setPage(decodeURIComponent(location.hash.slice(1)) || 'Measurements');
-    window.addEventListener('hashchange', listener);
-    return () => window.removeEventListener('hashchange', listener);
-  }, []);
-
   const history = useCallback((direction: string) => {
     if (project) void run(async () => {
       await api(`/projects/${project.id}/history/${direction}`, 'POST');
@@ -77,17 +73,7 @@ export function useAppController() {
     }, `Measurement ${direction} saved`);
   }, [project, refresh]);
 
-  useEffect(() => {
-    const listener = (e: KeyboardEvent) => {
-      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') { e.preventDefault(); setDialog('commands'); }
-      if ((e.target as HTMLElement).matches('input,textarea,select')) return;
-      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'z') {
-        e.preventDefault(); history(e.shiftKey ? 'redo' : 'undo');
-      }
-    };
-    window.addEventListener('keydown', listener);
-    return () => window.removeEventListener('keydown', listener);
-  }, [history]);
+  useKeyboardShortcuts(setDialog, history);
 
   const mutations = projectMutations({
     project, size, allowance, requirements, go, refresh, run,
