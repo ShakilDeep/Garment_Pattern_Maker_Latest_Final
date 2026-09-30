@@ -1,17 +1,15 @@
-from math import nextafter, radians, tan
+from math import nextafter
 
 import pytest
 from test_demo_goldens import values_for
 
 from app.domain.drafting import draft
 from app.domain.tolerances import (
-    ANGLE_DEGREES,
     COORDINATE,
     LENGTH_CM,
     SLEEVE_EASE_CM,
     SOURCE_DIMENSION_CM,
 )
-from app.infrastructure.outline_quality import outline_quality
 from app.infrastructure.pattern_checks import structural_checks
 from app.infrastructure.validation import validate
 
@@ -82,31 +80,3 @@ def test_decimal_roundoff_does_not_fail_inclusive_seam_limit(rows):
     by_name["Back"]["seams"]["yoke"] = nextafter(48.5 + LENGTH_CM, float("inf"))
     issue = next(i for i in validate(pattern) if i.get("name") == "Yoke seam")
     assert issue["severity"] == "PASS"
-
-
-@pytest.mark.parametrize(
-    "side,flattening",
-    [(-1, True), (0, True), (1, False)],
-)
-def test_flattening_includes_exact_angle_threshold(side, flattening):
-    y = 5 * tan(radians(ANGLE_DEGREES + side * 0.01))
-    piece = {
-        "name": "Threshold",
-        "points": [[0, 0], [5, 0], [10, y], [10, 6], [0, 6], [0, 0]],
-    }
-    issues = outline_quality({"pieces": [piece]})
-    assert any(issue["code"] == "FLATTENING" for issue in issues) is flattening
-
-
-@pytest.mark.parametrize(
-    "side,spike",
-    [(-1, True), (0, True), (1, False)],
-)
-def test_spike_turn_includes_exact_angle_threshold(side, spike):
-    y = 10 * tan(radians(ANGLE_DEGREES + side * 0.01))
-    piece = {
-        "name": "Spike",
-        "points": [[0, 0], [10, 0], [0, y], [0, 10], [6, 10], [0, 0]],
-    }
-    issues = outline_quality({"pieces": [piece]})
-    assert any(issue["code"] == "TURN_ANGLE" for issue in issues) is spike

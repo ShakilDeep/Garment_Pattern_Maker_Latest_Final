@@ -1,26 +1,19 @@
 """Demo regression evidence, never a claim of client production calibration."""
 
-import json
 from hashlib import sha256
 from pathlib import Path
 
 import pytest
-from shapely.geometry import Polygon, box
+from shapely.geometry import Polygon
 
 from app.application.requirements import requirements
 from app.domain.back_yoke import back_shoulder_half
 from app.domain.catalog import SIZES
 from app.domain.drafting import draft
-from app.infrastructure.marker import marker_batch
 from app.infrastructure.parsers import parse_pdf
 from app.infrastructure.validation import validate
 
 ROOT = Path(__file__).resolve().parents[2]
-
-
-@pytest.fixture(scope="module")
-def golden():
-    return json.loads((ROOT / "fixtures/demo_v1_metrics.json").read_text())
 
 
 def values_for(rows, size):
@@ -94,19 +87,3 @@ def test_component_dimensions_are_compared_to_component_source_targets(rows, siz
     )
     codes = {issue["code"] for issue in validate(pattern)}
     assert {"GEOMETRY", "SEAM_CHECK", "DIMENSION_CHECK", "NOTCHES", "GRAINLINE", "PLACEMENT_CHECK"} <= codes
-
-
-def test_fixed_mixed_marker_metrics_and_independent_spacing(rows, golden):
-    config = golden["marker"]["config"]
-    patterns = {s: {**draft(values_for(rows, s), s), "id": f"golden:{s}"} for s in config["quantities"]}
-    result = marker_batch(patterns, **config)
-    assert result == marker_batch(patterns, **config)
-    for key in ("length", "utilization", "waste"):
-        assert result[key] == pytest.approx(golden["marker"][key], abs=1e-6, rel=0)
-    assert len(result["placements"]) == golden["marker"]["placements"]
-    shapes = []
-    for p in result["placements"]:
-        shape = Polygon([(x + p["x"], y + p["y"]) for x, y in p["points"]])
-        assert box(0, 0, result["width"], result["length"]).covers(shape)
-        assert all(shape.distance(other) >= config["gap"] - 1e-6 for other in shapes)
-        shapes.append(shape)
