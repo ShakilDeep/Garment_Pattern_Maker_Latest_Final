@@ -19,3 +19,4 @@ references/
 *.egg-info/
 .claude/.*
 .claude/settings.local.json
+Follow/markdown-v5-backup.tar.gz
