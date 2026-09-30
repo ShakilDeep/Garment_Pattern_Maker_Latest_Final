@@ -1,0 +1,13 @@
+export const sizes = ['S','M','L','XL','XXL','3XL'];
+export type Cell = {value:number|null;raw:string|number|null;formula:string|null;cell:string;issue:string|null;override:boolean};
+export type Measurement = {key:string;code:string;label:string;unit:string;tolerance:number|string|null;source:string;sheet:string;row:number;values:Record<string,Cell>};
+export type Point = [number,number];
+export type Piece = {id:string;name:string;points:Point[];cut_points:Point[];grainline:Point[];notches:Point[];quantity:number;cut_on_fold:boolean;width:number;height:number;area:number;perimeter:number};
+export type Issue = {code:string;severity:'PASS'|'WARNING'|'ERROR';message:string;piece?:string};
+export type Pattern = {id:string;size:string;profile:string;pieces:Piece[];validation:Issue[];assumptions:string[];input_hash:string;stale:boolean;seam_allowance:number};
+export type Marker = {placements:{name:string;points:Point[];x:number;y:number;width:number;height:number}[];width:number;length:number;utilization:number;waste:number;quantity:number;size:string;strategy:string;gap:number};
+export type Project = {id:string;name:string;state:string;archived?:boolean;updated_at?:string;measurements:Measurement[];resolutions:Record<string,string>;pattern:Pattern|null;grades:Pattern[];marker:Marker|null;previous_marker:Marker|null;documents:{id:string;filename:string;sha256:string;bytes:number}[];techpack:{style:string;garment:string;fit:string;fabric:string;colorways:string[];pages:{page:number;text:string}[]}|null;audit:{event:string;at:string}[];undo:Measurement[][];redo:Measurement[][]};
+export type Requirement = {key:string;name:string;status:string;blocking:boolean;why:string;options:string[];resolved:boolean;value:string|null;source:string;accepted_units?:string[];fallback_policy?:string};
+export type Requirements = {ready:boolean;items:Requirement[];blockers:Requirement[]};
+export const sizeLabels: Record<string,string> = {S:'S (Small)',M:'M (Medium)',L:'L (Large)',XL:'XL (Extra Large)',XXL:'XXL', '3XL':'3XL'};
+export const fields: [string,string,number][] = [['half_chest','Chest Circumference',2],['half_waist','Waist Circumference',2],['half_bottom_opening','Hip Circumference',2],['shoulder_point_to_point','Shoulder Width',1],['half_armhole_straight','Armhole Straight (Half)',1],['sleeve_length','Sleeve Length (Incl. Cuff)',1],['half_bicep','Bicep Circumference',2],['cuff_edge_to_edge','Cuff Edge to Edge',1],['neck_width','Neck Width',1],['collar_width_cb','Collar Height',1],['front_length_hps','Front Length',1],['back_length_hps','Back Length',1]];

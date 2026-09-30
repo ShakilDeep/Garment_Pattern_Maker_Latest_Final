@@ -1,0 +1,4581 @@
+{
+  "schema_version": 1,
+  "profile": "demo_v1",
+  "profile_version": "1.0.0",
+  "production_certified": false,
+  "source": "REF-003: Book2(4).xlsx",
+  "source_sha256": "66865dac719d23cab0c2d8a99f0ef638d3ce88ffea644605c65d8c85d5df751d",
+  "scope": "Regression metrics frozen from demo_v1; independent source-dimension and polygon invariants accompany these metrics. Not production calibration.",
+  "seam_allowance_cm": 0,
+  "source_choice": "workbook",
+  "sizes": {
+    "S": {
+      "measurements": {
+        "back_length_hps": 74.0,
+        "front_length_hps": 74.0,
+        "half_chest": 54.0,
+        "waist_position_hps": 46.5,
+        "half_waist": 52.0,
+        "half_bottom_opening": 53.0,
+        "hem_curve": 5.0,
+        "yoke_depth_cb": 13.0,
+        "forward_shoulder_neck": 3.5,
+        "forward_shoulder_armhole": 4.0,
+        "shoulder_slope": 5.0,
+        "shoulder_point_to_point": 45.3,
+        "back_mid_armhole": 43.8,
+        "front_mid_armhole": 39.8,
+        "half_armhole_straight": 22.0,
+        "half_bicep": 19.5,
+        "sleeve_cap_height": 14.100000000000001,
+        "half_elbow": 16.4,
+        "sleeve_length": 64.0,
+        "cuff_width": 6.0,
+        "cuff_edge_to_edge": 24.0,
+        "sleeve_pleat_depth": 2.0,
+        "sleeve_placket_length": 14.0,
+        "sleeve_placket_width": 2.5,
+        "collar_buttoned_length": 19.5,
+        "collar_outside_edge": 40.5,
+        "collar_width_cb": 4.7,
+        "collar_band_width_cb": 3.3,
+        "collar_point": 6.2,
+        "neck_width": 13.899999999999999,
+        "front_neck_drop": 9.3,
+        "tie_gap": 0.5,
+        "front_placket_width": 3.0,
+        "first_button": 6.0,
+        "last_button": 13.0
+      },
+      "pieces": {
+        "front": {
+          "width": 30.0,
+          "height": 74.25,
+          "area": 1964.7486408694435,
+          "perimeter": 196.50035616693447,
+          "seams": {
+            "armhole": 19.359129749299715,
+            "neckline": 13.240640517572553
+          },
+          "quantity": 2
+        },
+        "back": {
+          "width": 54.0,
+          "height": 61.25,
+          "area": 3136.0501291983787,
+          "perimeter": 221.45805581397522,
+          "seams": {
+            "yoke": 44.3,
+            "armhole": 11.855395608850746
+          },
+          "quantity": 1
+        },
+        "yoke": {
+          "width": 44.3,
+          "height": 13.0,
+          "area": 476.74942265023196,
+          "perimeter": 107.73396121672904,
+          "seams": {
+            "yoke": 44.3,
+            "neckline": 15.431461314377675
+          },
+          "quantity": 1
+        },
+        "sleeve": {
+          "width": 39.0,
+          "height": 58.0,
+          "area": 1864.53814915,
+          "perimeter": 167.53861740173562,
+          "seams": {
+            "cap": 51.05223426850997,
+            "wrist": 28.0
+          },
+          "quantity": 2
+        },
+        "collar": {
+          "width": 41.912742,
+          "height": 6.2,
+          "area": 216.02444390000002,
+          "perimeter": 92.96191073144148,
+          "seams": {
+            "attachment": 41.91274234952278
+          },
+          "quantity": 2
+        },
+        "collar_stand": {
+          "width": 41.912742,
+          "height": 3.3,
+          "area": 138.3120486,
+          "perimeter": 90.425484,
+          "seams": {
+            "attachment": 41.91274234952278
+          },
+          "quantity": 2
+        },
+        "cuff": {
+          "width": 24.0,
+          "height": 6.0,
+          "area": 144.0,
+          "perimeter": 60.0,
+          "seams": {},
+          "quantity": 4
+        },
+        "sleeve_placket": {
+          "width": 2.5,
+          "height": 14.0,
+          "area": 33.4375,
+          "perimeter": 31.535533905932738,
+          "seams": {},
+          "quantity": 2
+        }
+      },
+      "requirements": {
+        "unreviewed": {
+          "ready": false,
+          "items": [
+            {
+              "key": "units",
+              "status": "AMBIGUOUS",
+              "blocking": true
+            },
+            {
+              "key": "profile",
+              "status": "DEMO_DEFAULT_AVAILABLE",
+              "blocking": true
+            },
+            {
+              "key": "review",
+              "status": "MISSING",
+              "blocking": true
+            },
+            {
+              "key": "placket",
+              "status": "CONFLICTING",
+              "blocking": true
+            },
+            {
+              "key": "fabric",
+              "status": "CONFLICTING",
+              "blocking": false
+            },
+            {
+              "key": "calibration:base_pattern",
+              "status": "MISSING",
+              "blocking": false
+            },
+            {
+              "key": "calibration:drafting",
+              "status": "MISSING",
+              "blocking": false
+            },
+            {
+              "key": "calibration:grading",
+              "status": "MISSING",
+              "blocking": false
+            },
+            {
+              "key": "calibration:seams",
+              "status": "MISSING",
+              "blocking": false
+            },
+            {
+              "key": "calibration:marks",
+              "status": "MISSING",
+              "blocking": false
+            },
+            {
+              "key": "calibration:shrinkage",
+              "status": "MISSING",
+              "blocking": false
+            },
+            {
+              "key": "calibration:marker",
+              "status": "MISSING",
+              "blocking": false
+            },
+            {
+              "key": "calibration:tolerances",
+              "status": "MISSING",
+              "blocking": false
+            },
+            {
+              "key": "calibration:samples",
+              "status": "MISSING",
+              "blocking": false
+            },
+            {
+              "key": "calibration:export",
+              "status": "MISSING",
+              "blocking": false
+            }
+          ]
+        },
+        "demo_ready": {
+          "ready": true,
+          "items": [
+            {
+              "key": "units",
+              "status": "AVAILABLE",
+              "blocking": true
+            },
+            {
+              "key": "profile",
+              "status": "AVAILABLE",
+              "blocking": true
+            },
+            {
+              "key": "review",
+              "status": "AVAILABLE",
+              "blocking": true
+            },
+            {
+              "key": "placket",
+              "status": "AVAILABLE",
+              "blocking": true
+            },
+            {
+              "key": "fabric",
+              "status": "CONFLICTING",
+              "blocking": false
+            },
+            {
+              "key": "calibration:base_pattern",
+              "status": "MISSING",
+              "blocking": false
+            },
+            {
+              "key": "calibration:drafting",
+              "status": "MISSING",
+              "blocking": false
+            },
+            {
+              "key": "calibration:grading",
+              "status": "MISSING",
+              "blocking": false
+            },
+            {
+              "key": "calibration:seams",
+              "status": "MISSING",
+              "blocking": false
+            },
+            {
+              "key": "calibration:marks",
+              "status": "MISSING",
+              "blocking": false
+            },
+            {
+              "key": "calibration:shrinkage",
+              "status": "MISSING",
+              "blocking": false
+            },
+            {
+              "key": "calibration:marker",
+              "status": "MISSING",
+              "blocking": false
+            },
+            {
+              "key": "calibration:tolerances",
+              "status": "MISSING",
+              "blocking": false
+            },
+            {
+              "key": "calibration:samples",
+              "status": "MISSING",
+              "blocking": false
+            },
+            {
+              "key": "calibration:export",
+              "status": "MISSING",
+              "blocking": false
+            }
+          ]
+        }
+      }
+    },
+    "M": {
+      "measurements": {
+        "back_length_hps": 75.5,
+        "front_length_hps": 75.5,
+        "half_chest": 56.0,
+        "waist_position_hps": 47.25,
+        "half_waist": 54.0,
+        "half_bottom_opening": 55.0,
+        "hem_curve": 5.0,
+        "yoke_depth_cb": 14.0,
+        "forward_shoulder_neck": 3.5,
+        "forward_shoulder_armhole": 4.0,
+        "shoulder_slope": 5.0,
+        "shoulder_point_to_point": 46.9,
+        "back_mid_armhole": 45.4,
+        "front_mid_armhole": 41.4,
+        "half_armhole_straight": 23.0,
+        "half_bicep": 20.5,
+        "sleeve_cap_height": 14.3,
+        "half_elbow": 17.2,
+        "sleeve_length": 65.0,
+        "cuff_width": 6.0,
+        "cuff_edge_to_edge": 24.75,
+        "sleeve_pleat_depth": 2.0,
+        "sleeve_placket_length": 14.0,
+        "sleeve_placket_width": 2.5,
+        "collar_buttoned_length": 20.5,
+        "collar_outside_edge": 42.5,
+        "collar_width_cb": 4.7,
+        "collar_band_width_cb": 3.3,
+        "collar_point": 6.2,
+        "neck_width": 14.7,
+        "front_neck_drop": 9.65,
+        "tie_gap": 0.5,
+        "front_placket_width": 3.0,
+        "first_button": 6.0,
+        "last_button": 13.0
+      },
+      "pieces": {
+        "front": {
+          "width": 31.0,
+          "height": 75.75,
+          "area": 2069.0121815025464,
+          "perimeter": 201.18590477167842,
+          "seams": {
+            "armhole": 20.416193818558618,
+            "neckline": 13.844646827954417
+          },
+          "quantity": 2
+        },
+        "back": {
+          "width": 56.0,
+          "height": 61.75,
+          "area": 3281.731334505787,
+          "perimeter": 226.32511013400406,
+          "seams": {
+            "yoke": 45.9,
+            "armhole": 11.996019940536367
+          },
+          "quantity": 1
+        },
+        "yoke": {
+          "width": 45.9,
+          "height": 14.0,
+          "area": 540.117014999306,
+          "perimeter": 112.85406951696999,
+          "seams": {
+            "yoke": 45.9,
+            "neckline": 16.190675309409627
+          },
+          "quantity": 1
+        },
+        "sleeve": {
+          "width": 41.0,
+          "height": 59.0,
+          "area": 1978.873618783103,
+          "perimeter": 171.93791985180073,
+          "seams": {
+            "cap": 52.95254707593196,
+            "wrist": 28.75
+          },
+          "quantity": 2
+        },
+        "collar": {
+          "width": 43.879969,
+          "height": 6.2,
+          "area": 226.74583105000005,
+          "perimeter": 96.89156890888616,
+          "seams": {
+            "attachment": 43.87996896531846
+          },
+          "quantity": 2
+        },
+        "collar_stand": {
+          "width": 43.879969,
+          "height": 3.3,
+          "area": 144.8038977,
+          "perimeter": 94.359938,
+          "seams": {
+            "attachment": 43.87996896531846
+          },
+          "quantity": 2
+        },
+        "cuff": {
+          "width": 24.75,
+          "height": 6.0,
+          "area": 148.5,
+          "perimeter": 61.5,
+          "seams": {},
+          "quantity": 4
+        },
+        "sleeve_placket": {
+          "width": 2.5,
+          "height": 14.0,
+          "area": 33.4375,
+          "perimeter": 31.535533905932738,
+          "seams": {},
+          "quantity": 2
+        }
+      },
+      "requirements": {
+        "unreviewed": {
+          "ready": false,
+          "items": [
+            {
+              "key": "units",
+              "status": "AMBIGUOUS",
+              "blocking": true
+            },
+            {
+              "key": "profile",
+              "status": "DEMO_DEFAULT_AVAILABLE",
+              "blocking": true
+            },
+            {
+              "key": "review",
+              "status": "MISSING",
+              "blocking": true
+            },
+            {
+              "key": "placket",
+              "status": "CONFLICTING",
+              "blocking": true
+            },
+            {
+              "key": "fabric",
+              "status": "CONFLICTING",
+              "blocking": false
+            },
+            {
+              "key": "calibration:base_pattern",
+              "status": "MISSING",
+              "blocking": false
+            },
+            {
+              "key": "calibration:drafting",
+              "status": "MISSING",
+              "blocking": false
+            },
+            {
+              "key": "calibration:grading",
+              "status": "MISSING",
+              "blocking": false
+            },
+            {
+              "key": "calibration:seams",
+              "status": "MISSING",
+              "blocking": false
+            },
+            {
+              "key": "calibration:marks",
+              "status": "MISSING",
+              "blocking": false
+            },
+            {
+              "key": "calibration:shrinkage",
+              "status": "MISSING",
+              "blocking": false
+            },
+            {
+              "key": "calibration:marker",
+              "status": "MISSING",
+              "blocking": false
+            },
+            {
+              "key": "calibration:tolerances",
+              "status": "MISSING",
+              "blocking": false
+            },
+            {
+              "key": "calibration:samples",
+              "status": "MISSING",
+              "blocking": false
+            },
+            {
+              "key": "calibration:export",
+              "status": "MISSING",
+              "blocking": false
+            }
+          ]
+        },
+        "demo_ready": {
+          "ready": true,
+          "items": [
+            {
+              "key": "units",
+              "status": "AVAILABLE",
+              "blocking": true
+            },
+            {
+              "key": "profile",
+              "status": "AVAILABLE",
+              "blocking": true
+            },
+            {
+              "key": "review",
+              "status": "AVAILABLE",
+              "blocking": true
+            },
+            {
+              "key": "placket",
+              "status": "AVAILABLE",
+              "blocking": true
+            },
+            {
+              "key": "fabric",
+              "status": "CONFLICTING",
+              "blocking": false
+            },
+            {
+              "key": "calibration:base_pattern",
+              "status": "MISSING",
+              "blocking": false
+            },
+            {
+              "key": "calibration:drafting",
+              "status": "MISSING",
+              "blocking": false
+            },
+            {
+              "key": "calibration:grading",
+              "status": "MISSING",
+              "blocking": false
+            },
+            {
+              "key": "calibration:seams",
+              "status": "MISSING",
+              "blocking": false
+            },
+            {
+              "key": "calibration:marks",
+              "status": "MISSING",
+              "blocking": false
+            },
+            {
+              "key": "calibration:shrinkage",
+              "status": "MISSING",
+              "blocking": false
+            },
+            {
+              "key": "calibration:marker",
+              "status": "MISSING",
+              "blocking": false
+            },
+            {
+              "key": "calibration:tolerances",
+              "status": "MISSING",
+              "blocking": false
+            },
+            {
+              "key": "calibration:samples",
+              "status": "MISSING",
+              "blocking": false
+            },
+            {
+              "key": "calibration:export",
+              "status": "MISSING",
+              "blocking": false
+            }
+          ]
+        }
+      }
+    },
+    "L": {
+      "measurements": {
+        "back_length_hps": 77.0,
+        "front_length_hps": 77.0,
+        "half_chest": 58.0,
+        "waist_position_hps": 48.0,
+        "half_waist": 56.0,
+        "half_bottom_opening": 57.0,
+        "hem_curve": 5.0,
+        "yoke_depth_cb": 14.0,
+        "forward_shoulder_neck": 3.5,
+        "forward_shoulder_armhole": 4.0,
+        "shoulder_slope": 5.0,
+        "shoulder_point_to_point": 48.5,
+        "back_mid_armhole": 47.0,
+        "front_mid_armhole": 43.0,
+        "half_armhole_straight": 24.0,
+        "half_bicep": 21.5,
+        "sleeve_cap_height": 14.5,
+        "half_elbow": 18.0,
+        "sleeve_length": 66.0,
+        "cuff_width": 6.0,
+        "cuff_edge_to_edge": 25.5,
+        "sleeve_pleat_depth": 2.0,
+        "sleeve_placket_length": 15.0,
+        "sleeve_placket_width": 2.5,
+        "collar_buttoned_length": 21.5,
+        "collar_outside_edge": 44.5,
+        "collar_width_cb": 4.7,
+        "collar_band_width_cb": 3.3,
+        "collar_point": 6.2,
+        "neck_width": 15.5,
+        "front_neck_drop": 10.0,
+        "tie_gap": 0.5,
+        "front_placket_width": 3.0,
+        "first_button": 6.0,
+        "last_button": 13.0
+      },
+      "pieces": {
+        "front": {
+          "width": 32.0,
+          "height": 77.25,
+          "area": 2175.709453760185,
+          "perimeter": 205.87381822507317,
+          "seams": {
+            "armhole": 21.473864781522412,
+            "neckline": 14.449089604684705
+          },
+          "quantity": 2
+        },
+        "back": {
+          "width": 58.0,
+          "height": 63.25,
+          "area": 3478.003104747802,
+          "perimeter": 232.97409639268295,
+          "seams": {
+            "yoke": 47.5,
+            "armhole": 13.027124007042088
+          },
+          "quantity": 1
+        },
+        "yoke": {
+          "width": 47.5,
+          "height": 14.0,
+          "area": 559.184607792824,
+          "perimeter": 115.97859047178292,
+          "seams": {
+            "yoke": 47.5,
+            "neckline": 16.952481243302508
+          },
+          "quantity": 1
+        },
+        "sleeve": {
+          "width": 43.0,
+          "height": 60.0,
+          "area": 2095.982139558103,
+          "perimeter": 176.358944023171,
+          "seams": {
+            "cap": 54.86302020042763,
+            "wrist": 29.5
+          },
+          "quantity": 2
+        },
+        "collar": {
+          "width": 45.85066,
+          "height": 6.2,
+          "area": 237.486097,
+          "perimeter": 100.82855787921825,
+          "seams": {
+            "attachment": 45.85066045267192
+          },
+          "quantity": 2
+        },
+        "collar_stand": {
+          "width": 45.85066,
+          "height": 3.3,
+          "area": 151.307178,
+          "perimeter": 98.30131999999999,
+          "seams": {
+            "attachment": 45.85066045267192
+          },
+          "quantity": 2
+        },
+        "cuff": {
+          "width": 25.5,
+          "height": 6.0,
+          "area": 153.0,
+          "perimeter": 63.0,
+          "seams": {},
+          "quantity": 4
+        },
+        "sleeve_placket": {
+          "width": 2.5,
+          "height": 15.0,
+          "area": 35.9375,
+          "perimeter": 33.53553390593274,
+          "seams": {},
+          "quantity": 2
+        }
+      },
+      "requirements": {
+        "unreviewed": {
+          "ready": false,
+          "items": [
+            {
+              "key": "units",
+              "status": "AMBIGUOUS",
+              "blocking": true
+            },
+            {
+              "key": "profile",
+              "status": "DEMO_DEFAULT_AVAILABLE",
+              "blocking": true
+            },
+            {
+              "key": "review",
+              "status": "MISSING",
+              "blocking": true
+            },
+            {
+              "key": "placket",
+              "status": "CONFLICTING",
+              "blocking": true
+            },
+            {
+              "key": "fabric",
+              "status": "CONFLICTING",
+              "blocking": false
+            },
+            {
+              "key": "calibration:base_pattern",
+              "status": "MISSING",
+              "blocking": false
+            },
+            {
+              "key": "calibration:drafting",
+              "status": "MISSING",
+              "blocking": false
+            },
+            {
+              "key": "calibration:grading",
+              "status": "MISSING",
+              "blocking": false
+            },
+            {
+              "key": "calibration:seams",
+              "status": "MISSING",
+              "blocking": false
+            },
+            {
+              "key": "calibration:marks",
+              "status": "MISSING",
+              "blocking": false
+            },
+            {
+              "key": "calibration:shrinkage",
+              "status": "MISSING",
+              "blocking": false
+            },
+            {
+              "key": "calibration:marker",
+              "status": "MISSING",
+              "blocking": false
+            },
+            {
+              "key": "calibration:tolerances",
+              "status": "MISSING",
+              "blocking": false
+            },
+            {
+              "key": "calibration:samples",
+              "status": "MISSING",
+              "blocking": false
+            },
+            {
+              "key": "calibration:export",
+              "status": "MISSING",
+              "blocking": false
+            }
+          ]
+        },
+        "demo_ready": {
+          "ready": true,
+          "items": [
+            {
+              "key": "units",
+              "status": "AVAILABLE",
+              "blocking": true
+            },
+            {
+              "key": "profile",
+              "status": "AVAILABLE",
+              "blocking": true
+            },
+            {
+              "key": "review",
+              "status": "AVAILABLE",
+              "blocking": true
+            },
+            {
+              "key": "placket",
+              "status": "AVAILABLE",
+              "blocking": true
+            },
+            {
+              "key": "fabric",
+              "status": "CONFLICTING",
+              "blocking": false
+            },
+            {
+              "key": "calibration:base_pattern",
+              "status": "MISSING",
+              "blocking": false
+            },
+            {
+              "key": "calibration:drafting",
+              "status": "MISSING",
+              "blocking": false
+            },
+            {
+              "key": "calibration:grading",
+              "status": "MISSING",
+              "blocking": false
+            },
+            {
+              "key": "calibration:seams",
+              "status": "MISSING",
+              "blocking": false
+            },
+            {
+              "key": "calibration:marks",
+              "status": "MISSING",
+              "blocking": false
+            },
+            {
+              "key": "calibration:shrinkage",
+              "status": "MISSING",
+              "blocking": false
+            },
+            {
+              "key": "calibration:marker",
+              "status": "MISSING",
+              "blocking": false
+            },
+            {
+              "key": "calibration:tolerances",
+              "status": "MISSING",
+              "blocking": false
+            },
+            {
+              "key": "calibration:samples",
+              "status": "MISSING",
+              "blocking": false
+            },
+            {
+              "key": "calibration:export",
+              "status": "MISSING",
+              "blocking": false
+            }
+          ]
+        }
+      }
+    },
+    "XL": {
+      "measurements": {
+        "back_length_hps": 79.0,
+        "front_length_hps": 79.0,
+        "half_chest": 61.0,
+        "waist_position_hps": 48.75,
+        "half_waist": 59.5,
+        "half_bottom_opening": 60.0,
+        "hem_curve": 5.0,
+        "yoke_depth_cb": 15.0,
+        "forward_shoulder_neck": 3.5,
+        "forward_shoulder_armhole": 4.0,
+        "shoulder_slope": 5.0,
+        "shoulder_point_to_point": 50.5,
+        "back_mid_armhole": 49.0,
+        "front_mid_armhole": 45.0,
+        "half_armhole_straight": 25.5,
+        "half_bicep": 23.0,
+        "sleeve_cap_height": 14.7,
+        "half_elbow": 19.0,
+        "sleeve_length": 67.5,
+        "cuff_width": 6.0,
+        "cuff_edge_to_edge": 26.25,
+        "sleeve_pleat_depth": 2.0,
+        "sleeve_placket_length": 15.0,
+        "sleeve_placket_width": 2.5,
+        "collar_buttoned_length": 22.5,
+        "collar_outside_edge": 46.5,
+        "collar_width_cb": 4.7,
+        "collar_band_width_cb": 3.3,
+        "collar_point": 6.2,
+        "neck_width": 16.3,
+        "front_neck_drop": 10.35,
+        "tie_gap": 0.5,
+        "front_placket_width": 3.0,
+        "first_button": 6.0,
+        "last_button": 13.0
+      },
+      "pieces": {
+        "front": {
+          "width": 33.5,
+          "height": 79.25,
+          "area": 2337.5812151333917,
+          "perimeter": 212.38174273566932,
+          "seams": {
+            "armhole": 23.17350746162971,
+            "neckline": 15.053914945640564
+          },
+          "quantity": 2
+        },
+        "back": {
+          "width": 61.0,
+          "height": 64.25,
+          "area": 3725.7456472604176,
+          "perimeter": 240.5219883716798,
+          "seams": {
+            "yoke": 49.5,
+            "armhole": 13.822677898751584
+          },
+          "quantity": 1
+        },
+        "yoke": {
+          "width": 49.5,
+          "height": 15.0,
+          "area": 632.352200558565,
+          "perimeter": 121.88994993969865,
+          "seams": {
+            "yoke": 49.5,
+            "neckline": 17.71661724726772
+          },
+          "quantity": 1
+        },
+        "sleeve": {
+          "width": 46.0,
+          "height": 61.5,
+          "area": 2268.6056503628483,
+          "perimeter": 182.78052650764295,
+          "seams": {
+            "cap": 57.61465586421472,
+            "wrist": 30.25
+          },
+          "quantity": 2
+        },
+        "collar": {
+          "width": 47.824447,
+          "height": 6.2,
+          "area": 248.24323615,
+          "perimeter": 104.77209373252454,
+          "seams": {
+            "attachment": 47.82444713854885
+          },
+          "quantity": 2
+        },
+        "collar_stand": {
+          "width": 47.824447,
+          "height": 3.3,
+          "area": 157.8206751,
+          "perimeter": 102.24889399999999,
+          "seams": {
+            "attachment": 47.82444713854885
+          },
+          "quantity": 2
+        },
+        "cuff": {
+          "width": 26.25,
+          "height": 6.0,
+          "area": 157.5,
+          "perimeter": 64.5,
+          "seams": {},
+          "quantity": 4
+        },
+        "sleeve_placket": {
+          "width": 2.5,
+          "height": 15.0,
+          "area": 35.9375,
+          "perimeter": 33.53553390593274,
+          "seams": {},
+          "quantity": 2
+        }
+      },
+      "requirements": {
+        "unreviewed": {
+          "ready": false,
+          "items": [
+            {
+              "key": "units",
+              "status": "AMBIGUOUS",
+              "blocking": true
+            },
+            {
+              "key": "profile",
+              "status": "DEMO_DEFAULT_AVAILABLE",
+              "blocking": true
+            },
+            {
+              "key": "review",
+              "status": "MISSING",
+              "blocking": true
+            },
+            {
+              "key": "placket",
+              "status": "CONFLICTING",
+              "blocking": true
+            },
+            {
+              "key": "fabric",
+              "status": "CONFLICTING",
+              "blocking": false
+            },
+            {
+              "key": "calibration:base_pattern",
+              "status": "MISSING",
+              "blocking": false
+            },
+            {
+              "key": "calibration:drafting",
+              "status": "MISSING",
+              "blocking": false
+            },
+            {
+              "key": "calibration:grading",
+              "status": "MISSING",
+              "blocking": false
+            },
+            {
+              "key": "calibration:seams",
+              "status": "MISSING",
+              "blocking": false
+            },
+            {
+              "key": "calibration:marks",
+              "status": "MISSING",
+              "blocking": false
+            },
+            {
+              "key": "calibration:shrinkage",
+              "status": "MISSING",
+              "blocking": false
+            },
+            {
+              "key": "calibration:marker",
+              "status": "MISSING",
+              "blocking": false
+            },
+            {
+              "key": "calibration:tolerances",
+              "status": "MISSING",
+              "blocking": false
+            },
+            {
+              "key": "calibration:samples",
+              "status": "MISSING",
+              "blocking": false
+            },
+            {
+              "key": "calibration:export",
+              "status": "MISSING",
+              "blocking": false
+            }
+          ]
+        },
+        "demo_ready": {
+          "ready": true,
+          "items": [
+            {
+              "key": "units",
+              "status": "AVAILABLE",
+              "blocking": true
+            },
+            {
+              "key": "profile",
+              "status": "AVAILABLE",
+              "blocking": true
+            },
+            {
+              "key": "review",
+              "status": "AVAILABLE",
+              "blocking": true
+            },
+            {
+              "key": "placket",
+              "status": "AVAILABLE",
+              "blocking": true
+            },
+            {
+              "key": "fabric",
+              "status": "CONFLICTING",
+              "blocking": false
+            },
+            {
+              "key": "calibration:base_pattern",
+              "status": "MISSING",
+              "blocking": false
+            },
+            {
+              "key": "calibration:drafting",
+              "status": "MISSING",
+              "blocking": false
+            },
+            {
+              "key": "calibration:grading",
+              "status": "MISSING",
+              "blocking": false
+            },
+            {
+              "key": "calibration:seams",
+              "status": "MISSING",
+              "blocking": false
+            },
+            {
+              "key": "calibration:marks",
+              "status": "MISSING",
+              "blocking": false
+            },
+            {
+              "key": "calibration:shrinkage",
+              "status": "MISSING",
+              "blocking": false
+            },
+            {
+              "key": "calibration:marker",
+              "status": "MISSING",
+              "blocking": false
+            },
+            {
+              "key": "calibration:tolerances",
+              "status": "MISSING",
+              "blocking": false
+            },
+            {
+              "key": "calibration:samples",
+              "status": "MISSING",
+              "blocking": false
+            },
+            {
+              "key": "calibration:export",
+              "status": "MISSING",
+              "blocking": false
+            }
+          ]
+        }
+      }
+    },
+    "XXL": {
+      "measurements": {
+        "back_length_hps": 80.0,
+        "front_length_hps": 80.0,
+        "half_chest": 64.0,
+        "waist_position_hps": 49.5,
+        "half_waist": 63.0,
+        "half_bottom_opening": 63.0,
+        "hem_curve": 5.0,
+        "yoke_depth_cb": 15.0,
+        "forward_shoulder_neck": 3.5,
+        "forward_shoulder_armhole": 4.0,
+        "shoulder_slope": 5.0,
+        "shoulder_point_to_point": 52.5,
+        "back_mid_armhole": 51.0,
+        "front_mid_armhole": 47.0,
+        "half_armhole_straight": 27.0,
+        "half_bicep": 24.5,
+        "sleeve_cap_height": 14.899999999999999,
+        "half_elbow": 20.0,
+        "sleeve_length": 68.5,
+        "cuff_width": 6.0,
+        "cuff_edge_to_edge": 27.0,
+        "sleeve_pleat_depth": 2.0,
+        "sleeve_placket_length": 15.0,
+        "sleeve_placket_width": 2.5,
+        "collar_buttoned_length": 23.5,
+        "collar_outside_edge": 48.5,
+        "collar_width_cb": 4.7,
+        "collar_band_width_cb": 3.3,
+        "collar_point": 6.2,
+        "neck_width": 17.1,
+        "front_neck_drop": 10.7,
+        "tie_gap": 0.5,
+        "front_placket_width": 3.0,
+        "first_button": 6.0,
+        "last_button": 13.0
+      },
+      "pieces": {
+        "front": {
+          "width": 35.0,
+          "height": 80.25,
+          "area": 2469.440678907407,
+          "perimeter": 216.89817142659987,
+          "seams": {
+            "armhole": 24.87389356022892,
+            "neckline": 15.659078160742817
+          },
+          "quantity": 2
+        },
+        "back": {
+          "width": 64.0,
+          "height": 65.25,
+          "area": 3968.520486652083,
+          "perimeter": 247.8678311237206,
+          "seams": {
+            "yoke": 51.5,
+            "armhole": 15.511377436329806
+          },
+          "quantity": 1
+        },
+        "yoke": {
+          "width": 51.5,
+          "height": 15.0,
+          "area": 658.01979339375,
+          "perimeter": 125.80687099654635,
+          "seams": {
+            "yoke": 51.5,
+            "neckline": 18.48285670445452
+          },
+          "quantity": 1
+        },
+        "sleeve": {
+          "width": 49.0,
+          "height": 62.5,
+          "area": 2426.963704472107,
+          "perimeter": 188.27686282008122,
+          "seams": {
+            "cap": 60.390124821529525,
+            "wrist": 31.0
+          },
+          "quantity": 2
+        },
+        "collar": {
+          "width": 49.801013,
+          "height": 6.2,
+          "area": 259.01552085,
+          "perimeter": 108.72150176124129,
+          "seams": {
+            "attachment": 49.80101302594015
+          },
+          "quantity": 2
+        },
+        "collar_stand": {
+          "width": 49.801013,
+          "height": 3.3,
+          "area": 164.34334289999998,
+          "perimeter": 106.20202599999999,
+          "seams": {
+            "attachment": 49.80101302594015
+          },
+          "quantity": 2
+        },
+        "cuff": {
+          "width": 27.0,
+          "height": 6.0,
+          "area": 162.0,
+          "perimeter": 66.0,
+          "seams": {},
+          "quantity": 4
+        },
+        "sleeve_placket": {
+          "width": 2.5,
+          "height": 15.0,
+          "area": 35.9375,
+          "perimeter": 33.53553390593274,
+          "seams": {},
+          "quantity": 2
+        }
+      },
+      "requirements": {
+        "unreviewed": {
+          "ready": false,
+          "items": [
+            {
+              "key": "units",
+              "status": "AMBIGUOUS",
+              "blocking": true
+            },
+            {
+              "key": "profile",
+              "status": "DEMO_DEFAULT_AVAILABLE",
+              "blocking": true
+            },
+            {
+              "key": "review",
+              "status": "MISSING",
+              "blocking": true
+            },
+            {
+              "key": "placket",
+              "status": "CONFLICTING",
+              "blocking": true
+            },
+            {
+              "key": "fabric",
+              "status": "CONFLICTING",
+              "blocking": false
+            },
+            {
+              "key": "calibration:base_pattern",
+              "status": "MISSING",
+              "blocking": false
+            },
+            {
+              "key": "calibration:drafting",
+              "status": "MISSING",
+              "blocking": false
+            },
+            {
+              "key": "calibration:grading",
+              "status": "MISSING",
+              "blocking": false
+            },
+            {
+              "key": "calibration:seams",
+              "status": "MISSING",
+              "blocking": false
+            },
+            {
+              "key": "calibration:marks",
+              "status": "MISSING",
+              "blocking": false
+            },
+            {
+              "key": "calibration:shrinkage",
+              "status": "MISSING",
+              "blocking": false
+            },
+            {
+              "key": "calibration:marker",
+              "status": "MISSING",
+              "blocking": false
+            },
+            {
+              "key": "calibration:tolerances",
+              "status": "MISSING",
+              "blocking": false
+            },
+            {
+              "key": "calibration:samples",
+              "status": "MISSING",
+              "blocking": false
+            },
+            {
+              "key": "calibration:export",
+              "status": "MISSING",
+              "blocking": false
+            }
+          ]
+        },
+        "demo_ready": {
+          "ready": true,
+          "items": [
+            {
+              "key": "units",
+              "status": "AVAILABLE",
+              "blocking": true
+            },
+            {
+              "key": "profile",
+              "status": "AVAILABLE",
+              "blocking": true
+            },
+            {
+              "key": "review",
+              "status": "AVAILABLE",
+              "blocking": true
+            },
+            {
+              "key": "placket",
+              "status": "AVAILABLE",
+              "blocking": true
+            },
+            {
+              "key": "fabric",
+              "status": "CONFLICTING",
+              "blocking": false
+            },
+            {
+              "key": "calibration:base_pattern",
+              "status": "MISSING",
+              "blocking": false
+            },
+            {
+              "key": "calibration:drafting",
+              "status": "MISSING",
+              "blocking": false
+            },
+            {
+              "key": "calibration:grading",
+              "status": "MISSING",
+              "blocking": false
+            },
+            {
+              "key": "calibration:seams",
+              "status": "MISSING",
+              "blocking": false
+            },
+            {
+              "key": "calibration:marks",
+              "status": "MISSING",
+              "blocking": false
+            },
+            {
+              "key": "calibration:shrinkage",
+              "status": "MISSING",
+              "blocking": false
+            },
+            {
+              "key": "calibration:marker",
+              "status": "MISSING",
+              "blocking": false
+            },
+            {
+              "key": "calibration:tolerances",
+              "status": "MISSING",
+              "blocking": false
+            },
+            {
+              "key": "calibration:samples",
+              "status": "MISSING",
+              "blocking": false
+            },
+            {
+              "key": "calibration:export",
+              "status": "MISSING",
+              "blocking": false
+            }
+          ]
+        }
+      }
+    },
+    "3XL": {
+      "measurements": {
+        "back_length_hps": 81.0,
+        "front_length_hps": 81.0,
+        "half_chest": 67.0,
+        "waist_position_hps": 50.25,
+        "half_waist": 66.5,
+        "half_bottom_opening": 66.0,
+        "hem_curve": 5.0,
+        "yoke_depth_cb": 15.0,
+        "forward_shoulder_neck": 3.5,
+        "forward_shoulder_armhole": 4.0,
+        "shoulder_slope": 5.0,
+        "shoulder_point_to_point": 54.5,
+        "back_mid_armhole": 53.0,
+        "front_mid_armhole": 49.0,
+        "half_armhole_straight": 28.5,
+        "half_bicep": 26.0,
+        "sleeve_cap_height": 15.099999999999998,
+        "half_elbow": 21.0,
+        "sleeve_length": 69.5,
+        "cuff_width": 6.0,
+        "cuff_edge_to_edge": 27.75,
+        "sleeve_pleat_depth": 2.0,
+        "sleeve_placket_length": 15.0,
+        "sleeve_placket_width": 2.5,
+        "collar_buttoned_length": 24.5,
+        "collar_outside_edge": 50.5,
+        "collar_width_cb": 4.7,
+        "collar_band_width_cb": 3.3,
+        "collar_point": 6.2,
+        "neck_width": 17.900000000000002,
+        "front_neck_drop": 11.049999999999999,
+        "tie_gap": 0.5,
+        "front_placket_width": 3.0,
+        "first_button": 6.0,
+        "last_button": 13.0
+      },
+      "pieces": {
+        "front": {
+          "width": 36.5,
+          "height": 81.25,
+          "area": 2602.6928324935184,
+          "perimeter": 221.4222346851678,
+          "seams": {
+            "armhole": 26.574881042533235,
+            "neckline": 16.264540862898016
+          },
+          "quantity": 2
+        },
+        "back": {
+          "width": 67.0,
+          "height": 66.25,
+          "area": 4214.547076359721,
+          "perimeter": 255.23016651010366,
+          "seams": {
+            "yoke": 53.5,
+            "armhole": 17.20303746033724
+          },
+          "quantity": 1
+        },
+        "yoke": {
+          "width": 53.5,
+          "height": 15.0,
+          "area": 683.687385742825,
+          "perimeter": 129.72883498955628,
+          "seams": {
+            "yoke": 53.5,
+            "neckline": 19.251003793013663
+          },
+          "quantity": 1
+        },
+        "sleeve": {
+          "width": 52.0,
+          "height": 63.5,
+          "area": 2589.181317519908,
+          "perimeter": 193.83209055901526,
+          "seams": {
+            "cap": 63.1866786330821,
+            "wrist": 31.75
+          },
+          "quantity": 2
+        },
+        "collar": {
+          "width": 51.780086,
+          "height": 6.2,
+          "area": 269.8014687,
+          "perimeter": 112.67620316900997,
+          "seams": {
+            "attachment": 51.7800855188097
+          },
+          "quantity": 2
+        },
+        "collar_stand": {
+          "width": 51.780086,
+          "height": 3.3,
+          "area": 170.87428379999997,
+          "perimeter": 110.16017199999999,
+          "seams": {
+            "attachment": 51.7800855188097
+          },
+          "quantity": 2
+        },
+        "cuff": {
+          "width": 27.75,
+          "height": 6.0,
+          "area": 166.5,
+          "perimeter": 67.5,
+          "seams": {},
+          "quantity": 4
+        },
+        "sleeve_placket": {
+          "width": 2.5,
+          "height": 15.0,
+          "area": 35.9375,
+          "perimeter": 33.53553390593274,
+          "seams": {},
+          "quantity": 2
+        }
+      },
+      "requirements": {
+        "unreviewed": {
+          "ready": false,
+          "items": [
+            {
+              "key": "units",
+              "status": "AMBIGUOUS",
+              "blocking": true
+            },
+            {
+              "key": "profile",
+              "status": "DEMO_DEFAULT_AVAILABLE",
+              "blocking": true
+            },
+            {
+              "key": "review",
+              "status": "MISSING",
+              "blocking": true
+            },
+            {
+              "key": "placket",
+              "status": "CONFLICTING",
+              "blocking": true
+            },
+            {
+              "key": "fabric",
+              "status": "CONFLICTING",
+              "blocking": false
+            },
+            {
+              "key": "calibration:base_pattern",
+              "status": "MISSING",
+              "blocking": false
+            },
+            {
+              "key": "calibration:drafting",
+              "status": "MISSING",
+              "blocking": false
+            },
+            {
+              "key": "calibration:grading",
+              "status": "MISSING",
+              "blocking": false
+            },
+            {
+              "key": "calibration:seams",
+              "status": "MISSING",
+              "blocking": false
+            },
+            {
+              "key": "calibration:marks",
+              "status": "MISSING",
+              "blocking": false
+            },
+            {
+              "key": "calibration:shrinkage",
+              "status": "MISSING",
+              "blocking": false
+            },
+            {
+              "key": "calibration:marker",
+              "status": "MISSING",
+              "blocking": false
+            },
+            {
+              "key": "calibration:tolerances",
+              "status": "MISSING",
+              "blocking": false
+            },
+            {
+              "key": "calibration:samples",
+              "status": "MISSING",
+              "blocking": false
+            },
+            {
+              "key": "calibration:export",
+              "status": "MISSING",
+              "blocking": false
+            }
+          ]
+        },
+        "demo_ready": {
+          "ready": true,
+          "items": [
+            {
+              "key": "units",
+              "status": "AVAILABLE",
+              "blocking": true
+            },
+            {
+              "key": "profile",
+              "status": "AVAILABLE",
+              "blocking": true
+            },
+            {
+              "key": "review",
+              "status": "AVAILABLE",
+              "blocking": true
+            },
+            {
+              "key": "placket",
+              "status": "AVAILABLE",
+              "blocking": true
+            },
+            {
+              "key": "fabric",
+              "status": "CONFLICTING",
+              "blocking": false
+            },
+            {
+              "key": "calibration:base_pattern",
+              "status": "MISSING",
+              "blocking": false
+            },
+            {
+              "key": "calibration:drafting",
+              "status": "MISSING",
+              "blocking": false
+            },
+            {
+              "key": "calibration:grading",
+              "status": "MISSING",
+              "blocking": false
+            },
+            {
+              "key": "calibration:seams",
+              "status": "MISSING",
+              "blocking": false
+            },
+            {
+              "key": "calibration:marks",
+              "status": "MISSING",
+              "blocking": false
+            },
+            {
+              "key": "calibration:shrinkage",
+              "status": "MISSING",
+              "blocking": false
+            },
+            {
+              "key": "calibration:marker",
+              "status": "MISSING",
+              "blocking": false
+            },
+            {
+              "key": "calibration:tolerances",
+              "status": "MISSING",
+              "blocking": false
+            },
+            {
+              "key": "calibration:samples",
+              "status": "MISSING",
+              "blocking": false
+            },
+            {
+              "key": "calibration:export",
+              "status": "MISSING",
+              "blocking": false
+            }
+          ]
+        }
+      }
+    }
+  },
+  "marker": {
+    "config": {
+      "width": 150,
+      "quantities": {
+        "S": 2,
+        "L": 1
+      },
+      "gap": 0.5,
+      "seed": 0,
+      "iterations": 1,
+      "time_budget_ms": 250,
+      "grain_policy": "vertical"
+    },
+    "placements": 48,
+    "length": 381.25,
+    "utilization": 68.70010873521697,
+    "waste": 31.299891264783028,
+    "algorithm_version": "first_fit_decreasing_v2"
+  },
+  "parsed_measurements": [
+    {
+      "key": "back_length_hps",
+      "mapping_status": "catalog",
+      "mapped_from": "10585",
+      "code": "10585",
+      "label": "BACK LENGTH  HPS",
+      "original_label": "* BACK LENGTH  HPS",
+      "parser_version": "xlsx_v2",
+      "unit": "unconfirmed",
+      "confidence": 1.0,
+      "tolerance": 1,
+      "source": "Book2(4).xlsx",
+      "sheet": "Sheet1",
+      "row": 5,
+      "values": {
+        "S": {
+          "value": 74.0,
+          "raw": "=F5-1.5",
+          "formula": "=F5-1.5",
+          "cell": "E5",
+          "issue": null,
+          "override": false,
+          "evaluation": "formula"
+        },
+        "M": {
+          "value": 75.5,
+          "raw": "=G5-1.5",
+          "formula": "=G5-1.5",
+          "cell": "F5",
+          "issue": null,
+          "override": false,
+          "evaluation": "formula"
+        },
+        "L": {
+          "value": 77.0,
+          "raw": 77,
+          "formula": null,
+          "cell": "G5",
+          "issue": null,
+          "override": false,
+          "evaluation": "direct"
+        },
+        "XL": {
+          "value": 79.0,
+          "raw": "=G5+2",
+          "formula": "=G5+2",
+          "cell": "H5",
+          "issue": null,
+          "override": false,
+          "evaluation": "formula"
+        },
+        "XXL": {
+          "value": 80.0,
+          "raw": "=H5+1",
+          "formula": "=H5+1",
+          "cell": "I5",
+          "issue": null,
+          "override": false,
+          "evaluation": "formula"
+        },
+        "3XL": {
+          "value": 81.0,
+          "raw": "=I5+1",
+          "formula": "=I5+1",
+          "cell": "J5",
+          "issue": null,
+          "override": false,
+          "evaluation": "formula"
+        }
+      }
+    },
+    {
+      "key": "front_length_hps",
+      "mapping_status": "catalog",
+      "mapped_from": "10525",
+      "code": "10525",
+      "label": "FRONT LENGTH FROM NECK HPS",
+      "original_label": "* FRONT LENGTH FROM NECK HPS",
+      "parser_version": "xlsx_v2",
+      "unit": "unconfirmed",
+      "confidence": 1.0,
+      "tolerance": 1,
+      "source": "Book2(4).xlsx",
+      "sheet": "Sheet1",
+      "row": 6,
+      "values": {
+        "S": {
+          "value": 74.0,
+          "raw": "=F6-1.5",
+          "formula": "=F6-1.5",
+          "cell": "E6",
+          "issue": null,
+          "override": false,
+          "evaluation": "formula"
+        },
+        "M": {
+          "value": 75.5,
+          "raw": "=G6-1.5",
+          "formula": "=G6-1.5",
+          "cell": "F6",
+          "issue": null,
+          "override": false,
+          "evaluation": "formula"
+        },
+        "L": {
+          "value": 77.0,
+          "raw": 77,
+          "formula": null,
+          "cell": "G6",
+          "issue": null,
+          "override": false,
+          "evaluation": "direct"
+        },
+        "XL": {
+          "value": 79.0,
+          "raw": "=G6+2",
+          "formula": "=G6+2",
+          "cell": "H6",
+          "issue": null,
+          "override": false,
+          "evaluation": "formula"
+        },
+        "XXL": {
+          "value": 80.0,
+          "raw": "=H6+1",
+          "formula": "=H6+1",
+          "cell": "I6",
+          "issue": null,
+          "override": false,
+          "evaluation": "formula"
+        },
+        "3XL": {
+          "value": 81.0,
+          "raw": "=I6+1",
+          "formula": "=I6+1",
+          "cell": "J6",
+          "issue": null,
+          "override": false,
+          "evaluation": "formula"
+        }
+      }
+    },
+    {
+      "key": "half_chest",
+      "mapping_status": "catalog",
+      "mapped_from": "10145-A",
+      "code": "10145-A",
+      "label": "CHEST 1cm below underarm seam",
+      "original_label": "* CHEST 1cm below underarm seam",
+      "parser_version": "xlsx_v2",
+      "unit": "unconfirmed",
+      "confidence": 1.0,
+      "tolerance": 1,
+      "source": "Book2(4).xlsx",
+      "sheet": "Sheet1",
+      "row": 7,
+      "values": {
+        "S": {
+          "value": 54.0,
+          "raw": "=F7-2",
+          "formula": "=F7-2",
+          "cell": "E7",
+          "issue": null,
+          "override": false,
+          "evaluation": "formula"
+        },
+        "M": {
+          "value": 56.0,
+          "raw": "=G7-2",
+          "formula": "=G7-2",
+          "cell": "F7",
+          "issue": null,
+          "override": false,
+          "evaluation": "formula"
+        },
+        "L": {
+          "value": 58.0,
+          "raw": 58,
+          "formula": null,
+          "cell": "G7",
+          "issue": null,
+          "override": false,
+          "evaluation": "direct"
+        },
+        "XL": {
+          "value": 61.0,
+          "raw": "=G7+3",
+          "formula": "=G7+3",
+          "cell": "H7",
+          "issue": null,
+          "override": false,
+          "evaluation": "formula"
+        },
+        "XXL": {
+          "value": 64.0,
+          "raw": "=H7+3",
+          "formula": "=H7+3",
+          "cell": "I7",
+          "issue": null,
+          "override": false,
+          "evaluation": "formula"
+        },
+        "3XL": {
+          "value": 67.0,
+          "raw": "=I7+3",
+          "formula": "=I7+3",
+          "cell": "J7",
+          "issue": null,
+          "override": false,
+          "evaluation": "formula"
+        }
+      }
+    },
+    {
+      "key": "waist_position_hps",
+      "mapping_status": "catalog",
+      "mapped_from": "10185",
+      "code": "10185",
+      "label": "WAIST POSITION FM HPS",
+      "original_label": "WAIST POSITION FM HPS",
+      "parser_version": "xlsx_v2",
+      "unit": "unconfirmed",
+      "confidence": 1.0,
+      "tolerance": 0,
+      "source": "Book2(4).xlsx",
+      "sheet": "Sheet1",
+      "row": 8,
+      "values": {
+        "S": {
+          "value": 46.5,
+          "raw": 46.5,
+          "formula": null,
+          "cell": "E8",
+          "issue": null,
+          "override": false,
+          "evaluation": "direct"
+        },
+        "M": {
+          "value": 47.25,
+          "raw": 47.25,
+          "formula": null,
+          "cell": "F8",
+          "issue": null,
+          "override": false,
+          "evaluation": "direct"
+        },
+        "L": {
+          "value": 48.0,
+          "raw": 48,
+          "formula": null,
+          "cell": "G8",
+          "issue": null,
+          "override": false,
+          "evaluation": "direct"
+        },
+        "XL": {
+          "value": 48.75,
+          "raw": 48.75,
+          "formula": null,
+          "cell": "H8",
+          "issue": null,
+          "override": false,
+          "evaluation": "direct"
+        },
+        "XXL": {
+          "value": 49.5,
+          "raw": "=H8+0.75",
+          "formula": "=H8+0.75",
+          "cell": "I8",
+          "issue": null,
+          "override": false,
+          "evaluation": "formula"
+        },
+        "3XL": {
+          "value": 50.25,
+          "raw": "=I8+0.75",
+          "formula": "=I8+0.75",
+          "cell": "J8",
+          "issue": null,
+          "override": false,
+          "evaluation": "formula"
+        }
+      }
+    },
+    {
+      "key": "half_waist",
+      "mapping_status": "catalog",
+      "mapped_from": "10225",
+      "code": "10225",
+      "label": "1/2 WAIST",
+      "original_label": "* 1/2 WAIST",
+      "parser_version": "xlsx_v2",
+      "unit": "unconfirmed",
+      "confidence": 1.0,
+      "tolerance": 1,
+      "source": "Book2(4).xlsx",
+      "sheet": "Sheet1",
+      "row": 9,
+      "values": {
+        "S": {
+          "value": 52.0,
+          "raw": "=F9-2",
+          "formula": "=F9-2",
+          "cell": "E9",
+          "issue": null,
+          "override": false,
+          "evaluation": "formula"
+        },
+        "M": {
+          "value": 54.0,
+          "raw": "=G9-2",
+          "formula": "=G9-2",
+          "cell": "F9",
+          "issue": null,
+          "override": false,
+          "evaluation": "formula"
+        },
+        "L": {
+          "value": 56.0,
+          "raw": 56,
+          "formula": null,
+          "cell": "G9",
+          "issue": null,
+          "override": false,
+          "evaluation": "direct"
+        },
+        "XL": {
+          "value": 59.5,
+          "raw": "=G9+3.5",
+          "formula": "=G9+3.5",
+          "cell": "H9",
+          "issue": null,
+          "override": false,
+          "evaluation": "formula"
+        },
+        "XXL": {
+          "value": 63.0,
+          "raw": "=H9+3.5",
+          "formula": "=H9+3.5",
+          "cell": "I9",
+          "issue": null,
+          "override": false,
+          "evaluation": "formula"
+        },
+        "3XL": {
+          "value": 66.5,
+          "raw": "=I9+3.5",
+          "formula": "=I9+3.5",
+          "cell": "J9",
+          "issue": null,
+          "override": false,
+          "evaluation": "formula"
+        }
+      }
+    },
+    {
+      "key": "half_bottom_opening",
+      "mapping_status": "catalog",
+      "mapped_from": "10405",
+      "code": "10405",
+      "label": "1/2 BOTTOM OPENING",
+      "original_label": "* 1/2 BOTTOM OPENING",
+      "parser_version": "xlsx_v2",
+      "unit": "unconfirmed",
+      "confidence": 1.0,
+      "tolerance": 1,
+      "source": "Book2(4).xlsx",
+      "sheet": "Sheet1",
+      "row": 10,
+      "values": {
+        "S": {
+          "value": 53.0,
+          "raw": "=F10-2",
+          "formula": "=F10-2",
+          "cell": "E10",
+          "issue": null,
+          "override": false,
+          "evaluation": "formula"
+        },
+        "M": {
+          "value": 55.0,
+          "raw": "=G10-2",
+          "formula": "=G10-2",
+          "cell": "F10",
+          "issue": null,
+          "override": false,
+          "evaluation": "formula"
+        },
+        "L": {
+          "value": 57.0,
+          "raw": 57,
+          "formula": null,
+          "cell": "G10",
+          "issue": null,
+          "override": false,
+          "evaluation": "direct"
+        },
+        "XL": {
+          "value": 60.0,
+          "raw": "=G10+3",
+          "formula": "=G10+3",
+          "cell": "H10",
+          "issue": null,
+          "override": false,
+          "evaluation": "formula"
+        },
+        "XXL": {
+          "value": 63.0,
+          "raw": "=H10+3",
+          "formula": "=H10+3",
+          "cell": "I10",
+          "issue": null,
+          "override": false,
+          "evaluation": "formula"
+        },
+        "3XL": {
+          "value": 66.0,
+          "raw": "=I10+3",
+          "formula": "=I10+3",
+          "cell": "J10",
+          "issue": null,
+          "override": false,
+          "evaluation": "formula"
+        }
+      }
+    },
+    {
+      "key": "hem_curve",
+      "mapping_status": "catalog",
+      "mapped_from": "X10",
+      "code": "X10",
+      "label": "SET BOTTOM CURVED CORNER HEIGHT",
+      "original_label": "SET BOTTOM CURVED CORNER HEIGHT",
+      "parser_version": "xlsx_v2",
+      "unit": "unconfirmed",
+      "confidence": 1.0,
+      "tolerance": 0,
+      "source": "Book2(4).xlsx",
+      "sheet": "Sheet1",
+      "row": 11,
+      "values": {
+        "S": {
+          "value": 5.0,
+          "raw": 5,
+          "formula": null,
+          "cell": "E11",
+          "issue": null,
+          "override": false,
+          "evaluation": "direct"
+        },
+        "M": {
+          "value": 5.0,
+          "raw": 5,
+          "formula": null,
+          "cell": "F11",
+          "issue": null,
+          "override": false,
+          "evaluation": "direct"
+        },
+        "L": {
+          "value": 5.0,
+          "raw": 5,
+          "formula": null,
+          "cell": "G11",
+          "issue": null,
+          "override": false,
+          "evaluation": "direct"
+        },
+        "XL": {
+          "value": 5.0,
+          "raw": 5,
+          "formula": null,
+          "cell": "H11",
+          "issue": null,
+          "override": false,
+          "evaluation": "direct"
+        },
+        "XXL": {
+          "value": 5.0,
+          "raw": 5,
+          "formula": null,
+          "cell": "I11",
+          "issue": null,
+          "override": false,
+          "evaluation": "direct"
+        },
+        "3XL": {
+          "value": 5.0,
+          "raw": 5,
+          "formula": null,
+          "cell": "J11",
+          "issue": null,
+          "override": false,
+          "evaluation": "direct"
+        }
+      }
+    },
+    {
+      "key": "yoke_depth_cb",
+      "mapping_status": "catalog",
+      "mapped_from": "11145",
+      "code": "11145",
+      "label": "CB YOKE DEPTH",
+      "original_label": "CB YOKE DEPTH",
+      "parser_version": "xlsx_v2",
+      "unit": "unconfirmed",
+      "confidence": 1.0,
+      "tolerance": 0,
+      "source": "Book2(4).xlsx",
+      "sheet": "Sheet1",
+      "row": 12,
+      "values": {
+        "S": {
+          "value": 13.0,
+          "raw": 13,
+          "formula": null,
+          "cell": "E12",
+          "issue": null,
+          "override": false,
+          "evaluation": "direct"
+        },
+        "M": {
+          "value": 14.0,
+          "raw": 14,
+          "formula": null,
+          "cell": "F12",
+          "issue": null,
+          "override": false,
+          "evaluation": "direct"
+        },
+        "L": {
+          "value": 14.0,
+          "raw": 14,
+          "formula": null,
+          "cell": "G12",
+          "issue": null,
+          "override": false,
+          "evaluation": "direct"
+        },
+        "XL": {
+          "value": 15.0,
+          "raw": 15,
+          "formula": null,
+          "cell": "H12",
+          "issue": null,
+          "override": false,
+          "evaluation": "direct"
+        },
+        "XXL": {
+          "value": 15.0,
+          "raw": 15,
+          "formula": null,
+          "cell": "I12",
+          "issue": null,
+          "override": false,
+          "evaluation": "direct"
+        },
+        "3XL": {
+          "value": 15.0,
+          "raw": 15,
+          "formula": null,
+          "cell": "J12",
+          "issue": null,
+          "override": false,
+          "evaluation": "direct"
+        }
+      }
+    },
+    {
+      "key": "forward_shoulder_neck",
+      "mapping_status": "catalog",
+      "mapped_from": "10985",
+      "code": "10985",
+      "label": "FORWARD SHOULDER SEAM @ NECK",
+      "original_label": "FORWARD SHOULDER SEAM @ NECK",
+      "parser_version": "xlsx_v2",
+      "unit": "unconfirmed",
+      "confidence": 1.0,
+      "tolerance": 0,
+      "source": "Book2(4).xlsx",
+      "sheet": "Sheet1",
+      "row": 13,
+      "values": {
+        "S": {
+          "value": 3.5,
+          "raw": 3.5,
+          "formula": null,
+          "cell": "E13",
+          "issue": null,
+          "override": false,
+          "evaluation": "direct"
+        },
+        "M": {
+          "value": 3.5,
+          "raw": 3.5,
+          "formula": null,
+          "cell": "F13",
+          "issue": null,
+          "override": false,
+          "evaluation": "direct"
+        },
+        "L": {
+          "value": 3.5,
+          "raw": 3.5,
+          "formula": null,
+          "cell": "G13",
+          "issue": null,
+          "override": false,
+          "evaluation": "direct"
+        },
+        "XL": {
+          "value": 3.5,
+          "raw": 3.5,
+          "formula": null,
+          "cell": "H13",
+          "issue": null,
+          "override": false,
+          "evaluation": "direct"
+        },
+        "XXL": {
+          "value": 3.5,
+          "raw": 3.5,
+          "formula": null,
+          "cell": "I13",
+          "issue": null,
+          "override": false,
+          "evaluation": "direct"
+        },
+        "3XL": {
+          "value": 3.5,
+          "raw": 3.5,
+          "formula": null,
+          "cell": "J13",
+          "issue": null,
+          "override": false,
+          "evaluation": "direct"
+        }
+      }
+    },
+    {
+      "key": "forward_shoulder_armhole",
+      "mapping_status": "catalog",
+      "mapped_from": "11005",
+      "code": "11005",
+      "label": "FORWARD SHOULDER SEAM @ ARMHOLE",
+      "original_label": "FORWARD SHOULDER SEAM @ ARMHOLE",
+      "parser_version": "xlsx_v2",
+      "unit": "unconfirmed",
+      "confidence": 1.0,
+      "tolerance": 0,
+      "source": "Book2(4).xlsx",
+      "sheet": "Sheet1",
+      "row": 14,
+      "values": {
+        "S": {
+          "value": 4.0,
+          "raw": 4,
+          "formula": null,
+          "cell": "E14",
+          "issue": null,
+          "override": false,
+          "evaluation": "direct"
+        },
+        "M": {
+          "value": 4.0,
+          "raw": 4,
+          "formula": null,
+          "cell": "F14",
+          "issue": null,
+          "override": false,
+          "evaluation": "direct"
+        },
+        "L": {
+          "value": 4.0,
+          "raw": 4,
+          "formula": null,
+          "cell": "G14",
+          "issue": null,
+          "override": false,
+          "evaluation": "direct"
+        },
+        "XL": {
+          "value": 4.0,
+          "raw": 4,
+          "formula": null,
+          "cell": "H14",
+          "issue": null,
+          "override": false,
+          "evaluation": "direct"
+        },
+        "XXL": {
+          "value": 4.0,
+          "raw": 4,
+          "formula": null,
+          "cell": "I14",
+          "issue": null,
+          "override": false,
+          "evaluation": "direct"
+        },
+        "3XL": {
+          "value": 4.0,
+          "raw": 4,
+          "formula": null,
+          "cell": "J14",
+          "issue": null,
+          "override": false,
+          "evaluation": "direct"
+        }
+      }
+    },
+    {
+      "key": "shoulder_slope",
+      "mapping_status": "catalog",
+      "mapped_from": "10945",
+      "code": "10945",
+      "label": "SHOULDER SLOPE",
+      "original_label": "SHOULDER SLOPE",
+      "parser_version": "xlsx_v2",
+      "unit": "unconfirmed",
+      "confidence": 1.0,
+      "tolerance": 0,
+      "source": "Book2(4).xlsx",
+      "sheet": "Sheet1",
+      "row": 15,
+      "values": {
+        "S": {
+          "value": 5.0,
+          "raw": 5,
+          "formula": null,
+          "cell": "E15",
+          "issue": null,
+          "override": false,
+          "evaluation": "direct"
+        },
+        "M": {
+          "value": 5.0,
+          "raw": 5,
+          "formula": null,
+          "cell": "F15",
+          "issue": null,
+          "override": false,
+          "evaluation": "direct"
+        },
+        "L": {
+          "value": 5.0,
+          "raw": 5,
+          "formula": null,
+          "cell": "G15",
+          "issue": null,
+          "override": false,
+          "evaluation": "direct"
+        },
+        "XL": {
+          "value": 5.0,
+          "raw": 5,
+          "formula": null,
+          "cell": "H15",
+          "issue": null,
+          "override": false,
+          "evaluation": "direct"
+        },
+        "XXL": {
+          "value": 5.0,
+          "raw": 5,
+          "formula": null,
+          "cell": "I15",
+          "issue": null,
+          "override": false,
+          "evaluation": "direct"
+        },
+        "3XL": {
+          "value": 5.0,
+          "raw": 5,
+          "formula": null,
+          "cell": "J15",
+          "issue": null,
+          "override": false,
+          "evaluation": "direct"
+        }
+      }
+    },
+    {
+      "key": "shoulder_point_to_point",
+      "mapping_status": "catalog",
+      "mapped_from": "10865",
+      "code": "10865",
+      "label": "SHOULDER POINT TO POINT",
+      "original_label": "* SHOULDER POINT TO POINT",
+      "parser_version": "xlsx_v2",
+      "unit": "unconfirmed",
+      "confidence": 1.0,
+      "tolerance": 0.7,
+      "source": "Book2(4).xlsx",
+      "sheet": "Sheet1",
+      "row": 16,
+      "values": {
+        "S": {
+          "value": 45.3,
+          "raw": "=F16-1.6",
+          "formula": "=F16-1.6",
+          "cell": "E16",
+          "issue": null,
+          "override": false,
+          "evaluation": "formula"
+        },
+        "M": {
+          "value": 46.9,
+          "raw": "=G16-1.6",
+          "formula": "=G16-1.6",
+          "cell": "F16",
+          "issue": null,
+          "override": false,
+          "evaluation": "formula"
+        },
+        "L": {
+          "value": 48.5,
+          "raw": 48.5,
+          "formula": null,
+          "cell": "G16",
+          "issue": null,
+          "override": false,
+          "evaluation": "direct"
+        },
+        "XL": {
+          "value": 50.5,
+          "raw": "=G16+2",
+          "formula": "=G16+2",
+          "cell": "H16",
+          "issue": null,
+          "override": false,
+          "evaluation": "formula"
+        },
+        "XXL": {
+          "value": 52.5,
+          "raw": "=H16+2",
+          "formula": "=H16+2",
+          "cell": "I16",
+          "issue": null,
+          "override": false,
+          "evaluation": "formula"
+        },
+        "3XL": {
+          "value": 54.5,
+          "raw": "=I16+2",
+          "formula": "=I16+2",
+          "cell": "J16",
+          "issue": null,
+          "override": false,
+          "evaluation": "formula"
+        }
+      }
+    },
+    {
+      "key": "back_mid_armhole",
+      "mapping_status": "catalog",
+      "mapped_from": "11105",
+      "code": "11105",
+      "label": "BACK MID ARMHOLE  7 \"",
+      "original_label": "* BACK MID ARMHOLE  7 \"",
+      "parser_version": "xlsx_v2",
+      "unit": "unconfirmed",
+      "confidence": 1.0,
+      "tolerance": 0.7,
+      "source": "Book2(4).xlsx",
+      "sheet": "Sheet1",
+      "row": 17,
+      "values": {
+        "S": {
+          "value": 43.8,
+          "raw": "=F17-1.6",
+          "formula": "=F17-1.6",
+          "cell": "E17",
+          "issue": null,
+          "override": false,
+          "evaluation": "formula"
+        },
+        "M": {
+          "value": 45.4,
+          "raw": "=G17-1.6",
+          "formula": "=G17-1.6",
+          "cell": "F17",
+          "issue": null,
+          "override": false,
+          "evaluation": "formula"
+        },
+        "L": {
+          "value": 47.0,
+          "raw": 47,
+          "formula": null,
+          "cell": "G17",
+          "issue": null,
+          "override": false,
+          "evaluation": "direct"
+        },
+        "XL": {
+          "value": 49.0,
+          "raw": "=G17+2",
+          "formula": "=G17+2",
+          "cell": "H17",
+          "issue": null,
+          "override": false,
+          "evaluation": "formula"
+        },
+        "XXL": {
+          "value": 51.0,
+          "raw": "=H17+2",
+          "formula": "=H17+2",
+          "cell": "I17",
+          "issue": null,
+          "override": false,
+          "evaluation": "formula"
+        },
+        "3XL": {
+          "value": 53.0,
+          "raw": "=I17+2",
+          "formula": "=I17+2",
+          "cell": "J17",
+          "issue": null,
+          "override": false,
+          "evaluation": "formula"
+        }
+      }
+    },
+    {
+      "key": "front_mid_armhole",
+      "mapping_status": "catalog",
+      "mapped_from": "10125",
+      "code": "10125",
+      "label": "FRONT MID ARMHOLE 7 \"",
+      "original_label": "* FRONT MID ARMHOLE 7 \"",
+      "parser_version": "xlsx_v2",
+      "unit": "unconfirmed",
+      "confidence": 1.0,
+      "tolerance": 0.7,
+      "source": "Book2(4).xlsx",
+      "sheet": "Sheet1",
+      "row": 18,
+      "values": {
+        "S": {
+          "value": 39.8,
+          "raw": "=F18-1.6",
+          "formula": "=F18-1.6",
+          "cell": "E18",
+          "issue": null,
+          "override": false,
+          "evaluation": "formula"
+        },
+        "M": {
+          "value": 41.4,
+          "raw": "=G18-1.6",
+          "formula": "=G18-1.6",
+          "cell": "F18",
+          "issue": null,
+          "override": false,
+          "evaluation": "formula"
+        },
+        "L": {
+          "value": 43.0,
+          "raw": 43,
+          "formula": null,
+          "cell": "G18",
+          "issue": null,
+          "override": false,
+          "evaluation": "direct"
+        },
+        "XL": {
+          "value": 45.0,
+          "raw": "=G18+2",
+          "formula": "=G18+2",
+          "cell": "H18",
+          "issue": null,
+          "override": false,
+          "evaluation": "formula"
+        },
+        "XXL": {
+          "value": 47.0,
+          "raw": "=H18+2",
+          "formula": "=H18+2",
+          "cell": "I18",
+          "issue": null,
+          "override": false,
+          "evaluation": "formula"
+        },
+        "3XL": {
+          "value": 49.0,
+          "raw": "=I18+2",
+          "formula": "=I18+2",
+          "cell": "J18",
+          "issue": null,
+          "override": false,
+          "evaluation": "formula"
+        }
+      }
+    },
+    {
+      "key": "half_armhole_straight",
+      "mapping_status": "catalog",
+      "mapped_from": "11350",
+      "code": "11350",
+      "label": "1/2 ARMHOLE (STRAIGHT)",
+      "original_label": "* 1/2 ARMHOLE (STRAIGHT)",
+      "parser_version": "xlsx_v2",
+      "unit": "unconfirmed",
+      "confidence": 1.0,
+      "tolerance": 0.5,
+      "source": "Book2(4).xlsx",
+      "sheet": "Sheet1",
+      "row": 19,
+      "values": {
+        "S": {
+          "value": 22.0,
+          "raw": "=F19-1",
+          "formula": "=F19-1",
+          "cell": "E19",
+          "issue": null,
+          "override": false,
+          "evaluation": "formula"
+        },
+        "M": {
+          "value": 23.0,
+          "raw": "=G19-1",
+          "formula": "=G19-1",
+          "cell": "F19",
+          "issue": null,
+          "override": false,
+          "evaluation": "formula"
+        },
+        "L": {
+          "value": 24.0,
+          "raw": 24,
+          "formula": null,
+          "cell": "G19",
+          "issue": null,
+          "override": false,
+          "evaluation": "direct"
+        },
+        "XL": {
+          "value": 25.5,
+          "raw": "=G19+1.5",
+          "formula": "=G19+1.5",
+          "cell": "H19",
+          "issue": null,
+          "override": false,
+          "evaluation": "formula"
+        },
+        "XXL": {
+          "value": 27.0,
+          "raw": "=H19+1.5",
+          "formula": "=H19+1.5",
+          "cell": "I19",
+          "issue": null,
+          "override": false,
+          "evaluation": "formula"
+        },
+        "3XL": {
+          "value": 28.5,
+          "raw": "=I19+1.5",
+          "formula": "=I19+1.5",
+          "cell": "J19",
+          "issue": null,
+          "override": false,
+          "evaluation": "formula"
+        }
+      }
+    },
+    {
+      "key": "half_bicep",
+      "mapping_status": "catalog",
+      "mapped_from": "X1",
+      "code": "X1",
+      "label": "\u00bd BICEP MESUREMENT FROM UNDER ARM POINT",
+      "original_label": "*  \u00bd BICEP MESUREMENT FROM UNDER ARM POINT",
+      "parser_version": "xlsx_v2",
+      "unit": "unconfirmed",
+      "confidence": 1.0,
+      "tolerance": 0.5,
+      "source": "Book2(4).xlsx",
+      "sheet": "Sheet1",
+      "row": 20,
+      "values": {
+        "S": {
+          "value": 19.5,
+          "raw": "=F20-1",
+          "formula": "=F20-1",
+          "cell": "E20",
+          "issue": null,
+          "override": false,
+          "evaluation": "formula"
+        },
+        "M": {
+          "value": 20.5,
+          "raw": "=G20-1",
+          "formula": "=G20-1",
+          "cell": "F20",
+          "issue": null,
+          "override": false,
+          "evaluation": "formula"
+        },
+        "L": {
+          "value": 21.5,
+          "raw": 21.5,
+          "formula": null,
+          "cell": "G20",
+          "issue": null,
+          "override": false,
+          "evaluation": "direct"
+        },
+        "XL": {
+          "value": 23.0,
+          "raw": "=G20+1.5",
+          "formula": "=G20+1.5",
+          "cell": "H20",
+          "issue": null,
+          "override": false,
+          "evaluation": "formula"
+        },
+        "XXL": {
+          "value": 24.5,
+          "raw": "=H20+1.5",
+          "formula": "=H20+1.5",
+          "cell": "I20",
+          "issue": null,
+          "override": false,
+          "evaluation": "formula"
+        },
+        "3XL": {
+          "value": 26.0,
+          "raw": "=I20+1.5",
+          "formula": "=I20+1.5",
+          "cell": "J20",
+          "issue": null,
+          "override": false,
+          "evaluation": "formula"
+        }
+      }
+    },
+    {
+      "key": "sleeve_cap_height",
+      "mapping_status": "catalog",
+      "mapped_from": "11525",
+      "code": "11525",
+      "label": "SLEEVE CAP HEIGHT FROM ARMPIT TO SLEEVE TOP",
+      "original_label": "SLEEVE CAP HEIGHT FROM ARMPIT TO SLEEVE TOP",
+      "parser_version": "xlsx_v2",
+      "unit": "unconfirmed",
+      "confidence": 1.0,
+      "tolerance": 0,
+      "source": "Book2(4).xlsx",
+      "sheet": "Sheet1",
+      "row": 21,
+      "values": {
+        "S": {
+          "value": 14.100000000000001,
+          "raw": "=F21-0.2",
+          "formula": "=F21-0.2",
+          "cell": "E21",
+          "issue": null,
+          "override": false,
+          "evaluation": "formula"
+        },
+        "M": {
+          "value": 14.3,
+          "raw": "=G21-0.2",
+          "formula": "=G21-0.2",
+          "cell": "F21",
+          "issue": null,
+          "override": false,
+          "evaluation": "formula"
+        },
+        "L": {
+          "value": 14.5,
+          "raw": 14.5,
+          "formula": null,
+          "cell": "G21",
+          "issue": null,
+          "override": false,
+          "evaluation": "direct"
+        },
+        "XL": {
+          "value": 14.7,
+          "raw": "=G21+0.2",
+          "formula": "=G21+0.2",
+          "cell": "H21",
+          "issue": null,
+          "override": false,
+          "evaluation": "formula"
+        },
+        "XXL": {
+          "value": 14.899999999999999,
+          "raw": "=H21+0.2",
+          "formula": "=H21+0.2",
+          "cell": "I21",
+          "issue": null,
+          "override": false,
+          "evaluation": "formula"
+        },
+        "3XL": {
+          "value": 15.099999999999998,
+          "raw": "=I21+0.2",
+          "formula": "=I21+0.2",
+          "cell": "J21",
+          "issue": null,
+          "override": false,
+          "evaluation": "formula"
+        }
+      }
+    },
+    {
+      "key": "half_elbow",
+      "mapping_status": "catalog",
+      "mapped_from": "*X98-2",
+      "code": "*X98-2",
+      "label": "1/2 ELBOW WITH ROLL-UP ( MIDPOINT FR TOP SLV CAP TO BTTM OF CUFF )",
+      "original_label": "1/2 ELBOW WITH ROLL-UP ( MIDPOINT FR TOP SLV CAP TO BTTM OF CUFF )",
+      "parser_version": "xlsx_v2",
+      "unit": "unconfirmed",
+      "confidence": 1.0,
+      "tolerance": 0.3,
+      "source": "Book2(4).xlsx",
+      "sheet": "Sheet1",
+      "row": 22,
+      "values": {
+        "S": {
+          "value": 16.4,
+          "raw": "=F22-0.8",
+          "formula": "=F22-0.8",
+          "cell": "E22",
+          "issue": null,
+          "override": false,
+          "evaluation": "formula"
+        },
+        "M": {
+          "value": 17.2,
+          "raw": "=G22-0.8",
+          "formula": "=G22-0.8",
+          "cell": "F22",
+          "issue": null,
+          "override": false,
+          "evaluation": "formula"
+        },
+        "L": {
+          "value": 18.0,
+          "raw": 18,
+          "formula": null,
+          "cell": "G22",
+          "issue": null,
+          "override": false,
+          "evaluation": "direct"
+        },
+        "XL": {
+          "value": 19.0,
+          "raw": "=G22+1",
+          "formula": "=G22+1",
+          "cell": "H22",
+          "issue": null,
+          "override": false,
+          "evaluation": "formula"
+        },
+        "XXL": {
+          "value": 20.0,
+          "raw": "=H22+1",
+          "formula": "=H22+1",
+          "cell": "I22",
+          "issue": null,
+          "override": false,
+          "evaluation": "formula"
+        },
+        "3XL": {
+          "value": 21.0,
+          "raw": "=I22+1",
+          "formula": "=I22+1",
+          "cell": "J22",
+          "issue": null,
+          "override": false,
+          "evaluation": "formula"
+        }
+      }
+    },
+    {
+      "key": "sleeve_length",
+      "mapping_status": "catalog",
+      "mapped_from": "11264",
+      "code": "11264",
+      "label": "SLV FM SHLDR",
+      "original_label": "* SLV FM SHLDR",
+      "parser_version": "xlsx_v2",
+      "unit": "unconfirmed",
+      "confidence": 1.0,
+      "tolerance": 1,
+      "source": "Book2(4).xlsx",
+      "sheet": "Sheet1",
+      "row": 23,
+      "values": {
+        "S": {
+          "value": 64.0,
+          "raw": "=F23-1",
+          "formula": "=F23-1",
+          "cell": "E23",
+          "issue": null,
+          "override": false,
+          "evaluation": "formula"
+        },
+        "M": {
+          "value": 65.0,
+          "raw": "=G23-1",
+          "formula": "=G23-1",
+          "cell": "F23",
+          "issue": null,
+          "override": false,
+          "evaluation": "formula"
+        },
+        "L": {
+          "value": 66.0,
+          "raw": 66,
+          "formula": null,
+          "cell": "G23",
+          "issue": null,
+          "override": false,
+          "evaluation": "direct"
+        },
+        "XL": {
+          "value": 67.5,
+          "raw": "=G23+1.5",
+          "formula": "=G23+1.5",
+          "cell": "H23",
+          "issue": null,
+          "override": false,
+          "evaluation": "formula"
+        },
+        "XXL": {
+          "value": 68.5,
+          "raw": "=H23+1",
+          "formula": "=H23+1",
+          "cell": "I23",
+          "issue": null,
+          "override": false,
+          "evaluation": "formula"
+        },
+        "3XL": {
+          "value": 69.5,
+          "raw": "=I23+1",
+          "formula": "=I23+1",
+          "cell": "J23",
+          "issue": null,
+          "override": false,
+          "evaluation": "formula"
+        }
+      }
+    },
+    {
+      "key": "cuff_width",
+      "mapping_status": "catalog",
+      "mapped_from": "11765",
+      "code": "11765",
+      "label": "SLEEVE CUFF WIDTH",
+      "original_label": "SLEEVE CUFF WIDTH",
+      "parser_version": "xlsx_v2",
+      "unit": "unconfirmed",
+      "confidence": 1.0,
+      "tolerance": 0,
+      "source": "Book2(4).xlsx",
+      "sheet": "Sheet1",
+      "row": 24,
+      "values": {
+        "S": {
+          "value": 6.0,
+          "raw": 6,
+          "formula": null,
+          "cell": "E24",
+          "issue": null,
+          "override": false,
+          "evaluation": "direct"
+        },
+        "M": {
+          "value": 6.0,
+          "raw": 6,
+          "formula": null,
+          "cell": "F24",
+          "issue": null,
+          "override": false,
+          "evaluation": "direct"
+        },
+        "L": {
+          "value": 6.0,
+          "raw": 6,
+          "formula": null,
+          "cell": "G24",
+          "issue": null,
+          "override": false,
+          "evaluation": "direct"
+        },
+        "XL": {
+          "value": 6.0,
+          "raw": 6,
+          "formula": null,
+          "cell": "H24",
+          "issue": null,
+          "override": false,
+          "evaluation": "direct"
+        },
+        "XXL": {
+          "value": 6.0,
+          "raw": 6,
+          "formula": null,
+          "cell": "I24",
+          "issue": null,
+          "override": false,
+          "evaluation": "direct"
+        },
+        "3XL": {
+          "value": 6.0,
+          "raw": 6,
+          "formula": null,
+          "cell": "J24",
+          "issue": null,
+          "override": false,
+          "evaluation": "direct"
+        }
+      }
+    },
+    {
+      "key": "cuff_edge_to_edge",
+      "mapping_status": "catalog",
+      "mapped_from": "11688",
+      "code": "11688",
+      "label": "CUFF AT SEAM EDGE TO EDGE",
+      "original_label": "* CUFF AT SEAM EDGE TO EDGE",
+      "parser_version": "xlsx_v2",
+      "unit": "unconfirmed",
+      "confidence": 1.0,
+      "tolerance": 0.3,
+      "source": "Book2(4).xlsx",
+      "sheet": "Sheet1",
+      "row": 25,
+      "values": {
+        "S": {
+          "value": 24.0,
+          "raw": "=F25-0.75",
+          "formula": "=F25-0.75",
+          "cell": "E25",
+          "issue": null,
+          "override": false,
+          "evaluation": "formula"
+        },
+        "M": {
+          "value": 24.75,
+          "raw": "=G25-0.75",
+          "formula": "=G25-0.75",
+          "cell": "F25",
+          "issue": null,
+          "override": false,
+          "evaluation": "formula"
+        },
+        "L": {
+          "value": 25.5,
+          "raw": 25.5,
+          "formula": null,
+          "cell": "G25",
+          "issue": null,
+          "override": false,
+          "evaluation": "direct"
+        },
+        "XL": {
+          "value": 26.25,
+          "raw": "=G25+0.75",
+          "formula": "=G25+0.75",
+          "cell": "H25",
+          "issue": null,
+          "override": false,
+          "evaluation": "formula"
+        },
+        "XXL": {
+          "value": 27.0,
+          "raw": "=H25+0.75",
+          "formula": "=H25+0.75",
+          "cell": "I25",
+          "issue": null,
+          "override": false,
+          "evaluation": "formula"
+        },
+        "3XL": {
+          "value": 27.75,
+          "raw": "=I25+0.75",
+          "formula": "=I25+0.75",
+          "cell": "J25",
+          "issue": null,
+          "override": false,
+          "evaluation": "formula"
+        }
+      }
+    },
+    {
+      "key": "sleeve_pleat_depth",
+      "mapping_status": "catalog",
+      "mapped_from": "X92",
+      "code": "X92",
+      "label": "SLV PLEAT 1/2 DEPTH",
+      "original_label": "SLV PLEAT 1/2 DEPTH",
+      "parser_version": "xlsx_v2",
+      "unit": "unconfirmed",
+      "confidence": 1.0,
+      "tolerance": 0,
+      "source": "Book2(4).xlsx",
+      "sheet": "Sheet1",
+      "row": 26,
+      "values": {
+        "S": {
+          "value": 2.0,
+          "raw": 2,
+          "formula": null,
+          "cell": "E26",
+          "issue": null,
+          "override": false,
+          "evaluation": "direct"
+        },
+        "M": {
+          "value": 2.0,
+          "raw": 2,
+          "formula": null,
+          "cell": "F26",
+          "issue": null,
+          "override": false,
+          "evaluation": "direct"
+        },
+        "L": {
+          "value": 2.0,
+          "raw": 2,
+          "formula": null,
+          "cell": "G26",
+          "issue": null,
+          "override": false,
+          "evaluation": "direct"
+        },
+        "XL": {
+          "value": 2.0,
+          "raw": 2,
+          "formula": null,
+          "cell": "H26",
+          "issue": null,
+          "override": false,
+          "evaluation": "direct"
+        },
+        "XXL": {
+          "value": 2.0,
+          "raw": 2,
+          "formula": null,
+          "cell": "I26",
+          "issue": null,
+          "override": false,
+          "evaluation": "direct"
+        },
+        "3XL": {
+          "value": 2.0,
+          "raw": 2,
+          "formula": null,
+          "cell": "J26",
+          "issue": null,
+          "override": false,
+          "evaluation": "direct"
+        }
+      }
+    },
+    {
+      "key": "sleeve_placket_length",
+      "mapping_status": "catalog",
+      "mapped_from": "11785",
+      "code": "11785",
+      "label": "SLEEVE PLACKET LENGTH",
+      "original_label": "SLEEVE PLACKET LENGTH",
+      "parser_version": "xlsx_v2",
+      "unit": "unconfirmed",
+      "confidence": 1.0,
+      "tolerance": 0,
+      "source": "Book2(4).xlsx",
+      "sheet": "Sheet1",
+      "row": 27,
+      "values": {
+        "S": {
+          "value": 14.0,
+          "raw": 14,
+          "formula": null,
+          "cell": "E27",
+          "issue": null,
+          "override": false,
+          "evaluation": "direct"
+        },
+        "M": {
+          "value": 14.0,
+          "raw": 14,
+          "formula": null,
+          "cell": "F27",
+          "issue": null,
+          "override": false,
+          "evaluation": "direct"
+        },
+        "L": {
+          "value": 15.0,
+          "raw": 15,
+          "formula": null,
+          "cell": "G27",
+          "issue": null,
+          "override": false,
+          "evaluation": "direct"
+        },
+        "XL": {
+          "value": 15.0,
+          "raw": 15,
+          "formula": null,
+          "cell": "H27",
+          "issue": null,
+          "override": false,
+          "evaluation": "direct"
+        },
+        "XXL": {
+          "value": 15.0,
+          "raw": 15,
+          "formula": null,
+          "cell": "I27",
+          "issue": null,
+          "override": false,
+          "evaluation": "direct"
+        },
+        "3XL": {
+          "value": 15.0,
+          "raw": 15,
+          "formula": null,
+          "cell": "J27",
+          "issue": null,
+          "override": false,
+          "evaluation": "direct"
+        }
+      }
+    },
+    {
+      "key": "sleeve_placket_width",
+      "mapping_status": "catalog",
+      "mapped_from": "11825",
+      "code": "11825",
+      "label": "SLEEVE PLACKET WIDTH",
+      "original_label": "SLEEVE PLACKET WIDTH",
+      "parser_version": "xlsx_v2",
+      "unit": "unconfirmed",
+      "confidence": 1.0,
+      "tolerance": 0,
+      "source": "Book2(4).xlsx",
+      "sheet": "Sheet1",
+      "row": 28,
+      "values": {
+        "S": {
+          "value": 2.5,
+          "raw": 2.5,
+          "formula": null,
+          "cell": "E28",
+          "issue": null,
+          "override": false,
+          "evaluation": "direct"
+        },
+        "M": {
+          "value": 2.5,
+          "raw": 2.5,
+          "formula": null,
+          "cell": "F28",
+          "issue": null,
+          "override": false,
+          "evaluation": "direct"
+        },
+        "L": {
+          "value": 2.5,
+          "raw": 2.5,
+          "formula": null,
+          "cell": "G28",
+          "issue": null,
+          "override": false,
+          "evaluation": "direct"
+        },
+        "XL": {
+          "value": 2.5,
+          "raw": 2.5,
+          "formula": null,
+          "cell": "H28",
+          "issue": null,
+          "override": false,
+          "evaluation": "direct"
+        },
+        "XXL": {
+          "value": 2.5,
+          "raw": 2.5,
+          "formula": null,
+          "cell": "I28",
+          "issue": null,
+          "override": false,
+          "evaluation": "direct"
+        },
+        "3XL": {
+          "value": 2.5,
+          "raw": 2.5,
+          "formula": null,
+          "cell": "J28",
+          "issue": null,
+          "override": false,
+          "evaluation": "direct"
+        }
+      }
+    },
+    {
+      "key": "collar_buttoned_length",
+      "mapping_status": "catalog",
+      "mapped_from": "12425-1",
+      "code": "12425-1",
+      "label": "COLLAR LENGTH (COLLAR BUTTONED)",
+      "original_label": "* COLLAR LENGTH (COLLAR BUTTONED)",
+      "parser_version": "xlsx_v2",
+      "unit": "unconfirmed",
+      "confidence": 1.0,
+      "tolerance": 0.5,
+      "source": "Book2(4).xlsx",
+      "sheet": "Sheet1",
+      "row": 29,
+      "values": {
+        "S": {
+          "value": 19.5,
+          "raw": "=F29-1",
+          "formula": "=F29-1",
+          "cell": "E29",
+          "issue": null,
+          "override": false,
+          "evaluation": "formula"
+        },
+        "M": {
+          "value": 20.5,
+          "raw": "=G29-1",
+          "formula": "=G29-1",
+          "cell": "F29",
+          "issue": null,
+          "override": false,
+          "evaluation": "formula"
+        },
+        "L": {
+          "value": 21.5,
+          "raw": 21.5,
+          "formula": null,
+          "cell": "G29",
+          "issue": null,
+          "override": false,
+          "evaluation": "direct"
+        },
+        "XL": {
+          "value": 22.5,
+          "raw": "=G29+1",
+          "formula": "=G29+1",
+          "cell": "H29",
+          "issue": null,
+          "override": false,
+          "evaluation": "formula"
+        },
+        "XXL": {
+          "value": 23.5,
+          "raw": "=H29+1",
+          "formula": "=H29+1",
+          "cell": "I29",
+          "issue": null,
+          "override": false,
+          "evaluation": "formula"
+        },
+        "3XL": {
+          "value": 24.5,
+          "raw": "=I29+1",
+          "formula": "=I29+1",
+          "cell": "J29",
+          "issue": null,
+          "override": false,
+          "evaluation": "formula"
+        }
+      }
+    },
+    {
+      "key": "collar_outside_edge",
+      "mapping_status": "catalog",
+      "mapped_from": "12445",
+      "code": "12445",
+      "label": "COLLAR OUTSIDE EDGE",
+      "original_label": "* COLLAR OUTSIDE EDGE",
+      "parser_version": "xlsx_v2",
+      "unit": "unconfirmed",
+      "confidence": 1.0,
+      "tolerance": 1,
+      "source": "Book2(4).xlsx",
+      "sheet": "Sheet1",
+      "row": 30,
+      "values": {
+        "S": {
+          "value": 40.5,
+          "raw": "=F30-2",
+          "formula": "=F30-2",
+          "cell": "E30",
+          "issue": null,
+          "override": false,
+          "evaluation": "formula"
+        },
+        "M": {
+          "value": 42.5,
+          "raw": "=G30-2",
+          "formula": "=G30-2",
+          "cell": "F30",
+          "issue": null,
+          "override": false,
+          "evaluation": "formula"
+        },
+        "L": {
+          "value": 44.5,
+          "raw": 44.5,
+          "formula": null,
+          "cell": "G30",
+          "issue": null,
+          "override": false,
+          "evaluation": "direct"
+        },
+        "XL": {
+          "value": 46.5,
+          "raw": "=G30+2",
+          "formula": "=G30+2",
+          "cell": "H30",
+          "issue": null,
+          "override": false,
+          "evaluation": "formula"
+        },
+        "XXL": {
+          "value": 48.5,
+          "raw": "=H30+2",
+          "formula": "=H30+2",
+          "cell": "I30",
+          "issue": null,
+          "override": false,
+          "evaluation": "formula"
+        },
+        "3XL": {
+          "value": 50.5,
+          "raw": "=I30+2",
+          "formula": "=I30+2",
+          "cell": "J30",
+          "issue": null,
+          "override": false,
+          "evaluation": "formula"
+        }
+      }
+    },
+    {
+      "key": "collar_width_cb",
+      "mapping_status": "catalog",
+      "mapped_from": "12465",
+      "code": "12465",
+      "label": "COLLAR WIDTH @ CENTER BACK",
+      "original_label": "COLLAR WIDTH @ CENTER BACK",
+      "parser_version": "xlsx_v2",
+      "unit": "unconfirmed",
+      "confidence": 1.0,
+      "tolerance": 0,
+      "source": "Book2(4).xlsx",
+      "sheet": "Sheet1",
+      "row": 31,
+      "values": {
+        "S": {
+          "value": 4.7,
+          "raw": "4,7",
+          "formula": null,
+          "cell": "E31",
+          "issue": null,
+          "override": false,
+          "evaluation": "direct"
+        },
+        "M": {
+          "value": 4.7,
+          "raw": "4,7",
+          "formula": null,
+          "cell": "F31",
+          "issue": null,
+          "override": false,
+          "evaluation": "direct"
+        },
+        "L": {
+          "value": 4.7,
+          "raw": "4,7",
+          "formula": null,
+          "cell": "G31",
+          "issue": null,
+          "override": false,
+          "evaluation": "direct"
+        },
+        "XL": {
+          "value": 4.7,
+          "raw": "4,7",
+          "formula": null,
+          "cell": "H31",
+          "issue": null,
+          "override": false,
+          "evaluation": "direct"
+        },
+        "XXL": {
+          "value": 4.7,
+          "raw": "4,7",
+          "formula": null,
+          "cell": "I31",
+          "issue": null,
+          "override": false,
+          "evaluation": "direct"
+        },
+        "3XL": {
+          "value": 4.7,
+          "raw": "4,7",
+          "formula": null,
+          "cell": "J31",
+          "issue": null,
+          "override": false,
+          "evaluation": "direct"
+        }
+      }
+    },
+    {
+      "key": "collar_band_width_cb",
+      "mapping_status": "catalog",
+      "mapped_from": "12485",
+      "code": "12485",
+      "label": "COLLAR BAND / MOON WIDTH @ CENTER BACK",
+      "original_label": "COLLAR BAND / MOON WIDTH @ CENTER BACK",
+      "parser_version": "xlsx_v2",
+      "unit": "unconfirmed",
+      "confidence": 1.0,
+      "tolerance": 0,
+      "source": "Book2(4).xlsx",
+      "sheet": "Sheet1",
+      "row": 32,
+      "values": {
+        "S": {
+          "value": 3.3,
+          "raw": "3,3",
+          "formula": null,
+          "cell": "E32",
+          "issue": null,
+          "override": false,
+          "evaluation": "direct"
+        },
+        "M": {
+          "value": 3.3,
+          "raw": "3,3",
+          "formula": null,
+          "cell": "F32",
+          "issue": null,
+          "override": false,
+          "evaluation": "direct"
+        },
+        "L": {
+          "value": 3.3,
+          "raw": "3,3",
+          "formula": null,
+          "cell": "G32",
+          "issue": null,
+          "override": false,
+          "evaluation": "direct"
+        },
+        "XL": {
+          "value": 3.3,
+          "raw": "3,3",
+          "formula": null,
+          "cell": "H32",
+          "issue": null,
+          "override": false,
+          "evaluation": "direct"
+        },
+        "XXL": {
+          "value": 3.3,
+          "raw": "3,3",
+          "formula": null,
+          "cell": "I32",
+          "issue": null,
+          "override": false,
+          "evaluation": "direct"
+        },
+        "3XL": {
+          "value": 3.3,
+          "raw": "3,3",
+          "formula": null,
+          "cell": "J32",
+          "issue": null,
+          "override": false,
+          "evaluation": "direct"
+        }
+      }
+    },
+    {
+      "key": "collar_point",
+      "mapping_status": "catalog",
+      "mapped_from": "12505",
+      "code": "12505",
+      "label": "COLLAR POINT",
+      "original_label": "COLLAR POINT",
+      "parser_version": "xlsx_v2",
+      "unit": "unconfirmed",
+      "confidence": 1.0,
+      "tolerance": 0,
+      "source": "Book2(4).xlsx",
+      "sheet": "Sheet1",
+      "row": 33,
+      "values": {
+        "S": {
+          "value": 6.2,
+          "raw": "6,2",
+          "formula": null,
+          "cell": "E33",
+          "issue": null,
+          "override": false,
+          "evaluation": "direct"
+        },
+        "M": {
+          "value": 6.2,
+          "raw": "6,2",
+          "formula": null,
+          "cell": "F33",
+          "issue": null,
+          "override": false,
+          "evaluation": "direct"
+        },
+        "L": {
+          "value": 6.2,
+          "raw": "6,2",
+          "formula": null,
+          "cell": "G33",
+          "issue": null,
+          "override": false,
+          "evaluation": "direct"
+        },
+        "XL": {
+          "value": 6.2,
+          "raw": "6,2",
+          "formula": null,
+          "cell": "H33",
+          "issue": null,
+          "override": false,
+          "evaluation": "direct"
+        },
+        "XXL": {
+          "value": 6.2,
+          "raw": "6,2",
+          "formula": null,
+          "cell": "I33",
+          "issue": null,
+          "override": false,
+          "evaluation": "direct"
+        },
+        "3XL": {
+          "value": 6.2,
+          "raw": "6,2",
+          "formula": null,
+          "cell": "J33",
+          "issue": null,
+          "override": false,
+          "evaluation": "direct"
+        }
+      }
+    },
+    {
+      "key": "neck_width",
+      "mapping_status": "catalog",
+      "mapped_from": "11925",
+      "code": "11925",
+      "label": "NECK WIDTH (HPS TO HPS)",
+      "original_label": "* NECK WIDTH (HPS TO HPS)",
+      "parser_version": "xlsx_v2",
+      "unit": "unconfirmed",
+      "confidence": 1.0,
+      "tolerance": 0.5,
+      "source": "Book2(4).xlsx",
+      "sheet": "Sheet1",
+      "row": 34,
+      "values": {
+        "S": {
+          "value": 13.899999999999999,
+          "raw": "=F34-0.8",
+          "formula": "=F34-0.8",
+          "cell": "E34",
+          "issue": null,
+          "override": false,
+          "evaluation": "formula"
+        },
+        "M": {
+          "value": 14.7,
+          "raw": "=G34-0.8",
+          "formula": "=G34-0.8",
+          "cell": "F34",
+          "issue": null,
+          "override": false,
+          "evaluation": "formula"
+        },
+        "L": {
+          "value": 15.5,
+          "raw": 15.5,
+          "formula": null,
+          "cell": "G34",
+          "issue": null,
+          "override": false,
+          "evaluation": "direct"
+        },
+        "XL": {
+          "value": 16.3,
+          "raw": "=G34+0.8",
+          "formula": "=G34+0.8",
+          "cell": "H34",
+          "issue": null,
+          "override": false,
+          "evaluation": "formula"
+        },
+        "XXL": {
+          "value": 17.1,
+          "raw": "=H34+0.8",
+          "formula": "=H34+0.8",
+          "cell": "I34",
+          "issue": null,
+          "override": false,
+          "evaluation": "formula"
+        },
+        "3XL": {
+          "value": 17.900000000000002,
+          "raw": "=I34+0.8",
+          "formula": "=I34+0.8",
+          "cell": "J34",
+          "issue": null,
+          "override": false,
+          "evaluation": "formula"
+        }
+      }
+    },
+    {
+      "key": "front_neck_drop",
+      "mapping_status": "catalog",
+      "mapped_from": "12185",
+      "code": "12185",
+      "label": "FRONT NECK DROP (HPS TO SEAM)",
+      "original_label": "* FRONT NECK DROP (HPS TO SEAM)",
+      "parser_version": "xlsx_v2",
+      "unit": "unconfirmed",
+      "confidence": 1.0,
+      "tolerance": 0.5,
+      "source": "Book2(4).xlsx",
+      "sheet": "Sheet1",
+      "row": 35,
+      "values": {
+        "S": {
+          "value": 9.3,
+          "raw": "=F35-0.35",
+          "formula": "=F35-0.35",
+          "cell": "E35",
+          "issue": null,
+          "override": false,
+          "evaluation": "formula"
+        },
+        "M": {
+          "value": 9.65,
+          "raw": "=G35-0.35",
+          "formula": "=G35-0.35",
+          "cell": "F35",
+          "issue": null,
+          "override": false,
+          "evaluation": "formula"
+        },
+        "L": {
+          "value": 10.0,
+          "raw": 10,
+          "formula": null,
+          "cell": "G35",
+          "issue": null,
+          "override": false,
+          "evaluation": "direct"
+        },
+        "XL": {
+          "value": 10.35,
+          "raw": "=G35+0.35",
+          "formula": "=G35+0.35",
+          "cell": "H35",
+          "issue": null,
+          "override": false,
+          "evaluation": "formula"
+        },
+        "XXL": {
+          "value": 10.7,
+          "raw": "=H35+0.35",
+          "formula": "=H35+0.35",
+          "cell": "I35",
+          "issue": null,
+          "override": false,
+          "evaluation": "formula"
+        },
+        "3XL": {
+          "value": 11.049999999999999,
+          "raw": "=I35+0.35",
+          "formula": "=I35+0.35",
+          "cell": "J35",
+          "issue": null,
+          "override": false,
+          "evaluation": "formula"
+        }
+      }
+    },
+    {
+      "key": "tie_gap",
+      "mapping_status": "catalog",
+      "mapped_from": "12525",
+      "code": "12525",
+      "label": "TIE GAP",
+      "original_label": "TIE GAP",
+      "parser_version": "xlsx_v2",
+      "unit": "unconfirmed",
+      "confidence": 1.0,
+      "tolerance": 0,
+      "source": "Book2(4).xlsx",
+      "sheet": "Sheet1",
+      "row": 36,
+      "values": {
+        "S": {
+          "value": 0.5,
+          "raw": 0.5,
+          "formula": null,
+          "cell": "E36",
+          "issue": null,
+          "override": false,
+          "evaluation": "direct"
+        },
+        "M": {
+          "value": 0.5,
+          "raw": 0.5,
+          "formula": null,
+          "cell": "F36",
+          "issue": null,
+          "override": false,
+          "evaluation": "direct"
+        },
+        "L": {
+          "value": 0.5,
+          "raw": 0.5,
+          "formula": null,
+          "cell": "G36",
+          "issue": null,
+          "override": false,
+          "evaluation": "direct"
+        },
+        "XL": {
+          "value": 0.5,
+          "raw": 0.5,
+          "formula": null,
+          "cell": "H36",
+          "issue": null,
+          "override": false,
+          "evaluation": "direct"
+        },
+        "XXL": {
+          "value": 0.5,
+          "raw": 0.5,
+          "formula": null,
+          "cell": "I36",
+          "issue": null,
+          "override": false,
+          "evaluation": "direct"
+        },
+        "3XL": {
+          "value": 0.5,
+          "raw": 0.5,
+          "formula": null,
+          "cell": "J36",
+          "issue": null,
+          "override": false,
+          "evaluation": "direct"
+        }
+      }
+    },
+    {
+      "key": "front_placket_width",
+      "mapping_status": "catalog",
+      "mapped_from": "10505",
+      "code": "10505",
+      "label": "FRONT PLACKET WIDTH",
+      "original_label": "FRONT PLACKET WIDTH",
+      "parser_version": "xlsx_v2",
+      "unit": "unconfirmed",
+      "confidence": 1.0,
+      "tolerance": 0,
+      "source": "Book2(4).xlsx",
+      "sheet": "Sheet1",
+      "row": 37,
+      "values": {
+        "S": {
+          "value": 3.0,
+          "raw": "3",
+          "formula": null,
+          "cell": "E37",
+          "issue": null,
+          "override": false,
+          "evaluation": "direct"
+        },
+        "M": {
+          "value": 3.0,
+          "raw": "3",
+          "formula": null,
+          "cell": "F37",
+          "issue": null,
+          "override": false,
+          "evaluation": "direct"
+        },
+        "L": {
+          "value": 3.0,
+          "raw": "3",
+          "formula": null,
+          "cell": "G37",
+          "issue": null,
+          "override": false,
+          "evaluation": "direct"
+        },
+        "XL": {
+          "value": 3.0,
+          "raw": "3",
+          "formula": null,
+          "cell": "H37",
+          "issue": null,
+          "override": false,
+          "evaluation": "direct"
+        },
+        "XXL": {
+          "value": 3.0,
+          "raw": "3",
+          "formula": null,
+          "cell": "I37",
+          "issue": null,
+          "override": false,
+          "evaluation": "direct"
+        },
+        "3XL": {
+          "value": 3.0,
+          "raw": "3",
+          "formula": null,
+          "cell": "J37",
+          "issue": null,
+          "override": false,
+          "evaluation": "direct"
+        }
+      }
+    },
+    {
+      "key": "first_button",
+      "mapping_status": "catalog",
+      "mapped_from": "12925",
+      "code": "12925",
+      "label": "1st BUTTON PLACEMENT--BODY (under collar stand)",
+      "original_label": "1st BUTTON PLACEMENT--BODY (under collar stand)",
+      "parser_version": "xlsx_v2",
+      "unit": "unconfirmed",
+      "confidence": 1.0,
+      "tolerance": 0,
+      "source": "Book2(4).xlsx",
+      "sheet": "Sheet1",
+      "row": 38,
+      "values": {
+        "S": {
+          "value": 6.0,
+          "raw": 6,
+          "formula": null,
+          "cell": "E38",
+          "issue": null,
+          "override": false,
+          "evaluation": "direct"
+        },
+        "M": {
+          "value": 6.0,
+          "raw": 6,
+          "formula": null,
+          "cell": "F38",
+          "issue": null,
+          "override": false,
+          "evaluation": "direct"
+        },
+        "L": {
+          "value": 6.0,
+          "raw": 6,
+          "formula": null,
+          "cell": "G38",
+          "issue": null,
+          "override": false,
+          "evaluation": "direct"
+        },
+        "XL": {
+          "value": 6.0,
+          "raw": 6,
+          "formula": null,
+          "cell": "H38",
+          "issue": null,
+          "override": false,
+          "evaluation": "direct"
+        },
+        "XXL": {
+          "value": 6.0,
+          "raw": 6,
+          "formula": null,
+          "cell": "I38",
+          "issue": null,
+          "override": false,
+          "evaluation": "direct"
+        },
+        "3XL": {
+          "value": 6.0,
+          "raw": 6,
+          "formula": null,
+          "cell": "J38",
+          "issue": null,
+          "override": false,
+          "evaluation": "direct"
+        }
+      }
+    },
+    {
+      "key": "last_button",
+      "mapping_status": "catalog",
+      "mapped_from": "12935",
+      "code": "12935",
+      "label": "LAST BUTTON PLACEMENT - BODY",
+      "original_label": "LAST BUTTON PLACEMENT - BODY",
+      "parser_version": "xlsx_v2",
+      "unit": "unconfirmed",
+      "confidence": 1.0,
+      "tolerance": 0,
+      "source": "Book2(4).xlsx",
+      "sheet": "Sheet1",
+      "row": 39,
+      "values": {
+        "S": {
+          "value": 13.0,
+          "raw": 13,
+          "formula": null,
+          "cell": "E39",
+          "issue": null,
+          "override": false,
+          "evaluation": "direct"
+        },
+        "M": {
+          "value": 13.0,
+          "raw": 13,
+          "formula": null,
+          "cell": "F39",
+          "issue": null,
+          "override": false,
+          "evaluation": "direct"
+        },
+        "L": {
+          "value": 13.0,
+          "raw": 13,
+          "formula": null,
+          "cell": "G39",
+          "issue": null,
+          "override": false,
+          "evaluation": "direct"
+        },
+        "XL": {
+          "value": 13.0,
+          "raw": 13,
+          "formula": null,
+          "cell": "H39",
+          "issue": null,
+          "override": false,
+          "evaluation": "direct"
+        },
+        "XXL": {
+          "value": 13.0,
+          "raw": 13,
+          "formula": null,
+          "cell": "I39",
+          "issue": null,
+          "override": false,
+          "evaluation": "direct"
+        },
+        "3XL": {
+          "value": 13.0,
+          "raw": 13,
+          "formula": null,
+          "cell": "J39",
+          "issue": null,
+          "override": false,
+          "evaluation": "direct"
+        }
+      }
+    }
+  ],
+  "techpack_sha256": "e4049aa9af3d3cf1b6933d7e6c4c7b860fcbb9e67405efcc88dc131db50465e7",
+  "techpack_metadata": {
+    "source": "1078983(5).pdf",
+    "parser": "local_text_v2",
+    "attributes": [
+      {
+        "category": "garment",
+        "key": "garment_weight",
+        "value": "228 GR",
+        "raw": "GARMENT WEIGHT: 228 GR",
+        "page": 1,
+        "source": "1078983(5).pdf",
+        "parser_version": "local_text_v2",
+        "confidence": 0.92,
+        "status": "NEEDS_REVIEW"
+      },
+      {
+        "category": "garment",
+        "key": "fabric_category",
+        "value": "WOVEN",
+        "raw": "FABRIC: WOVEN",
+        "page": 1,
+        "source": "1078983(5).pdf",
+        "parser_version": "local_text_v2",
+        "confidence": 0.92,
+        "status": "NEEDS_REVIEW"
+      },
+      {
+        "category": "garment",
+        "key": "wash",
+        "value": "SOFT WASH",
+        "raw": "WASH: SOFT WASH",
+        "page": 1,
+        "source": "1078983(5).pdf",
+        "parser_version": "local_text_v2",
+        "confidence": 0.92,
+        "status": "NEEDS_REVIEW"
+      },
+      {
+        "category": "garment",
+        "key": "sleeve_type",
+        "value": "LONG SLEEVE",
+        "raw": "LONG SLEEVE",
+        "page": 1,
+        "source": "1078983(5).pdf",
+        "parser_version": "local_text_v2",
+        "confidence": 0.92,
+        "status": "NEEDS_REVIEW"
+      },
+      {
+        "category": "construction",
+        "key": "collar_code",
+        "value": "CL28 CODE",
+        "raw": "CL28 CODE",
+        "page": 3,
+        "source": "1078983(5).pdf",
+        "parser_version": "local_text_v2",
+        "confidence": 0.92,
+        "status": "NEEDS_REVIEW"
+      },
+      {
+        "category": "construction",
+        "key": "placket_width",
+        "value": "3,5 CM",
+        "raw": "PLACKET\n3,5 CM",
+        "page": 3,
+        "source": "1078983(5).pdf",
+        "parser_version": "local_text_v2",
+        "confidence": 0.92,
+        "status": "NEEDS_REVIEW"
+      },
+      {
+        "category": "construction",
+        "key": "note_3_5",
+        "value": "MAIN LABEL TOP STITCH",
+        "raw": "MAIN LABEL TOP STITCH\nCOLLAR WILL BE\n0,2 CM",
+        "page": 3,
+        "source": "1078983(5).pdf",
+        "parser_version": "local_text_v2",
+        "confidence": 0.68,
+        "status": "NEEDS_REVIEW"
+      },
+      {
+        "category": "construction",
+        "key": "note_3_9",
+        "value": "2 NEEDLE",
+        "raw": "2 NEEDLE\nTOP STITCH TOP STITCH\n0,5 CM 0,5 CM",
+        "page": 3,
+        "source": "1078983(5).pdf",
+        "parser_version": "local_text_v2",
+        "confidence": 0.68,
+        "status": "NEEDS_REVIEW"
+      },
+      {
+        "category": "construction",
+        "key": "note_3_10",
+        "value": "TOP STITCH TOP STITCH",
+        "raw": "TOP STITCH TOP STITCH\n0,5 CM 0,5 CM\nTOP STITCH",
+        "page": 3,
+        "source": "1078983(5).pdf",
+        "parser_version": "local_text_v2",
+        "confidence": 0.68,
+        "status": "NEEDS_REVIEW"
+      },
+      {
+        "category": "construction",
+        "key": "note_3_12",
+        "value": "TOP STITCH",
+        "raw": "TOP STITCH\n0,5 CM\nTOP STITCH",
+        "page": 3,
+        "source": "1078983(5).pdf",
+        "parser_version": "local_text_v2",
+        "confidence": 0.68,
+        "status": "NEEDS_REVIEW"
+      },
+      {
+        "category": "construction",
+        "key": "note_3_14",
+        "value": "TOP STITCH",
+        "raw": "TOP STITCH\n0,5 CM\nPLASTIC BUTTON",
+        "page": 3,
+        "source": "1078983(5).pdf",
+        "parser_version": "local_text_v2",
+        "confidence": 0.68,
+        "status": "NEEDS_REVIEW"
+      },
+      {
+        "category": "construction",
+        "key": "note_3_19",
+        "value": "PLEAT 14 L.",
+        "raw": "PLEAT 14 L.\nCUFF AS\n2 NEEDLE",
+        "page": 3,
+        "source": "1078983(5).pdf",
+        "parser_version": "local_text_v2",
+        "confidence": 0.68,
+        "status": "NEEDS_REVIEW"
+      },
+      {
+        "category": "construction",
+        "key": "note_3_20",
+        "value": "CUFF AS",
+        "raw": "CUFF AS\n2 NEEDLE\nDRAWING !",
+        "page": 3,
+        "source": "1078983(5).pdf",
+        "parser_version": "local_text_v2",
+        "confidence": 0.68,
+        "status": "NEEDS_REVIEW"
+      },
+      {
+        "category": "construction",
+        "key": "note_3_21",
+        "value": "2 NEEDLE",
+        "raw": "2 NEEDLE\nDRAWING !\nDOUBLE",
+        "page": 3,
+        "source": "1078983(5).pdf",
+        "parser_version": "local_text_v2",
+        "confidence": 0.68,
+        "status": "NEEDS_REVIEW"
+      },
+      {
+        "category": "construction",
+        "key": "note_3_24",
+        "value": "LOCK STITCH",
+        "raw": "LOCK STITCH\nTOP STITCH\nTOP STITCH",
+        "page": 3,
+        "source": "1078983(5).pdf",
+        "parser_version": "local_text_v2",
+        "confidence": 0.68,
+        "status": "NEEDS_REVIEW"
+      },
+      {
+        "category": "construction",
+        "key": "note_3_25",
+        "value": "TOP STITCH",
+        "raw": "TOP STITCH\nTOP STITCH\n0,6 CM 0,5 CM PLASTIC BUTTON",
+        "page": 3,
+        "source": "1078983(5).pdf",
+        "parser_version": "local_text_v2",
+        "confidence": 0.68,
+        "status": "NEEDS_REVIEW"
+      },
+      {
+        "category": "construction",
+        "key": "note_3_26",
+        "value": "TOP STITCH",
+        "raw": "TOP STITCH\n0,6 CM 0,5 CM PLASTIC BUTTON\n18 L. !",
+        "page": 3,
+        "source": "1078983(5).pdf",
+        "parser_version": "local_text_v2",
+        "confidence": 0.68,
+        "status": "NEEDS_REVIEW"
+      },
+      {
+        "category": "construction",
+        "key": "note_3_31",
+        "value": "*ALL TOP STITCHES COLOR DTM TO THE BODY COLOR.",
+        "raw": "*ALL TOP STITCHES COLOR DTM TO THE BODY COLOR.\n*ALL BUTTON STITCH COLORS DTM TO THE BUTTON.",
+        "page": 3,
+        "source": "1078983(5).pdf",
+        "parser_version": "local_text_v2",
+        "confidence": 0.68,
+        "status": "NEEDS_REVIEW"
+      },
+      {
+        "category": "fabric",
+        "key": "fabric_4_0",
+        "value": "MAIN FABRIC: %97 COTTON %3 ELASTANE",
+        "raw": "MAIN FABRIC: %97 COTTON %3 ELASTANE",
+        "page": 4,
+        "source": "1078983(5).pdf",
+        "parser_version": "local_text_v2",
+        "confidence": 0.68,
+        "status": "NEEDS_REVIEW"
+      },
+      {
+        "category": "fabric",
+        "key": "fabric_4_1",
+        "value": "50/1 POPELINE 110 gr - AOP PRINTED",
+        "raw": "50/1 POPELINE 110 gr - AOP PRINTED",
+        "page": 4,
+        "source": "1078983(5).pdf",
+        "parser_version": "local_text_v2",
+        "confidence": 0.68,
+        "status": "NEEDS_REVIEW"
+      },
+      {
+        "category": "fabric",
+        "key": "fabric_4_7",
+        "value": "100% COTTON",
+        "raw": "100% COTTON",
+        "page": 4,
+        "source": "1078983(5).pdf",
+        "parser_version": "local_text_v2",
+        "confidence": 0.68,
+        "status": "NEEDS_REVIEW"
+      },
+      {
+        "category": "fabric",
+        "key": "fabric_4_8",
+        "value": "DOBBY FOR 2.OPT: DARK NAVY",
+        "raw": "DOBBY FOR 2.OPT: DARK NAVY",
+        "page": 4,
+        "source": "1078983(5).pdf",
+        "parser_version": "local_text_v2",
+        "confidence": 0.68,
+        "status": "NEEDS_REVIEW"
+      },
+      {
+        "category": "fabric",
+        "key": "fabric_4_11",
+        "value": "153 GSM",
+        "raw": "153 GSM",
+        "page": 4,
+        "source": "1078983(5).pdf",
+        "parser_version": "local_text_v2",
+        "confidence": 0.68,
+        "status": "NEEDS_REVIEW"
+      },
+      {
+        "category": "fabric",
+        "key": "fabric_4_13",
+        "value": "SOLID DYED",
+        "raw": "SOLID DYED",
+        "page": 4,
+        "source": "1078983(5).pdf",
+        "parser_version": "local_text_v2",
+        "confidence": 0.68,
+        "status": "NEEDS_REVIEW"
+      },
+      {
+        "category": "bom",
+        "key": "bom_5_4",
+        "value": "PLASTIC BUTTON FRONT PLACKET LOCAL 18 L 11+1",
+        "raw": "PLASTIC BUTTON FRONT PLACKET LOCAL 18 L 11+1\nPETROL GREEN_ DARK NAVY_\nAS PROD. +",
+        "page": 5,
+        "source": "1078983(5).pdf",
+        "parser_version": "local_text_v2",
+        "confidence": 0.68,
+        "status": "NEEDS_REVIEW"
+      },
+      {
+        "category": "bom",
+        "key": "bom_5_12",
+        "value": "SLEEVE PLACKET BINDING LOCAL 14 L 2+1",
+        "raw": "SLEEVE PLACKET BINDING LOCAL 14 L 2+1\nDTM TO BODY DTM TO BODY\nALARM: LEFT BODY STITCH G-LOCKS 1 STANDARD STANDARD",
+        "page": 5,
+        "source": "1078983(5).pdf",
+        "parser_version": "local_text_v2",
+        "confidence": 0.68,
+        "status": "NEEDS_REVIEW"
+      },
+      {
+        "category": "bom",
+        "key": "bom_5_14",
+        "value": "ALARM: LEFT BODY STITCH G-LOCKS 1 STANDARD STANDARD",
+        "raw": "ALARM: LEFT BODY STITCH G-LOCKS 1 STANDARD STANDARD\nFLAG LABEL: AT THE SIDE AS ET\u0130KET 1 CO-AS-22 CO-AS-22\nCO-AS-22 OF THE HEM BLACK BLACK",
+        "page": 5,
+        "source": "1078983(5).pdf",
+        "parser_version": "local_text_v2",
+        "confidence": 0.68,
+        "status": "NEEDS_REVIEW"
+      },
+      {
+        "category": "bom",
+        "key": "bom_5_15",
+        "value": "FLAG LABEL: AT THE SIDE AS ET\u0130KET 1 CO-AS-22 CO-AS-22",
+        "raw": "FLAG LABEL: AT THE SIDE AS ET\u0130KET 1 CO-AS-22 CO-AS-22\nCO-AS-22 OF THE HEM BLACK BLACK\nBLACK",
+        "page": 5,
+        "source": "1078983(5).pdf",
+        "parser_version": "local_text_v2",
+        "confidence": 0.68,
+        "status": "NEEDS_REVIEW"
+      },
+      {
+        "category": "bom",
+        "key": "bom_6_5",
+        "value": "WOVEN MAIN LABEL INNER YOKE AS ET\u0130KET, 1 BLACK BLACK",
+        "raw": "WOVEN MAIN LABEL INNER YOKE AS ET\u0130KET, 1 BLACK BLACK\nG-LOCKS,\nCW-B-02",
+        "page": 6,
+        "source": "1078983(5).pdf",
+        "parser_version": "local_text_v2",
+        "confidence": 0.68,
+        "status": "NEEDS_REVIEW"
+      },
+      {
+        "category": "bom",
+        "key": "bom_6_11",
+        "value": "WOVEN FIT LABEL UNDER AT MAIN LABEL AS ET\u0130KET, 1 BLACK BLACK",
+        "raw": "WOVEN FIT LABEL UNDER AT MAIN LABEL AS ET\u0130KET, 1 BLACK BLACK\nG-LOCKS,\nD\u0130ZAYN ET\u0130KET,",
+        "page": 6,
+        "source": "1078983(5).pdf",
+        "parser_version": "local_text_v2",
+        "confidence": 0.68,
+        "status": "NEEDS_REVIEW"
+      },
+      {
+        "category": "bom",
+        "key": "bom_6_16",
+        "value": "HANGTAG; KNOT THROUGHT FIRST AS ET\u0130KET, 1 WHITE WHITE",
+        "raw": "HANGTAG; KNOT THROUGHT FIRST AS ET\u0130KET, 1 WHITE WHITE\nG-LOCKS,\nBUTTONHOLE OF C/F",
+        "page": 6,
+        "source": "1078983(5).pdf",
+        "parser_version": "local_text_v2",
+        "confidence": 0.68,
+        "status": "NEEDS_REVIEW"
+      }
+    ],
+    "style": "1078983",
+    "garment": "Men's long-sleeve shirt",
+    "fit": "Regular Fit",
+    "placket_cm": 3.5,
+    "fabric_conflict": true,
+    "fabric": "100% cotton dobby, 153 GSM (page 4 table)",
+    "colorways": [
+      "PETROL GREEN",
+      "DARK NAVY"
+    ]
+  },
+  "demo_resolutions": {
+    "units": "cm",
+    "profile": "demo_v1",
+    "review": "confirmed",
+    "placket": "workbook"
+  }
+}

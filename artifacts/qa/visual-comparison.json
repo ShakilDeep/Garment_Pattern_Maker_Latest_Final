@@ -1,0 +1,16 @@
+{
+  "viewport": [1536, 1024],
+  "reference_sha256": "5b67e70fa5c533d538951667a22a1d2b3809710b57189b728e6bb7216daae5ff",
+  "different_pixels": 100571,
+  "different_pixel_ratio": 0.06393686930338542,
+  "pixel_color_threshold": 0.2,
+  "allowed_different_pixels": 110000,
+  "accepted": true,
+  "approval": "demo_mvp_recorded_tolerance_2026-09-10",
+  "playwright_version": "1.63.0",
+  "chromium_version": "153.0.8010.12",
+  "chromium_revision": "1243",
+  "font": "Bundled Liberation Sans regular/bold",
+  "interpretation": "Approved non-zero tolerance for demo MVP. Remaining difference is dominated by authoritative source measurement digits and demo_v1 pattern outlines versus REF-004 marketing art; pocket geometry is absent because REF-003 supplies no pocket dimensions. Strict zero-diff pixel identity remains DEFERRED.",
+  "verified_at": "2026-09-10"
+}

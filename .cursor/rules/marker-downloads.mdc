@@ -1,0 +1,26 @@
+---
+description: Marker SVG/PDF downloads must survive state + browser save quirks
+globs: frontend/src/api.ts,frontend/src/MarkerPanel.tsx,frontend/src/nestAndExport.ts,backend/app/application/state.py,backend/app/api/artifact_routes.py
+alwaysApply: false
+---
+
+# Marker download buttons (SVG / PDF)
+
+## Bugs already hit (2026-09-11)
+
+1. Detached `<a download>` after `fetch` never saved — must append to `document.body`.
+2. Marker export must **not** send `?size=` from the UI size (wrong size → 409).
+3. Immediate `link.remove()` after `click()` cancels saves in Safari/Chromium — use deferred cleanup (`saveBlobAsFile` Adapter, ~1.5s).
+4. Project state `DEMO_COMPLETE` could not move to `EXPORT_READY`, so export routes returned 400 after review approval even though bytes were generated. Allow re-export transitions; never let state side-effects block returning the file.
+
+## Required patterns
+
+- **Adapter:** `saveBlobAsFile(blob, name)` in `api.ts` for all browser downloads.
+- **State:** `DEMO_COMPLETE` and `PATTERN_READY` must allow `EXPORT_READY` / `MARKER_READY` as needed for nest + download.
+- Marker Nesting buttons call `download('marker-svg'|'marker-pdf')` with `type="button"`.
+
+## Do not
+
+- Remove the download anchor synchronously after `click()`
+- Reintroduce `?size=` on marker export URLs
+- Fail the HTTP export response solely because a workflow transition is forbidden

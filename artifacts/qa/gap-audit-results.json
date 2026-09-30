@@ -1,0 +1,30 @@
+[
+  {
+    "finding": "measurement_route_scope_and_range",
+    "status": 400,
+    "sleeve_length": 66.0
+  },
+  {
+    "finding": "archived_source_readiness",
+    "ready": false,
+    "generation_status": 409
+  },
+  {
+    "finding": "nested_import_validation",
+    "status": 422,
+    "returned_grades": null,
+    "returned_marker": null
+  },
+  {
+    "finding": "import_project_existence",
+    "status": 404
+  },
+  {
+    "finding": "version_scoped_grading",
+    "status": 200,
+    "requested_allowance": 0,
+    "result_allowances": [
+      0.0
+    ]
+  }
+]

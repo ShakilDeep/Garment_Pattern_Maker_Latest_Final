@@ -1,0 +1,30 @@
+﻿---
+description: Source upload Browse uses Facade pattern (input overlays label)
+globs: frontend/src/SourceDropzone.tsx,frontend/src/Measurements.tsx,frontend/src/**/*Dropzone*,frontend/src/styles.css
+alwaysApply: false
+---
+
+# Source upload Browse control (Facade)
+
+## Bugs already hit (2026-09-11)
+
+1. Visible native **Choose File** + `pointer-events: none` → dead clicks.
+2. Off-screen / `sr-only` / `clip:rect(0,0,0,0)` file input + `<label htmlFor>` → **Browse looks fine but OS picker never opens** (Chromium skips clipped/off-screen file inputs).
+
+## Required pattern: Facade
+
+The Browse control is a `<label class="browse-files">` that **contains** a transparent `<input type="file" class="browse-files-input">` stretched over the label (`position:absolute; inset:0; opacity:0`). The user click hits the real file input.
+
+```tsx
+<label className="primary browse-files">
+  <span className="browse-files-label">Browse files</span>
+  <input className="browse-files-input" type="file" aria-label="Browse files" />
+</label>
+```
+
+## Do not
+
+- Park `input[type=file]` at `left: -10000px`, `clip: rect(0,0,0,0)`, or rely on `.sr-only` for the Browse control
+- Use `pointer-events: none` on an enabled file input
+- Use a `<button>` + `input.click()` as the only path without verifying the picker opens
+- Reintroduce a bare native file control in the Measurements dropzone

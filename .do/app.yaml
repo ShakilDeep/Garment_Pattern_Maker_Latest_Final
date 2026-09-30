@@ -1,0 +1,21 @@
+name: patterns-maker
+region: nyc
+services:
+  - name: web
+    github:
+      repo: ShakilDeep/PatternsMaker-Update
+      branch: main
+      deploy_on_push: true
+    dockerfile_path: Dockerfile
+    http_port: 8080
+    instance_count: 1
+    instance_size_slug: basic-xxs
+    envs:
+      - key: DATABASE_URL
+        value: sqlite:////tmp/garment.db
+        scope: RUN_TIME
+      - key: PORT
+        value: "8080"
+        scope: RUN_TIME
+    health_check:
+      http_path: /health

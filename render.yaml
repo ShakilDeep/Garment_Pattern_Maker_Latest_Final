@@ -1,0 +1,17 @@
+# Render Blueprint — Docker deploy for Garment Pattern Maker V5
+# Service dashboard: https://dashboard.render.com/web/srv-dahgk9vqj5pc73akde2g
+# Connect this GitHub repo and deploy from branch main (Dockerfile at repo root).
+
+services:
+  - type: web
+    name: garment-pattern-maker
+    runtime: docker
+    plan: free
+    region: oregon
+    branch: main
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    healthCheckPath: /health
+    envVars:
+      - key: DATABASE_URL
+        value: sqlite:///garment.db

@@ -1,0 +1,65 @@
+[
+  {
+    "screen": "measurements-axe.json",
+    "violations": 0,
+    "passes": 24,
+    "incomplete": 1,
+    "axe_version": "4.13.0"
+  },
+  {
+    "screen": "Measurements-axe.json",
+    "violations": 0,
+    "passes": 24,
+    "incomplete": 1,
+    "axe_version": "4.13.0"
+  },
+  {
+    "screen": "Requirements-axe.json",
+    "violations": 0,
+    "passes": 17,
+    "incomplete": 1,
+    "axe_version": "4.13.0"
+  },
+  {
+    "screen": "Project Dashboard-axe.json",
+    "violations": 0,
+    "passes": 19,
+    "incomplete": 1,
+    "axe_version": "4.13.0"
+  },
+  {
+    "screen": "Validation Center-axe.json",
+    "violations": 0,
+    "passes": 19,
+    "incomplete": 1,
+    "axe_version": "4.13.0"
+  },
+  {
+    "screen": "Pattern Studio-axe.json",
+    "violations": 0,
+    "passes": 25,
+    "incomplete": 1,
+    "axe_version": "4.13.0"
+  },
+  {
+    "screen": "Grading-axe.json",
+    "violations": 0,
+    "passes": 24,
+    "incomplete": 1,
+    "axe_version": "4.13.0"
+  },
+  {
+    "screen": "Marker Nesting-axe.json",
+    "violations": 0,
+    "passes": 20,
+    "incomplete": 1,
+    "axe_version": "4.13.0"
+  },
+  {
+    "screen": "Export-axe.json",
+    "violations": 0,
+    "passes": 16,
+    "incomplete": 1,
+    "axe_version": "4.13.0"
+  }
+]
