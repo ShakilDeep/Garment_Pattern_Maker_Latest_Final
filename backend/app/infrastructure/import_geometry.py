@@ -10,7 +10,9 @@ def require_project(repo, pid):
 
 def _pieces_ok(payload):
     pieces = payload.get("pieces") if isinstance(payload, dict) else None
-    return bool(pieces) and all(piece.get("points") for piece in pieces)
+    if not pieces:
+        return False
+    return all(piece.get("points") for piece in pieces)
 
 
 def assert_importable(body):

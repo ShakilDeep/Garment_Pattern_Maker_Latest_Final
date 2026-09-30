@@ -3,6 +3,7 @@
 from pathlib import Path
 
 import pytest
+
 from app.application.service import demo_source_path
 
 
@@ -19,6 +20,7 @@ def test_demo_workbook_and_techpack_are_shipped():
 
 def test_demo_create_imports_both_sources(tmp_path, monkeypatch):
     from fastapi.testclient import TestClient
+
     from app.api.main import create_app
 
     root = Path(__file__).resolve().parents[2]

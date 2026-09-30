@@ -1,0 +1,1 @@
+conda run -n patter-codex python -m pytest backend/tests -c backend/pyproject.toml -q -p no:cacheprovider && (cd backend && conda run -n patter-codex python -m ruff check app tests && conda run -n patter-codex python -m mypy app) && npm --prefix frontend test --silent
