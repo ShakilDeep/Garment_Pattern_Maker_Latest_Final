@@ -10,6 +10,8 @@ INTERSECTION = 1e-6
 SVG_DECIMALS = 6
 # Pattern-model precision (1e-6 cm); changing it changes every stored geometry hash.
 MODEL_DECIMALS = 6
+# Notch curve parameter t: a 1e-9 step moves a notch < 1e-6 cm along any edge up to 1000 cm long.
+NOTCH_T_DECIMALS = 9
 SLEEVE_EASE_CM = 2.0
 SOURCE_DIMENSION_CM = 1.0
 

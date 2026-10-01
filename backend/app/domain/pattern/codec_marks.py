@@ -16,7 +16,7 @@ def encode_marks(piece: "Piece") -> dict:
         "internal_lines": [
             {"id": str(m.id), "points": [xy(p) for p in m.points]} for m in piece.internal_lines
         ],
-        "notches": [{"id": str(m.id), "segment": str(m.segment), "t": quantize(m.t)} for m in piece.notches],
+        "notches": [{"id": str(m.id), "segment": str(m.segment), "t": m.t} for m in piece.notches],
         "drills": [
             {"id": str(m.id), "at": xy(m.position), "diameter": quantize(m.diameter)} for m in piece.drills
         ],

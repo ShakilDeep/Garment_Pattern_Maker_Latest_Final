@@ -5,6 +5,7 @@ from dataclasses import dataclass
 from app.domain.geom.primitives import Point2D
 from app.domain.pattern.ids import AnnotationId, SegmentId
 from app.domain.pattern.point import is_real, quantize, require_finite, require_point
+from app.domain.tolerances import NOTCH_T_DECIMALS
 
 MIN_LINE_POINTS = 2
 
@@ -36,9 +37,9 @@ class Notch:
     t: float
 
     def __post_init__(self) -> None:
-        if not is_real(self.t) or not 0 <= quantize(self.t) <= 1:
+        if not is_real(self.t) or not 0 <= quantize(self.t, NOTCH_T_DECIMALS) <= 1:
             raise ValueError(f"Notch {self.id} needs a segment parameter t between 0 and 1")
-        object.__setattr__(self, "t", quantize(self.t))
+        object.__setattr__(self, "t", quantize(self.t, NOTCH_T_DECIMALS))
 
 
 @dataclass(frozen=True)

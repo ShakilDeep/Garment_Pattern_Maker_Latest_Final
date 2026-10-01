@@ -27,9 +27,9 @@ def require_finite(*values: object, what: str) -> None:
         raise ValueError(f"{what} must use finite numbers")
 
 
-def quantize(value: float) -> float:
-    """Canonical number: rounded to 1e-6 cm, with -0.0 folded into 0.0 so serialized text is stable."""
-    return round(float(value), MODEL_DECIMALS) + 0.0
+def quantize(value: float, decimals: int = MODEL_DECIMALS) -> float:
+    """Canonical number: rounded (1e-6 cm by default), with -0.0 folded into 0.0 so serialized text is stable."""
+    return round(float(value), decimals) + 0.0
 
 
 def finite_point(x: object, y: object) -> Point2D:

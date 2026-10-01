@@ -46,3 +46,11 @@ def test_mark_shape_rules(build, message):
 def test_internal_line_coerces_a_list_to_a_tuple():
     line = InternalLine(N, [Point2D(0, 0), Point2D(1, 1)])
     assert isinstance(line.points, tuple) and hash(line)
+
+
+def test_notch_parameter_keeps_a_resolution_finer_than_the_coordinate_grid():
+    # 1e-9 in t keeps a notch on a 1000 cm edge within 1e-6 cm; 1e-6 in t would move it 5e-4 cm.
+    assert Notch(N, S, 0.1234567894).t == 0.123456789
+    assert Notch(N, S, 1 + 4e-10).t == 1.0
+    with pytest.raises(ValueError, match="between 0 and 1"):
+        Notch(N, S, 1 + 6e-10)
