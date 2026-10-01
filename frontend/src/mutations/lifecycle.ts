@@ -1,6 +1,6 @@
 import {api} from '../api';
 import type {Project} from '../types';
-import type {ProjectListItem} from '../useAppController';
+import {listProjects} from '../projectList';
 import type {MutationContext} from './context';
 
 /** Create, rename, delete, archive and restore the current project. */
@@ -22,7 +22,7 @@ export function lifecycleMutations(ctx: MutationContext) {
       await run(async () => {
         await api(`/projects/${project.id}`, 'DELETE');
         localStorage.removeItem('garment-project');
-        const remaining = await api<ProjectListItem[]>('/projects');
+        const remaining = await listProjects();
         ctx.setProjects(remaining);
         if (remaining[0]) await refresh(remaining[0].id);
         else { ctx.setProject(null); ctx.setRequirements(null); ctx.setDialog('projects'); }

@@ -1,13 +1,12 @@
 import {useCallback, useEffect, useState} from 'react';
 import {api} from './api';
-import type {Project, Requirements} from './types';
+import type {Project, ProjectListItem, Requirements} from './types';
+import {listProjects} from './projectList';
 import {guardedGo} from './navigationGuard';
 import {projectMutations} from './projectMutations';
 import {bootProjectsDialog, shouldRestoreLastProject} from './startup';
 import {useHashPage} from './useHashPage';
 import {useKeyboardShortcuts} from './useKeyboardShortcuts';
-
-export type ProjectListItem = {id: string; name: string; archived?: boolean};
 
 export function useAppController() {
   const [project, setProject] = useState<Project | null>(null);
@@ -32,7 +31,7 @@ export function useAppController() {
     setProject(p);
     localStorage.setItem('garment-project', id);
     setRequirements(await api<Requirements>(`/projects/${id}/requirements?size=${size}`));
-    setProjects(await api('/projects'));
+    setProjects(await listProjects());
     return p;
   }, [size]);
 
@@ -45,7 +44,7 @@ export function useAppController() {
 
   useEffect(() => {
     let active = true;
-    api<ProjectListItem[]>('/projects').then(async (items) => {
+    listProjects().then(async (items) => {
       if (!active) return;
       setProjects(items);
       if (shouldRestoreLastProject()) {

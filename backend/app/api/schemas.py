@@ -1,6 +1,6 @@
-from typing import Annotated, Any, Literal
+from typing import Annotated, Literal
 
-from pydantic import BaseModel, ConfigDict, Field, RootModel, field_validator, model_validator
+from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
 
 Size = Literal["S", "M", "L", "XL", "XXL", "3XL"]
 Quantity = Annotated[int, Field(strict=True, ge=1, le=20)]
@@ -8,14 +8,6 @@ Quantity = Annotated[int, Field(strict=True, ge=1, le=20)]
 
 class RequestModel(BaseModel):
     model_config = ConfigDict(extra="forbid", allow_inf_nan=False)
-
-
-class ObjectResponse(RootModel[dict[str, Any]]):
-    """Stable JSON object contract for compatibility projections."""
-
-
-class ListResponse(RootModel[list[Any]]):
-    """Stable JSON list contract for compatibility projections."""
 
 
 class ProjectCreate(RequestModel):

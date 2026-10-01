@@ -2,14 +2,16 @@ from pathlib import PurePath
 
 from fastapi import APIRouter, HTTPException, UploadFile
 
-from app.api.schemas import ListResponse, ObjectResponse
+from app.api.models.project import Project
+from app.api.models.source import Document, ParseStatus, SourceComparison
+from app.api.pagination import DEFAULT_PAGE_SIZE, Limit, Offset, Page, paginate
 
 
 def source_routes(service):
     routes = APIRouter()
     repo = service.repo
 
-    @routes.post("/projects/{pid}/documents", response_model=ObjectResponse)
+    @routes.post("/projects/{pid}/documents", response_model=Project)
     async def upload(pid: str, file: UploadFile, replace: bool = False):
         p = repo.get(pid)
         filename = PurePath((file.filename or "").replace("\\", "/")).name
@@ -37,8 +39,8 @@ def source_routes(service):
             ) from exc
         return repo.save(p, "document_imported", filename)
 
-    @routes.get("/projects/{pid}/parse", response_model=ObjectResponse, operation_id="parse_project_get")
-    @routes.post("/projects/{pid}/parse", response_model=ObjectResponse, operation_id="parse_project_post")
+    @routes.get("/projects/{pid}/parse", response_model=ParseStatus, operation_id="parse_project_get")
+    @routes.post("/projects/{pid}/parse", response_model=ParseStatus, operation_id="parse_project_post")
     def parse_project(pid: str):
         p = repo.get(pid)
         return {
@@ -59,15 +61,15 @@ def source_routes(service):
             ],
         }
 
-    @routes.get("/projects/{pid}/documents", response_model=ListResponse)
-    def documents(pid: str):
-        return repo.get(pid).get("documents", [])
+    @routes.get("/projects/{pid}/documents", response_model=Page[Document])
+    def documents(pid: str, limit: Limit = DEFAULT_PAGE_SIZE, offset: Offset = 0):
+        return paginate(repo.get(pid).get("documents", []), limit, offset)
 
-    @routes.post("/projects/{pid}/sources/clear", response_model=ObjectResponse)
+    @routes.post("/projects/{pid}/sources/clear", response_model=Project)
     def clear_sources(pid: str):
         return service.clear_sources(repo.get(pid))
 
-    @routes.get("/projects/{pid}/documents/compare", response_model=ObjectResponse)
+    @routes.get("/projects/{pid}/documents/compare", response_model=SourceComparison)
     def compare_documents(pid: str):
         project = repo.get(pid)
         docs = project.get("documents", [])

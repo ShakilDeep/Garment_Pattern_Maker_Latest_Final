@@ -5,16 +5,16 @@ from app.api.main import create_app
 from app.infrastructure.validation import validate
 
 
-def test_projects_list_honors_limit_offset_and_total_header(tmp_path):
+def test_projects_list_honors_limit_offset_and_total(tmp_path):
     client = TestClient(create_app(f"sqlite:///{tmp_path}/pages.db"))
     client.post("/api/v1/projects", json={"name": "Alpha"})
     client.post("/api/v1/projects", json={"name": "Beta"})
     page = client.get("/api/v1/projects", params={"limit": 1, "offset": 0})
     rest = client.get("/api/v1/projects")
     assert page.status_code == 200
-    assert len(page.json()) == 1
-    assert page.headers["x-total-count"] == "2"
-    assert len(rest.json()) == 2
+    assert len(page.json()["items"]) == 1
+    assert page.json()["total"] == 2
+    assert len(rest.json()["items"]) == 2
 
 
 def test_outline_quality_flags_spike_and_flattening():

@@ -1,6 +1,6 @@
 import type {Dispatch, SetStateAction} from 'react';
 import type {Project, Requirements} from '../types';
-import type {ProjectListItem} from '../useAppController';
+import type {ProjectListItem} from '../types';
 
 /** State and callbacks the project mutations need from the app controller. */
 export type MutationContext = {

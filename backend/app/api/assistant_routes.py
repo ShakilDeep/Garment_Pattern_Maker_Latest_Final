@@ -1,7 +1,8 @@
 from fastapi import APIRouter
 from pydantic import Field
 
-from app.api.schemas import ObjectResponse, RequestModel, Size
+from app.api.models.assistant import ActionProposal, AssistantResult
+from app.api.schemas import RequestModel, Size
 from app.application.assistant import execute, propose
 from app.infrastructure.provider_factory import get_ai_provider
 
@@ -21,11 +22,11 @@ def assistant_routes(service, provider=None):
     provider = provider if provider is not None else get_ai_provider()
     routes = APIRouter(prefix="/projects/{pid}/assistant")
 
-    @routes.post("/propose", response_model=ObjectResponse)
+    @routes.post("/propose", response_model=ActionProposal)
     def create_proposal(pid: str, body: AssistantPrompt):
         return propose(service, service.repo.get(pid), provider, body.prompt, body.size, body.piece_id)
 
-    @routes.post("/execute", response_model=ObjectResponse)
+    @routes.post("/execute", response_model=AssistantResult)
     def execute_proposal(pid: str, body: AssistantExecute):
         return execute(service, service.repo.get(pid), body.proposal_id, body.confirmed)
 

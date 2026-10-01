@@ -3,7 +3,10 @@ from typing import Literal
 from fastapi import APIRouter
 from pydantic import Field
 
-from app.api.schemas import ListResponse, ObjectResponse, RequestModel
+from app.api.models.project import Project
+from app.api.models.review import ReviewGate
+from app.api.pagination import DEFAULT_PAGE_SIZE, Limit, Offset, Page, paginate
+from app.api.schemas import RequestModel
 from app.application.commands import execute
 from app.application.reviews import review, review_status
 
@@ -23,15 +26,15 @@ class CadCommand(RequestModel):
 def review_routes(service):
     routes = APIRouter(prefix='/projects/{pid}')
 
-    @routes.get('/reviews', response_model=ListResponse)
-    def list_reviews(pid: str):
-        return review_status(service.repo.get(pid))
+    @routes.get('/reviews', response_model=Page[ReviewGate])
+    def list_reviews(pid: str, limit: Limit = DEFAULT_PAGE_SIZE, offset: Offset = 0):
+        return paginate(review_status(service.repo.get(pid)), limit, offset)
 
-    @routes.post('/commands', response_model=ObjectResponse)
+    @routes.post('/commands', response_model=Project)
     def command(pid: str, body: CadCommand):
         return execute(service, service.repo.get(pid), **body.model_dump())
 
-    @routes.post('/reviews/{gate}', response_model=ListResponse)
+    @routes.post('/reviews/{gate}', response_model=list[ReviewGate])
     def decide(pid: str, gate: str, body: ReviewDecision):
         p = service.repo.get(pid)
         result = review(p, gate, body.status, body.actor, body.note)

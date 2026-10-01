@@ -4,12 +4,20 @@ from uuid import uuid4
 from fastapi import APIRouter
 from fastapi.responses import Response
 
-from app.api.schemas import ExportCreate, JsonImport, ObjectResponse, Size
+from app.api.import_contract import check_import_contract
+from app.api.models.project import GeometryImport
+from app.api.schemas import ExportCreate, JsonImport, Size
 from app.application.geometry_import import persist_import
 from app.application.state import transition
 from app.infrastructure.exports import export_artifact
 from app.infrastructure.import_geometry import assert_importable, require_project
 from app.infrastructure.repository import now
+
+# Artifact bytes: SVG, PDF, or the JSON geometry document that /exports/import accepts back.
+EXPORT_RESPONSES: dict[int | str, dict] = {200: {
+    "model": GeometryImport, "description": "Exported artifact",
+    "content": {"image/svg+xml": {}, "application/pdf": {}},
+}}
 
 
 def artifact_routes(service):
@@ -32,18 +40,19 @@ def artifact_routes(service):
         return Response(data, media_type=mime, headers={
             'Content-Disposition': f'attachment; filename="1078983_shirt_{export_size}_demo.{extension}"'})
 
-    @routes.post('/projects/{pid}/exports')
+    @routes.post('/projects/{pid}/exports', response_class=Response, responses=EXPORT_RESPONSES)
     def create(pid: str, body: ExportCreate):
         return response(repo.get(pid), body.kind, body.size)
 
-    @routes.get('/projects/{pid}/exports/{kind}')
+    @routes.get('/projects/{pid}/exports/{kind}', response_class=Response, responses=EXPORT_RESPONSES)
     def export_file(pid: str, kind: str, size: Size | None = None):
         return response(repo.get(pid), kind, size)
 
-    @routes.post('/projects/{pid}/exports/import', response_model=ObjectResponse)
+    @routes.post('/projects/{pid}/exports/import', response_model=GeometryImport)
     def import_json(pid: str, body: JsonImport):
         project = require_project(repo, pid)
         assert_importable(body)
+        check_import_contract(body)
         persist_import(service, project, body)
         return {"schema_version": 1, "pattern": project["pattern"], "grades": project["grades"],
                 "marker": project["marker"]}

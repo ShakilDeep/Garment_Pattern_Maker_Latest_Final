@@ -30,16 +30,25 @@ def _nested(depth):
     (lambda b: b["grades"][0].update(id=b["pattern"]["id"]), "IMPORT_GEOMETRY_INVALID"),
     (lambda b: b["pattern"].update(extra=_nested(500)), "IMPORT_VALUE_INVALID"),
     (lambda b: b["marker"].update(strategy=["first_fit"]), "IMPORT_MARKER_INVALID"),
+    (lambda b: b["marker"].pop("gap"), "IMPORT_MARKER_INVALID"),
+    (lambda b: b["marker"].update(quantities={"S": 1.5}), "IMPORT_MARKER_INVALID"),
+    (lambda b: b["marker"]["placements"][0].update(size=7), "IMPORT_MARKER_INVALID"),
+    (lambda b: b["grades"][0].update(graded_from=3), "IMPORT_GEOMETRY_INVALID"),
+    (lambda b: b["marker"].update(gap="0.5"), "IMPORT_MARKER_INVALID"),
     (lambda b: b["marker"].pop("waste"), "IMPORT_MARKER_INVALID"),
 ], ids=["int-id", "list-profile", "missing-input-hash", "list-created-at", "missing-quantity",
-        "missing-piece-id", "list-issue-code", "grade-reuses-pattern-id", "deep-nesting", "list-marker-strategy", "missing-marker-waste"])
+        "missing-piece-id", "list-issue-code", "grade-reuses-pattern-id", "deep-nesting", "list-marker-strategy", "missing-marker-waste",
+        "missing-marker-gap", "fractional-quantity", "numeric-placement-size", "numeric-graded-from",
+        "string-marker-gap"])
 def test_projection_fields_are_type_checked(exported, import_mutated, mutate, code):
     client, url, _ = exported
     before = client.get(url).json()["pattern"]["id"]
     response = import_mutated(mutate)
     assert response.status_code == 422
     assert response.json()["code"] == code
-    assert client.get(url).json()["pattern"]["id"] == before
+    reread = client.get(url)
+    assert reread.status_code == 200
+    assert reread.json()["pattern"]["id"] == before
 
 
 def test_field_check_rejects_missing_pieces_on_its_own():

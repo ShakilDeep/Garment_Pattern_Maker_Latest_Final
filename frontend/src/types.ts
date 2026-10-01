@@ -11,3 +11,5 @@ export type Requirement = {key:string;name:string;status:string;blocking:boolean
 export type Requirements = {ready:boolean;items:Requirement[];blockers:Requirement[]};
 export const sizeLabels: Record<string,string> = {S:'S (Small)',M:'M (Medium)',L:'L (Large)',XL:'XL (Extra Large)',XXL:'XXL', '3XL':'3XL'};
 export const fields: [string,string,number][] = [['half_chest','Chest Circumference',2],['half_waist','Waist Circumference',2],['half_bottom_opening','Hip Circumference',2],['shoulder_point_to_point','Shoulder Width',1],['half_armhole_straight','Armhole Straight (Half)',1],['sleeve_length','Sleeve Length (Incl. Cuff)',1],['half_bicep','Bicep Circumference',2],['cuff_edge_to_edge','Cuff Edge to Edge',1],['neck_width','Neck Width',1],['collar_width_cb','Collar Height',1],['front_length_hps','Front Length',1],['back_length_hps','Back Length',1]];
+export type Page<T> = {items: T[]; total: number; limit: number; offset: number};
+export type ProjectListItem = {id: string; name: string; archived?: boolean};
