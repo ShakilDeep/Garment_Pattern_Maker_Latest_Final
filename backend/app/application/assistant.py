@@ -67,8 +67,6 @@ def _dispatch(service, project, action):
         if not cell or not isinstance(cell.get("value"), (int, float)):
             raise NotReady("The selected measurement has no value for this size")
         current = cell["value"]
-        if not 0 < current + values["delta"] <= 500:
-            raise ValueError("The resulting measurement must be greater than 0 and at most 500 cm")
         project = service.update_measurements(
             project, {values["measurement"]: current + values["delta"]}, values["size"]
         )

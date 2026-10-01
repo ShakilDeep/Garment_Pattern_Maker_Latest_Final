@@ -1,7 +1,7 @@
 from fastapi import APIRouter
 
 from app.api.schemas import ListResponse, Measurements, ObjectResponse
-from app.application.measurement_write import bound_changes, scoped_changes
+from app.application.measurement_write import scoped_changes
 
 
 def measurement_routes(service):
@@ -14,7 +14,7 @@ def measurement_routes(service):
 
     @routes.patch("/projects/{pid}/measurements", response_model=ObjectResponse)
     def update(pid: str, body: Measurements):
-        return service.update_measurements(repo.get(pid), bound_changes(body.changes), body.size)
+        return service.update_measurements(repo.get(pid), body.changes, body.size)
 
     @routes.patch("/projects/{pid}/measurements/{measurement_id}", response_model=ObjectResponse)
     def update_measurement(pid: str, measurement_id: str, body: Measurements):

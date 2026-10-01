@@ -27,7 +27,7 @@ def test_each_action_validates_its_parameters(tmp_path, prompt, parameters):
 def test_action_rechecks_current_measurement_before_execution(tmp_path):
     client, url, _ = setup_client(tmp_path, proposal())
     action = client.post(f"{url}/assistant/propose", json={"prompt": "edit"}).json()
-    client.patch(f"{url}/measurements", json={"size": "L", "changes": {"sleeve_length": 1}})
+    client.patch(f"{url}/measurements", json={"size": "L", "changes": {"sleeve_length": 33}})
     before = client.get(url).json()
     response = client.post(f"{url}/assistant/execute", json={"proposal_id": action["id"], "confirmed": True})
     assert response.status_code == 400

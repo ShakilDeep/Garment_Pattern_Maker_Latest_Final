@@ -2,11 +2,14 @@
 import copy
 
 from app.application.errors import NotReady
+from app.application.measurement_write import bound_changes
 from app.application.state import transition
+from app.domain.measurement_bounds import keep_source_value
 
 
 def update_measurements(service, p, changes, size):
     service._ensure_active(p)
+    bound_changes(p, changes)
     before = copy.deepcopy(p["measurements"])
     rows = {r["key"]: r for r in p["measurements"]}
     for key, value in changes.items():
@@ -20,6 +23,7 @@ def update_measurements(service, p, changes, size):
         cell = rows[key]["values"].setdefault(
             size, {"raw": None, "formula": None, "cell": "manual", "issue": None}
         )
+        keep_source_value(cell)
         cell.update(value=value, override=True, issue=None)
     p["undo"].append(before)
     p["undo"] = p["undo"][-20:]
