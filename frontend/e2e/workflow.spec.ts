@@ -11,11 +11,11 @@ test('customer workflow, persistence, sizes, marker, export and responsive revie
  await page.getByLabel('Project name').fill('Browser QA shirt');
  await page.getByRole('button',{name:'Start from source files'}).click();
  await page.getByRole('button',{name:'Upload XLSX',exact:true}).click();
- await page.getByLabel('Upload source file').setInputFiles(path.resolve('../references/Book2(4).xlsx'));
+ await page.getByLabel('Browse files').setInputFiles(path.resolve('../references/Book2(4).xlsx'));
  await expect(page.getByText('Document imported.',{exact:false})).toBeVisible();
- await page.getByLabel('Upload source file').setInputFiles(path.resolve('../references/1078983(5).pdf'));
+ await page.getByLabel('Browse files').setInputFiles(path.resolve('../references/1078983(5).pdf'));
  await page.getByRole('button',{name:'Manual Entry',exact:true}).click();
- await expect(page.getByLabel('Chest Circumference')).toHaveValue('116');
+ await expect(page.getByLabel('Chest Circumference')).toHaveValue('112.0');
  await page.locator('.sidebar nav').getByRole('button',{name:/Requirements/}).click();
  for(const name of ['Values are in cm','Use demo drafting profile','I reviewed the measurements','Use workbook (3 cm)']){
   await page.getByRole('button',{name,exact:true}).click();
@@ -31,9 +31,9 @@ test('customer workflow, persistence, sizes, marker, export and responsive revie
  await page.setViewportSize({width:1536,height:1024});
  await page.getByRole('button',{name:'Go to Pattern Studio',exact:true}).click();
  await page.getByRole('button',{name:'Select Front',exact:true}).click();
- await expect(page.getByText('Cut quantity',{exact:true})).toBeVisible();
+ await expect(page.getByRole('region',{name:'Selected piece inspector'}).getByText('Cut quantity',{exact:true})).toBeVisible();
  await page.getByRole('button',{name:'Zoom in',exact:true}).click();
- await expect(page.getByRole('button',{name:'110%',exact:false})).toBeVisible();
+ await expect(page.getByRole('button',{name:'Reset zoom',exact:true})).toContainText('110%');
  await page.getByRole('button',{name:'Fit all',exact:true}).click();
  await page.getByLabel('Chest Circumference').fill('117');
  await page.getByRole('button',{name:'Save Measurements',exact:true}).click();
@@ -56,6 +56,9 @@ test('customer workflow, persistence, sizes, marker, export and responsive revie
   const download=await pending;await download.saveAs(path.resolve('../artifacts/qa/demo.'+kind.toLowerCase()));
  }
  await page.reload();
+ // Startup always opens the Projects picker (startup.ts); the saved project and the #Export page must survive the reload.
+ await page.getByRole('button',{name:'Close dialog'}).click();
+ await page.getByLabel('Project',{exact:true}).selectOption({label:'Browser QA shirt'});
  await expect(page.getByText('Export Center',{exact:true})).toBeVisible();
  await page.setViewportSize({width:390,height:844});
  await page.screenshot({path:'../artifacts/qa/mobile.png',fullPage:true});

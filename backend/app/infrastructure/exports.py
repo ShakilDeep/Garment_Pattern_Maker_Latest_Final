@@ -1,6 +1,6 @@
 import json
 
-from app.application.service import NotReady
+from app.application.errors import NotReady
 from app.application.version_select import select_for_size
 from app.infrastructure.export_pdf import export_pdf
 from app.infrastructure.export_svg import export_svg

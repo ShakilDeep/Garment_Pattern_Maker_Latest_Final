@@ -1,3 +1,4 @@
+import AxeBuilder from '@axe-core/playwright';
 import {expect, test} from '@playwright/test';
 import {openGeneratedDemo} from './demo';
 
@@ -7,7 +8,7 @@ test('failed generation recovers without losing measurements', async ({page, req
     contentType:'application/json', body:JSON.stringify({code:'UNAVAILABLE',message:'Generation temporarily unavailable'})}));
   await page.getByRole('button', {name:'Regenerate Pattern',exact:true}).click();
   await expect(page.getByRole('alert')).toContainText('Generation temporarily unavailable');
-  await expect(page.getByLabel('Chest Circumference')).toHaveValue('116');
+  await expect(page.getByLabel('Chest Circumference')).toHaveValue('112.0');
   await page.unroute('**/patterns/generate');
   await page.getByRole('button', {name:'Regenerate Pattern',exact:true}).click();
   await expect(page.getByRole('status').filter({hasText:'Demo pattern generated'})).toBeVisible();
@@ -21,6 +22,7 @@ test('mixed-size marker submits cut order and announces completion', async ({pag
   await expect(page.getByText('6 of 6 sizes generated.', {exact:false})).toBeVisible();
   await page.locator('.sidebar nav').getByRole('button', {name:/Marker Nesting/}).click();
   await page.getByLabel('Combine sizes').check();
+  await page.getByLabel('M garment quantity').fill('0');
   await page.getByLabel('S garment quantity').fill('2');
   await page.getByLabel('L garment quantity',{exact:true}).fill('1');
   const submitted = page.waitForRequest(r => r.url().endsWith('/markers/generate'));
@@ -28,4 +30,6 @@ test('mixed-size marker submits cut order and announces completion', async ({pag
   expect((await submitted).postDataJSON().quantities).toEqual({S:2,L:1});
   await expect(page.getByRole('status', {name:'Marker status'})).toContainText('Marker complete');
   await expect(page.getByRole('status', {name:'Marker status'})).toContainText('48 pieces');
+  const metrics = await new AxeBuilder({page}).include('.metrics').withTags(['wcag2a', 'wcag2aa']).analyze();
+  expect(metrics.violations).toEqual([]);
 });

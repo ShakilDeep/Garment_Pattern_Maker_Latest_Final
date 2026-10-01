@@ -11,8 +11,10 @@ export async function openGeneratedDemo(page:Page,request:APIRequestContext){
  }
  const generated=await request.post(`${base}/patterns/generate`,{data:{size:'M',allowance:1}});
  expect(generated.ok()).toBeTruthy();
- await page.addInitScript(id=>localStorage.setItem('garment-project',id),project.id);
+ // Startup always opens the Projects picker (startup.ts); close it and choose this run's project by id.
  await page.goto('/#Measurements');
+ await page.getByRole('button',{name:'Close dialog'}).click();
+ await page.getByLabel('Project',{exact:true}).selectOption(project.id);
  await expect(page.getByText('Pattern Pieces (8)',{exact:true})).toBeVisible();
  const notification=page.getByRole('button',{name:'Dismiss notification'});
  if(await notification.isVisible())await notification.click();

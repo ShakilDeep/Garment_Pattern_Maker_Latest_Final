@@ -1,5 +1,5 @@
 import {Send, X} from 'lucide-react';
-import {forwardRef, useEffect, useImperativeHandle, useRef, useState} from 'react';
+import {forwardRef, useCallback, useEffect, useImperativeHandle, useRef, useState} from 'react';
 import {api} from './api';
 
 type Action = {id:string; intent:string; target:string; parameters:Record<string,unknown>;
@@ -12,25 +12,25 @@ const AICopilot = forwardRef<CopilotHandle, Props>(function AICopilot(props, ref
   const [open, setOpen] = useState(false);
   const launch = useRef<HTMLButtonElement>(null);
   useImperativeHandle(ref, () => ({open: () => setOpen(true)}), []);
+  // The panel may have been opened from the header launcher when this component renders no launch button.
+  const closeAndRestoreFocus = useCallback(() => {
+    setOpen(false);
+    setTimeout(() => (launch.current || document.querySelector<HTMLButtonElement>('[data-ask-ai]'))?.focus(), 0);
+  }, []);
   useEffect(() => {
     const key = (event: KeyboardEvent) => {
       if ((event.ctrlKey || event.metaKey) && event.key === '/') {event.preventDefault(); setOpen(true)}
-      else if (event.key === 'Escape' && open) {setOpen(false); setTimeout(() => launch.current?.focus(), 0)}
+      else if (event.key === 'Escape' && open) closeAndRestoreFocus();
     };
     window.addEventListener('keydown', key);
     return () => window.removeEventListener('keydown', key);
-  }, [open]);
+  }, [open, closeAndRestoreFocus]);
   if (!open) {
     if (props.showLaunch === false) return null;
     return <button ref={launch} className="copilot-launch" onClick={() => setOpen(true)}>Ask AI</button>;
   }
   return <AssistantSession key={JSON.stringify([props.projectId, props.size, props.pieceId, props.contextVersion])}
-    {...props} close={() => {
-      setOpen(false);
-      setTimeout(() => {
-        (launch.current || document.querySelector<HTMLButtonElement>('[data-ask-ai]'))?.focus();
-      }, 0);
-    }}/>;
+    {...props} close={closeAndRestoreFocus}/>;
 });
 export default AICopilot;
 
