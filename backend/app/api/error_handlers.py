@@ -6,7 +6,7 @@ from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
 
 from app.application.assistant_contracts import AssistantFailure
-from app.application.service import NotReady
+from app.application.errors import ImportInvalid, NotReady
 
 
 def error(request, status, code, message, details=None):
@@ -25,6 +25,10 @@ def install_error_handlers(app: FastAPI) -> None:
     @app.exception_handler(AssistantFailure)
     async def assistant_failure(request, exc):
         return error(request, exc.status_code, exc.code, str(exc))
+
+    @app.exception_handler(ImportInvalid)
+    async def import_invalid(request, exc):
+        return error(request, 422, exc.code, str(exc))
 
     @app.exception_handler(NotReady)
     async def not_ready(request, exc):

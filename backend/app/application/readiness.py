@@ -1,5 +1,6 @@
 """Operation-specific prerequisites shared by API clients and review screens."""
 from app.application.requirements import requirements
+from app.application.source_readiness import source_blockers
 from app.domain.catalog import SIZES
 
 
@@ -17,6 +18,7 @@ def check_operation(project, target_operation, size='L', width=None, quantities=
         for selected_size in selected:
             items.extend({**i, 'size': selected_size} for i in requirements(project, selected_size)['items'])
     elif target_operation in ('validate', 'marker', 'export'):
+        items.extend(source_blockers(project))
         patterns = {p['size']: p for p in [project.get('pattern'), *project.get('grades', [])] if p}
         selected = list(quantities) if target_operation == 'marker' and quantities else [size]
         for selected_size in selected:

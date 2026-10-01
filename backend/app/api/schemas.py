@@ -1,6 +1,6 @@
 from typing import Annotated, Any, Literal
 
-from pydantic import BaseModel, ConfigDict, Field, RootModel, model_validator
+from pydantic import BaseModel, ConfigDict, Field, RootModel, field_validator, model_validator
 
 Size = Literal["S", "M", "L", "XL", "XXL", "3XL"]
 Quantity = Annotated[int, Field(strict=True, ge=1, le=20)]
@@ -30,6 +30,13 @@ class Generate(RequestModel):
 
 class Grade(RequestModel):
     sizes: list[Size] = Field(min_length=1, max_length=6)
+
+    @field_validator("sizes")
+    @classmethod
+    def distinct_sizes(cls, sizes):
+        if len(set(sizes)) != len(sizes):
+            raise ValueError("Grade sizes must be distinct")
+        return sizes
 
 
 class Nest(RequestModel):
