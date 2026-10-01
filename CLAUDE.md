@@ -60,6 +60,13 @@ The backend (`backend/app/`) uses ports/adapters layering. Dependencies point in
 
 The frontend (`frontend/src/`) is a flat component directory with no router. `useAppController.ts` holds app state and the current `page`. `App.tsx` switches the page panels: Project Dashboard, Measurements, Pattern Studio, Grading, Marker Nesting, Validation Center and Export. `api.ts` is the single fetch wrapper to `/api/v1`. Unsaved measurement drafts go to sessionStorage; the server is authoritative once saved.
 
+## AI providers
+
+All AI work uses **Google Gemini** and **Groq** (decided 2026-10-01), plugged in behind the `ports/` `AIProvider` protocol (selected in `infrastructure/provider_factory.py`).
+- The keys are read from the environment: `GEMINI_API_KEY` and `GROQ_API_KEY`.
+- Locally they live in the repo-root `.env`, which is gitignored and is not copied into the Docker image.
+- Never write key values into `CLAUDE.md`, source, tests, fixtures, logs or commits. Deployments set them as platform secrets.
+
 ## Hard-won rules (from `.cursor/rules/`)
 
 - **Marker downloads** (`api.ts`, `MarkerPanel.tsx`, `nestAndExport.ts`, `state.py`, `artifact_routes.py`):

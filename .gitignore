@@ -20,3 +20,6 @@ references/
 .claude/.*
 .claude/settings.local.json
 Follow/markdown-v5-backup.tar.gz
+
+# Local secrets (AI provider keys); never commit
+.env
