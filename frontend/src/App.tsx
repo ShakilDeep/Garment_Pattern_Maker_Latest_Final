@@ -1,6 +1,6 @@
 import {useRef} from 'react';
 import {LoaderCircle, Undo2, Redo2, AlertCircle, X} from 'lucide-react';
-import type {Pattern} from './types';
+import {selectForSize} from './versionSelect';
 import Shell, {navigation} from './Shell';
 import Measurements from './Measurements';
 import Preview from './Preview';
@@ -16,8 +16,7 @@ import {api} from './api';
 export default function App() {
   const copilot = useRef<CopilotHandle>(null);
   const c = useAppController();
-  const pattern: Pattern | null = c.project?.grades.find((g) => g.size === c.size)
-    || (c.project?.pattern?.size === c.size ? c.project.pattern : null);
+  const pattern = selectForSize(c.project, c.size);
   const showPreview = ['Measurements', 'Pattern Studio', 'Grading'].includes(c.page);
   return <>
     <Shell project={c.project} page={c.page} go={c.go} open={c.setDialog} projects={c.projects}

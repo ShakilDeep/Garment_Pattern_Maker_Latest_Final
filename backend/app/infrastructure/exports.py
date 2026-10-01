@@ -1,6 +1,7 @@
 import json
 
 from app.application.service import NotReady
+from app.application.version_select import select_for_size
 from app.infrastructure.export_pdf import export_pdf
 from app.infrastructure.export_svg import export_svg
 from app.infrastructure.marker_exports import marker_pdf, marker_svg
@@ -10,9 +11,7 @@ __all__ = ["export_artifact", "export_pdf", "export_svg"]
 
 def export_artifact(p, kind, size=None):
     if size is not None and kind not in ("marker-svg", "marker-pdf"):
-        selected = next((g for g in p['grades'] if g['size'] == size), None)
-        if selected is None and p['pattern'] and p['pattern']['size'] == size:
-            selected = p['pattern']
+        selected = select_for_size(p, size)
         if selected is None:
             raise NotReady(f'Generate size {size} before exporting')
         p = {**p, 'pattern': selected}

@@ -3,11 +3,11 @@
 from copy import deepcopy
 
 from app.application.requirements import requirements
+from app.application.version_select import select_for_size
 
 
 def build_context(project, size, piece_id=None):
-    candidates = [project.get("pattern"), *project.get("grades", [])]
-    pattern = next((p for p in candidates if p and p["size"] == size), None)
+    pattern = select_for_size(project, size)
     piece = None
     if piece_id is not None:
         piece = next((p for p in (pattern or {}).get("pieces", []) if p["id"] == piece_id), None)

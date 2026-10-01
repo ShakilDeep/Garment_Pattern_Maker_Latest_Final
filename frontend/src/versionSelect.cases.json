@@ -1,0 +1,41 @@
+{
+  "cases": [
+    {
+      "name": "grades include the base size: the grade wins",
+      "size": "L",
+      "project": {"pattern": {"id": "base-l", "size": "L"},
+                  "grades": [{"id": "grade-m", "size": "M"}, {"id": "grade-l", "size": "L"}]},
+      "expected": "grade-l"
+    },
+    {
+      "name": "no grade for the size: the matching base pattern",
+      "size": "L",
+      "project": {"pattern": {"id": "base-l", "size": "L"}, "grades": [{"id": "grade-m", "size": "M"}]},
+      "expected": "base-l"
+    },
+    {
+      "name": "nothing generated for the size",
+      "size": "XL",
+      "project": {"pattern": {"id": "base-l", "size": "L"}, "grades": [{"id": "grade-m", "size": "M"}]},
+      "expected": null
+    },
+    {
+      "name": "duplicate grade sizes: the first grade wins",
+      "size": "L",
+      "project": {"pattern": null, "grades": [{"id": "grade-l-1", "size": "L"}, {"id": "grade-l-2", "size": "L"}]},
+      "expected": "grade-l-1"
+    },
+    {
+      "name": "missing grades key: the matching base pattern",
+      "size": "L",
+      "project": {"pattern": {"id": "base-l", "size": "L"}},
+      "expected": "base-l"
+    },
+    {
+      "name": "empty project",
+      "size": "L",
+      "project": {"pattern": null, "grades": []},
+      "expected": null
+    }
+  ]
+}
