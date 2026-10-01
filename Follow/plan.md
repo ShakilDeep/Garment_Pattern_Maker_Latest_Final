@@ -139,7 +139,7 @@ Each step is one small change set, usually 3–8 files. Run it as a loop:
 
 | Step | PRD | Goal and files | Pattern | Acceptance test |
 |---|---|---|---|---|
-| P1-01 | PM-01, PM-02 | → `pattern/{ids,point,segment,annotation,piece}.py`: frozen dataclasses; segments are Line, CubicBezier and Arc; points have stable ids and an optional `grade_rule` ref; annotations cover internal lines, notches, drills, grainline, fold, labels and cut quantity (self, pair, fold) | Value objects | Invariants: ids are unique, and the outline is closed |
+| P1-01 ✅ DONE (ba55793) | PM-01, PM-02 | → `pattern/{ids,point,segment,annotation,piece}.py`: frozen dataclasses; segments are Line, CubicBezier and Arc; points have stable ids and an optional `grade_rule` ref; annotations cover internal lines, notches, drills, grainline, fold, labels and cut quantity (self, pair, fold) | Value objects | Invariants: ids are unique, and the outline is closed |
 | P1-02 | PM-01 | → `pattern/serialize.py` (JSON), `pattern/hashing.py` (stable geometry hash) | Memento | JSON round-trip within 0.01 cm; hash is stable |
 | P1-03 | Strangler | → `infrastructure/legacy_pattern_adapter.py`: V5 piece dict ↔ `Piece`. `draft()` output is wrapped so the old dict API stays available for the SVG/PDF/marker code | Adapter | V5 goldens unchanged; adapter round-trip is exact |
 | P1-04 | PM-03 | → `pattern/seam.py` plus `pattern/corners.py`: allowance per edge, with mitre, square, reverse and fold-back corners (Shapely offsets; confirm `pyclipper` vs Shapely `offset_curve` with Context7) | Strategy per corner | Cut outline `is_valid` for all four corner styles |
