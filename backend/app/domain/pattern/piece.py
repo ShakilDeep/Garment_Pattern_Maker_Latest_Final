@@ -2,6 +2,7 @@
 
 Points not on the outline are allowed: they are construction or internal points that grading can still target.
 """
+
 from dataclasses import dataclass, replace
 
 from app.domain.pattern.annotation import DrillHole, InternalLine, Label, Notch

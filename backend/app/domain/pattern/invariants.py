@@ -1,4 +1,5 @@
 """Piece invariants (PM-01): unique ids, a closed simple outline of the piece's own points, anchored marks."""
+
 from typing import TYPE_CHECKING
 
 from app.domain.geom.primitives import Vector2D
@@ -16,8 +17,10 @@ MIN_STRAIGHT_SEGMENTS = 3
 
 def check_field_types(piece: "Piece") -> None:
     required = isinstance(piece.id, PieceId) and isinstance(piece.cut, CutQuantity)
-    optional = all(value is None or isinstance(value, kind)
-                   for value, kind in ((piece.grainline, Grainline), (piece.fold, FoldLine)))
+    optional = all(
+        value is None or isinstance(value, kind)
+        for value, kind in ((piece.grainline, Grainline), (piece.fold, FoldLine))
+    )
     if not (required and optional):
         raise ValueError("A piece needs a PieceId, a CutQuantity and typed grainline/fold values")
 
@@ -31,7 +34,8 @@ def check_ids(piece: "Piece") -> None:
 def check_outline(piece: "Piece") -> None:
     outline = piece.outline
     if len(outline) < MIN_SEGMENTS or (
-            all(isinstance(s, Line) for s in outline) and len(outline) < MIN_STRAIGHT_SEGMENTS):
+        all(isinstance(s, Line) for s in outline) and len(outline) < MIN_STRAIGHT_SEGMENTS
+    ):
         raise ValueError(f"The outline of {piece.name} needs two curved or three straight segments")
     positions = {p.id: p.position for p in piece.points}
     unknown = sorted(str(i) for s in outline for i in (s.start, s.end) if i not in positions)

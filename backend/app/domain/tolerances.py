@@ -8,6 +8,8 @@ ANGLE_DEGREES = 0.1
 CURVE_STEPS = 24
 INTERSECTION = 1e-6
 SVG_DECIMALS = 6
+# Pattern-model precision (1e-6 cm); changing it changes every stored geometry hash.
+MODEL_DECIMALS = 6
 SLEEVE_EASE_CM = 2.0
 SOURCE_DIMENSION_CM = 1.0
 

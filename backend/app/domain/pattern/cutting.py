@@ -1,4 +1,5 @@
 """How a piece is laid on fabric (PM-01): grainline, fold edge and cut quantity (self, pair, fold)."""
+
 from dataclasses import dataclass
 
 from app.domain.geom.primitives import Point2D, Vector2D
@@ -13,8 +14,8 @@ class Grainline:
     end: Point2D
 
     def __post_init__(self) -> None:
-        require_point(self.start, "Grainline start")
-        require_point(self.end, "Grainline end")
+        object.__setattr__(self, "start", require_point(self.start, "Grainline start"))
+        object.__setattr__(self, "end", require_point(self.end, "Grainline end"))
         if Vector2D.between(self.start, self.end).length <= COORDINATE:
             raise ValueError("A grainline needs two distinct points")
 

@@ -1,4 +1,5 @@
 """Stable identifiers for pattern elements (PM-02): editing an element never changes its id."""
+
 import re
 from collections.abc import Iterable
 from dataclasses import dataclass
@@ -13,7 +14,8 @@ class ElementId:
     def __post_init__(self) -> None:
         if not isinstance(self.value, str) or not ID_FORMAT.fullmatch(self.value):
             raise ValueError(
-                f"Invalid identifier {self.value!r}: use 1-64 letters, digits, '_', '.', ':' or '-'")
+                f"Invalid identifier {self.value!r}: use 1-64 letters, digits, '_', '.', ':' or '-'"
+            )
 
     def __str__(self) -> str:
         return self.value

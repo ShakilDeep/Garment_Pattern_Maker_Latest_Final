@@ -1,4 +1,5 @@
 """P1-01 acceptance: ids are unique and the outline is a closed, simple chain of the piece's own points."""
+
 from dataclasses import replace
 
 import pytest
@@ -29,10 +30,17 @@ def _outline():
 
 
 def _piece(**changes):
-    fields = {"id": PieceId("back"), "name": "Back", "points": _points(), "outline": _outline(),
-              "cut": CutQuantity(0, 0, 1), "grainline": Grainline(Point2D(10, 5), Point2D(10, 25)),
-              "fold": FoldLine(SegmentId("s4")), "notches": (Notch(AnnotationId("n1"), SegmentId("s2"), 0.5),),
-              "labels": (Label(AnnotationId("l1"), "Back", Point2D(10, 15)),)}
+    fields = {
+        "id": PieceId("back"),
+        "name": "Back",
+        "points": _points(),
+        "outline": _outline(),
+        "cut": CutQuantity(0, 0, 1),
+        "grainline": Grainline(Point2D(10, 5), Point2D(10, 25)),
+        "fold": FoldLine(SegmentId("s4")),
+        "notches": (Notch(AnnotationId("n1"), SegmentId("s2"), 0.5),),
+        "labels": (Label(AnnotationId("l1"), "Back", Point2D(10, 15)),),
+    }
     return Piece(**{**fields, **changes})
 
 
@@ -49,10 +57,14 @@ def test_list_inputs_are_frozen_into_tuples():
     assert isinstance(piece.outline, tuple) and len(piece.outline) == 4 and hash(piece)
 
 
-@pytest.mark.parametrize("outline", [
-    (_line("s1", "a", "b"), _line("s2", "b", "c"), _line("s3", "c", "a")),
-    (Arc(SegmentId("s1"), P["a"], P["c"], 1.0), Arc(SegmentId("s2"), P["c"], P["a"], 1.0)),
-], ids=["three-lines", "two-arcs"])
+@pytest.mark.parametrize(
+    "outline",
+    [
+        (_line("s1", "a", "b"), _line("s2", "b", "c"), _line("s3", "c", "a")),
+        (Arc(SegmentId("s1"), P["a"], P["c"], 1.0), Arc(SegmentId("s2"), P["c"], P["a"], 1.0)),
+    ],
+    ids=["three-lines", "two-arcs"],
+)
 def test_minimal_outlines_are_accepted(outline):
     assert _piece(outline=outline, fold=None, cut=CutQuantity(1, 0, 0)).outline == outline
 
