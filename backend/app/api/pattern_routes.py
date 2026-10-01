@@ -4,6 +4,7 @@ from fastapi.responses import Response
 from app.api.schemas import Generate, Grade, ListResponse, Nest, ObjectResponse
 from app.application.calibration import calibration_request
 from app.application.marker_compare import compare_markers
+from app.application.pattern_inputs import version_view
 from app.application.readiness import check_operation
 
 
@@ -11,8 +12,8 @@ def pattern_routes(service):
     routes = APIRouter()
     repo = service.repo
 
-    def pattern_version(pid: str, pattern_set_id: str):
-        p = repo.get(pid)
+    def pattern_version(pid: str, pattern_set_id: str, p=None):
+        p = p if p is not None else repo.get(pid)
         for candidate in [p.get("pattern"), *p.get("pattern_history", []), *p.get("grades", [])]:
             if candidate and candidate.get("id") == pattern_set_id:
                 return candidate
@@ -38,8 +39,12 @@ def pattern_routes(service):
 
     @routes.post("/projects/{pid}/patterns/{pattern_set_id}/grade", response_model=ListResponse)
     def grade_version(pid: str, pattern_set_id: str, body: Grade):
-        pattern = pattern_version(pid, pattern_set_id)
-        return service.grade(repo.get(pid), body.sizes, pattern.get("seam_allowance", 0))
+        p = repo.get(pid)
+        source = pattern_version(pid, pattern_set_id, p)
+        view = version_view(p, source)
+        for selected in body.sizes:
+            check_operation(view, "generate", selected)
+        return service.grade(p, body.sizes, source=source)
 
     @routes.post("/projects/{pid}/validate", response_model=ListResponse)
     def validate(pid: str):

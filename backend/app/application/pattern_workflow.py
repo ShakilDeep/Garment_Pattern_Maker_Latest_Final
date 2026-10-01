@@ -2,6 +2,7 @@
 from uuid import uuid4
 
 from app.application.errors import NotReady
+from app.application.pattern_inputs import snapshot_inputs
 from app.application.requirements import requirements
 from app.application.state import ALLOWED, transition
 from app.domain.drafting import draft
@@ -50,6 +51,7 @@ def clear(service, p):
 def generate(service, p, size, allowance=0):
     service._ensure_active(p)
     pattern = build(p, size, allowance)
+    pattern["inputs"] = snapshot_inputs(p)
     if p.get("state") == "NEEDS_INPUT":
         transition(p, "MEASUREMENTS_READY", "requirements_satisfied")
     if p["pattern"]:
@@ -61,18 +63,6 @@ def generate(service, p, size, allowance=0):
     transition(p, "PATTERN_NEEDS_REVIEW", "pattern_generated")
     service.repo.save(p, "pattern_generated", {"id": pattern["id"], "size": size})
     return pattern
-
-
-def grade(service, p, sizes, allowance=None):
-    service._ensure_active(p)
-    seam = allowance if allowance is not None else (p["pattern"]["seam_allowance"] if p["pattern"] else 0)
-    results = [build(p, selected, seam) for selected in sizes]
-    p["grades"] = results
-    p["marker"] = None
-    p["previous_marker"] = None
-    transition(p, "GRADING_READY", "sizes_generated")
-    service.repo.save(p, "sizes_generated", sizes)
-    return results
 
 
 def nest(service, p, size, width, quantity, gap, quantities=None, seed=0, time_budget_ms=250,

@@ -8,9 +8,9 @@ from app.application.measurement_edits import update_measurements as edit_measur
 from app.application.pattern_workflow import build as build_pattern
 from app.application.pattern_workflow import clear as clear_pattern
 from app.application.pattern_workflow import generate as generate_pattern
-from app.application.pattern_workflow import grade as grade_sizes
 from app.application.pattern_workflow import nest as nest_marker
 from app.application.source_import import clear_sources, import_source
+from app.application.versioned_grading import grade as grade_sizes
 
 ROOT = Path(__file__).resolve().parents[3]
 
@@ -80,8 +80,8 @@ class Service:
         """Archive and remove imported sources so the same file can be imported again."""
         return clear_sources(self, p)
 
-    def grade(self, p, sizes, allowance=None):
-        return grade_sizes(self, p, sizes, allowance)
+    def grade(self, p, sizes, allowance=None, source=None):
+        return grade_sizes(self, p, sizes, allowance, source)
 
     def nest(self, p, size, width, quantity, gap, quantities=None, seed=0, time_budget_ms=250, iterations=1, grain_policy="vertical"):
         return nest_marker(self, p, size, width, quantity, gap, quantities, seed, time_budget_ms, iterations, grain_policy)
