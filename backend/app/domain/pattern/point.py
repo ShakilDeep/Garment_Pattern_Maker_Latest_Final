@@ -28,7 +28,7 @@ def require_finite(*values: object, what: str) -> None:
 
 
 def quantize(value: float, decimals: int = MODEL_DECIMALS) -> float:
-    """Canonical number: rounded (1e-6 cm by default), with -0.0 folded into 0.0 so serialized text is stable."""
+    """Canonical number: rounded (1e-6 cm by default); -0.0 folds into 0.0 so serialized text is stable."""
     return round(float(value), decimals) + 0.0
 
 
