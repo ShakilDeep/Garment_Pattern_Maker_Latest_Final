@@ -11,6 +11,7 @@ from app.application.cad.snapshot import Chunks, chunk
 from app.domain.pattern.canonical import canonical_dumps
 from app.domain.pattern.ids import StyleId
 from app.domain.pattern.piece_texts import PieceTexts
+from app.domain.pattern.seam_codec import allowances_from_data, allowances_to_data
 from app.domain.pattern.size_pieces import SizePieces
 from app.domain.pattern.style import Style
 
@@ -24,6 +25,7 @@ class StyleSnapshotter:
             "sizes": list(state.sizes),
             "base_size": state.base_size,
             "layout": layout,
+            "allowances": allowances_to_data(state.allowances),
         }
         texts = (stored.piece_texts() for stored in state.geometry.values())
         return (chunk(canonical_dumps(header)), *(pair for t in texts for pair in zip(t.digests, t.texts)))
@@ -41,4 +43,11 @@ class StyleSnapshotter:
                 geometry[size] = reusable
             else:
                 geometry[size] = SizePieces.from_piece_texts(PieceTexts(tuple(t for _, t in part), digests))
-        return Style(StyleId(header["id"]), header["name"], tuple(header["sizes"]), header["base_size"], geometry)
+        return Style(
+            StyleId(header["id"]),
+            header["name"],
+            tuple(header["sizes"]),
+            header["base_size"],
+            geometry,
+            allowances_from_data(header["allowances"]),
+        )

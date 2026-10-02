@@ -1,7 +1,10 @@
-"""Command history Memento (PM-05): JSON-ready data, integrity-checked when loaded (every chunk's digest)."""
+"""Command history Memento (PM-05): JSON-ready data, integrity-checked when loaded (digests, canonical text)."""
+
+import json
 
 from app.application.cad.history import HISTORY_LIMIT, History, Manifest
 from app.application.cad.snapshot import digest
+from app.domain.pattern.canonical import canonical_dumps
 
 HISTORY_SCHEMA_VERSION = 1
 
@@ -31,7 +34,17 @@ def _blobs(value: object) -> dict[str, str]:
     for key, text in value.items():
         if digest(text) != key:
             raise ValueError(f"Stored chunk {str(key)[:12]} does not match its digest")
+        if not _canonical(text):
+            raise ValueError(f"Stored chunk {str(key)[:12]} is not canonical JSON")
     return value
+
+
+def _canonical(text: str) -> bool:
+    """Chunks are written as canonical JSON; any other text would make restored states non-deterministic."""
+    try:
+        return canonical_dumps(json.loads(text)) == text
+    except ValueError:  # not JSON, or NaN/infinity: either way it is not a canonical chunk
+        return False
 
 
 def history_from_data(data: object) -> History:

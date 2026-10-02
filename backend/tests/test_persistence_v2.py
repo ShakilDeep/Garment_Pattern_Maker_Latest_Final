@@ -25,7 +25,7 @@ def test_v2_migration_adds_measurement_confidence_and_preserves_snapshots(tmp_pa
         assert repo.get('old') == p
         with repo.engine.connect() as c:
             assert 'confidence' in [r[1] for r in c.execute(text('PRAGMA table_info(measurements)'))]
-            assert c.execute(text('SELECT max(version) FROM schema_versions')).scalar() == 3
+            assert c.execute(text('SELECT max(version) FROM schema_versions')).scalar() == 4
         repo.engine.dispose()
 
 

@@ -9,7 +9,7 @@ from dataclasses import dataclass, field
 from types import MappingProxyType
 
 from app.application.cad.snapshot import Chunks
-from app.application.errors import NotReady
+from app.application.errors import HistoryEmpty
 
 HISTORY_LIMIT = 100
 Manifest = tuple[str, ...]
@@ -52,7 +52,7 @@ class History:
 
     def undone(self, current: Chunks) -> tuple["History", Chunks]:
         if not self.undo_steps:
-            raise NotReady("Nothing to undo")
+            raise HistoryEmpty("undo")
         manifest, blobs = self._stored(current)
         target = self.undo_steps[-1]
         history = History(self.undo_steps[:-1], (*self.redo_steps, manifest), blobs)
@@ -60,7 +60,7 @@ class History:
 
     def redone(self, current: Chunks) -> tuple["History", Chunks]:
         if not self.redo_steps:
-            raise NotReady("Nothing to redo")
+            raise HistoryEmpty("redo")
         manifest, blobs = self._stored(current)
         target = self.redo_steps[-1]
         history = History((*self.undo_steps, manifest), self.redo_steps[:-1], blobs)

@@ -8,11 +8,13 @@ from dataclasses import dataclass, field
 
 from app.application.cad.command import Params, require_params
 from app.application.cad.registry import Registry
-from app.domain.pattern.ids import PieceId, PointId
+from app.domain.pattern.ids import PieceId, PointId, SegmentId
 from app.domain.pattern.point import require_finite
+from app.domain.pattern.seam import SeamAllowance
 from app.domain.pattern.style import Style
 
 MOVE_POINT_PARAMS = ("size", "piece_id", "point_id", "x", "y")
+ALLOWANCE_PARAMS = ("piece_id", "default_width", "edge_widths", "corner_styles")
 
 
 @dataclass(frozen=True)
@@ -34,6 +36,36 @@ class MovePoint:
         return state.with_piece(self.size, target.move_point(self.point_id, self.x, self.y))
 
 
+@dataclass(frozen=True)
+class SetSeamAllowance:
+    """Set one piece's seam allowance (PM-03); it applies to every size of the style."""
+
+    piece_id: PieceId
+    allowance: SeamAllowance
+    name: str = field(default="set_seam_allowance", init=False)
+
+    def apply(self, state: Style) -> Style:
+        return state.with_allowance(self.piece_id, self.allowance)
+
+
+def _keyed(value: object, what: str) -> dict:
+    if not isinstance(value, dict):
+        raise ValueError(f"{what} must be an object keyed by id")  # noqa: TRY004 - ValueError maps to 400
+    return value
+
+
+def set_seam_allowance(params: Params) -> SetSeamAllowance:
+    require_params(params, ALLOWANCE_PARAMS)
+    edges = _keyed(params["edge_widths"], "Edge widths")
+    corners = _keyed(params["corner_styles"], "Corner styles")
+    allowance = SeamAllowance(
+        params["default_width"],  # type: ignore[arg-type]
+        tuple((SegmentId(key), width) for key, width in edges.items()),
+        tuple((PointId(key), style) for key, style in corners.items()),
+    )
+    return SetSeamAllowance(PieceId(params["piece_id"]), allowance)  # type: ignore[arg-type]  # checked by PieceId
+
+
 def move_point(params: Params) -> MovePoint:
     require_params(params, MOVE_POINT_PARAMS)
     size, x, y = params["size"], params["x"], params["y"]
@@ -46,4 +78,5 @@ def move_point(params: Params) -> MovePoint:
 def style_registry() -> Registry[Style]:
     registry: Registry[Style] = Registry()
     registry.register("move_point", move_point)
+    registry.register("set_seam_allowance", set_seam_allowance)
     return registry

@@ -1,4 +1,4 @@
-"""Additive SQLite migrations. Legacy snapshots remain recoverable."""
+"""Additive SQLite migrations (v4 adds V6 styles). Legacy snapshots remain recoverable."""
 import json
 
 from sqlalchemy import text
@@ -38,15 +38,27 @@ SCHEMA = {
         gate TEXT, status TEXT, actor TEXT, created_at TEXT, note TEXT, fingerprint TEXT, warnings_json TEXT''',
 }
 
+# v4 (P1-07): V6 styles with their command history; project_id records the V5 project a style came from.
+STYLES = '''id TEXT PRIMARY KEY, name TEXT NOT NULL,
+    project_id TEXT REFERENCES projects(id) ON DELETE SET NULL, version INTEGER NOT NULL,
+    style_json TEXT NOT NULL, history_json TEXT NOT NULL, created_at TEXT NOT NULL, updated_at TEXT NOT NULL'''
+LATEST_VERSION = 4
+
 
 def migrate(connection):
+    version = connection.execute(text('SELECT max(version) FROM schema_versions')).scalar() or 0
+    if version > LATEST_VERSION:
+        raise RuntimeError('Database is newer than this application; upgrade the application')
+    if version < 3:
+        _migrate_to_v3(connection)
+    if version < 4:
+        connection.execute(text(f'CREATE TABLE IF NOT EXISTS styles ({STYLES})'))
+        connection.execute(text('INSERT INTO schema_versions VALUES (4)'))
+
+
+def _migrate_to_v3(connection):
     from app.infrastructure.projections import sync_project
 
-    version = connection.execute(text('SELECT max(version) FROM schema_versions')).scalar() or 0
-    if version > 3:
-        raise RuntimeError('Database is newer than this application; upgrade the application')
-    if version == 3:
-        return
     for name, definition in SCHEMA.items():
         connection.execute(text(f'CREATE TABLE IF NOT EXISTS {name} ({definition})'))
     existing_columns = {row[1] for row in connection.execute(text('PRAGMA table_info(measurements)'))}

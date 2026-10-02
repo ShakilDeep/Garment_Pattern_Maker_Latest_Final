@@ -6,7 +6,7 @@ from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
 
 from app.application.assistant_contracts import AssistantFailure
-from app.application.errors import NotReady, Unprocessable
+from app.application.errors import NotReady, StyleConflict, Unprocessable
 
 
 def error(request, status, code, message, details=None):
@@ -28,13 +28,17 @@ def install_error_handlers(app: FastAPI) -> None:
 
     @app.exception_handler(Unprocessable)
     async def unprocessable(request, exc):
-        return error(request, 422, exc.code, str(exc))
+        return error(request, 422, exc.code, str(exc), exc.details)
 
     @app.exception_handler(NotReady)
     async def not_ready(request, exc):
         text = str(exc)
-        code = 'MEASUREMENT_MISSING' if 'measurement' in text.lower() else 'REQUIREMENTS_NOT_READY'
+        code = exc.code or ('MEASUREMENT_MISSING' if 'measurement' in text.lower() else 'REQUIREMENTS_NOT_READY')
         return error(request, 409, code, text)
+
+    @app.exception_handler(StyleConflict)
+    async def style_conflict(request, exc):
+        return error(request, 409, "STYLE_CONFLICT", str(exc))
 
     @app.exception_handler(ValueError)
     async def invalid(request, exc):

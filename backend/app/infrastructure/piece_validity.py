@@ -1,6 +1,6 @@
 """Shapely checks for PM-03: the stitch outline is a simple shape and its cut outline is valid and complete.
 
-Refused here (ValueError, which the API maps to 400):
+Refused here with a ValueError (400 when called directly; the CAD guard reports it as 422 GEOMETRY_INVALID):
 - stitch outlines with zero area (collinear points, opposite arcs) or that revisit a position, the cases
   doc 108 deferred from P1-01;
 - cut outlines that are invalid or lose allowance: the cut must cover the stitch line and every edge's band
@@ -38,6 +38,11 @@ def _stitch_side(piece: Piece) -> int:
     if not stitch.is_valid:
         raise ValueError(f"{piece.name}: the outline is not a simple outline ({explain_validity(stitch)})")
     return side
+
+
+def check_stitch_outline(piece: Piece) -> None:
+    """Refuse a stitch outline with zero area or that is not simple (crosses or touches itself)."""
+    _stitch_side(piece)
 
 
 def _checked_cut(piece: Piece, allowance: SeamAllowance, side: int) -> tuple[Point2D, ...]:

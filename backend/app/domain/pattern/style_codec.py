@@ -2,12 +2,14 @@
 
 The text equals `canonical_dumps` of the parsed document, so it is deterministic and idempotent. A size that
 was never viewed serializes exactly as it was loaded; a viewed size serializes as its canonical Memento.
+Seam allowances are written only when a piece has one, so documents without them keep their exact text.
 """
 
 import json
 
 from app.domain.pattern.canonical import canonical_dumps
 from app.domain.pattern.ids import StyleId
+from app.domain.pattern.seam_codec import allowances_from_data, allowances_to_data
 from app.domain.pattern.size_pieces import SizePieces
 from app.domain.pattern.style import Style
 
@@ -18,8 +20,9 @@ def style_to_json(style: Style) -> str:
     geometry = ",".join(
         f'{{"pieces":{stored.text()},"size":{canonical_dumps(size)}}}' for size, stored in style.geometry.items()
     )
+    allowances = f'"allowances":{canonical_dumps(allowances_to_data(style.allowances))},' if style.allowances else ""
     return (
-        f'{{"base_size":{canonical_dumps(style.base_size)},"geometry":[{geometry}],'
+        f'{{{allowances}"base_size":{canonical_dumps(style.base_size)},"geometry":[{geometry}],'
         f'"id":{canonical_dumps(str(style.id))},"name":{canonical_dumps(style.name)},'
         f'"schema_version":{STYLE_SCHEMA_VERSION},"sizes":{canonical_dumps(list(style.sizes))}}}'
     )
@@ -60,6 +63,7 @@ def style_from_json(text: str | bytes) -> Style:
             sizes=document["sizes"],
             base_size=document["base_size"],
             geometry=_geometry(document["geometry"]),
+            allowances=allowances_from_data(document.get("allowances", {})),
         )
     except KeyError as exc:
         raise ValueError(f"Invalid style data: missing field {exc.args[0]!r}") from exc
