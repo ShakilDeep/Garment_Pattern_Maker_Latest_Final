@@ -25,6 +25,8 @@ class Project(ProjectSummary):
     marker: Marker | None = None
     previous_marker: Marker | None = None
     audit: list[Record] = Field(default_factory=list)
+    # The CAD undo history (P1-06) stays on the server: it can be megabytes and the UI only sends undo/redo.
+    command_history: Record | None = Field(default=None, exclude=True)
 
 
 class Deleted(OpenModel):

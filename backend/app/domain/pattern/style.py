@@ -83,6 +83,12 @@ class Style:
         self._require_size(size)
         return replace(self, geometry={**self.geometry, size: SizePieces.from_pieces(pieces)})
 
+    def with_piece(self, size: str, piece: Piece) -> "Style":
+        """Replace one piece of one size (same id), keeping every other piece's cached Memento text."""
+        if not self.has_geometry(size):
+            raise ValueError(f"Size {size} has no pieces yet")
+        return replace(self, geometry={**self.geometry, size: self.geometry[size].with_piece(piece)})
+
     def validate_all(self) -> None:
         """Decode every size now, e.g. before trusting an imported style document."""
         for size in self.geometry:
