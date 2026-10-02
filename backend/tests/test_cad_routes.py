@@ -60,3 +60,11 @@ def test_an_invalid_result_is_refused_with_422_and_nothing_is_saved(styled):
     assert response.json()["details"][0]["piece_id"] == summary["piece_ids"][0]
     assert client.get(f"/api/v1/styles/{summary['id']}").json() == before
     assert client.get(_piece_url(summary), params={"size": "L"}).json() == piece
+
+
+def test_draft_tools_run_on_a_piece_over_http(styled):
+    client, summary = styled
+    body = {"command": "offset_edge", "params": {"size": "M", "segment_id": "s0", "distance": 1.5, "line_id": "o1"}}
+    piece = client.post(f"{_piece_url(summary)}/commands", json=body).json()["piece"]
+    assert piece["internal_lines"][-1]["id"] == "o1" and len(piece["internal_lines"][-1]["points"]) == 2
+    assert client.post(f"/api/v1/styles/{summary['id']}/undo").json()["redo_steps"] == 1

@@ -49,6 +49,10 @@ def cad_routes(styles: StyleService):
         detail = piece_detail(record.style, piece_id, _result_size(record, body.params))
         return CommandResult(style=style_summary(record), piece=piece_view(detail))
 
+    @routes.post("/{style_id}/commands", response_model=StyleSummary)
+    def style_command(style_id: str, body: CadCommandRequest):
+        return style_summary(styles.run_style(style_id, body.command, body.params))
+
     @routes.post("/{style_id}/undo", response_model=StyleSummary)
     def undo(style_id: str):
         return style_summary(styles.undo(style_id))

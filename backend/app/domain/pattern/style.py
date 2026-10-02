@@ -66,6 +66,11 @@ class Style:
             raise ValueError(f"Size {size} has no pieces yet")
         return replace(self, geometry={**self.geometry, size: self.geometry[size].with_piece(piece)})
 
+    def with_added_piece(self, piece: Piece) -> "Style":
+        """A new piece, appended in every size that has pieces (the same geometry in each)."""
+        geometry = {size: SizePieces.from_pieces((*self.view(size), piece)) for size in self.geometry}
+        return replace(self, geometry=geometry)
+
     def with_allowance(self, piece_id: PieceId, allowance: SeamAllowance) -> "Style":
         if piece_id not in self.piece_ids:
             raise KeyError(f"Unknown piece {piece_id}")

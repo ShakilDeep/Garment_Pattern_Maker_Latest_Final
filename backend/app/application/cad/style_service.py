@@ -42,6 +42,13 @@ class StyleService:
         self.guard.check(record.style, style)
         return self._saved(record, style, history)
 
+    def run_style(self, style_id: str, command: str, params: Mapping[str, object]) -> StyleRecord:
+        """A style-wide command, such as drafting a new piece."""
+        record = self.store.get(style_id)
+        style, history = self.bus.dispatch(record.style, record.history, command, params)
+        self.guard.check(record.style, style)
+        return self._saved(record, style, history)
+
     def undo(self, style_id: str) -> StyleRecord:
         record = self.store.get(style_id)
         return self._saved(record, *self.bus.undo(record.style, record.history))

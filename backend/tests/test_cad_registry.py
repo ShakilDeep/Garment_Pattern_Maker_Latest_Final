@@ -14,7 +14,7 @@ def test_registered_commands_are_created_by_name():
     )
     moved = command.apply(_style()).view("M")[0].point(PointId("a"))
     assert command.name == "move_point" and (moved.position.x, moved.position.y) == (1, 2)
-    assert style_registry().names == ("move_point", "set_seam_allowance")
+    assert {"move_point", "set_seam_allowance", "add_point", "add_circle"} <= set(style_registry().names)
 
 
 def test_unknown_commands_and_duplicate_names_are_refused():

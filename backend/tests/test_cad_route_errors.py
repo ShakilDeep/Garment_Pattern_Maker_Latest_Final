@@ -45,3 +45,13 @@ def test_a_fresh_style_has_nothing_to_undo_or_redo(styled):  # noqa: F811
     for direction in ("undo", "redo"):
         response = client.post(f"/api/v1/styles/{fresh['id']}/{direction}")
         assert (response.status_code, response.json()["code"]) == (409, f"NOTHING_TO_{direction.upper()}")
+
+
+def test_style_commands_draft_new_pieces_and_refuse_bad_ones(styled):  # noqa: F811
+    client, summary = styled
+    url = f"/api/v1/styles/{summary['id']}/commands"
+    rectangle = {"piece_id": "pocket", "name": "Pocket", "x": 0, "y": 0, "width": 12, "height": 14, "quantity": 1}
+    drafted = client.post(url, json={"command": "add_rectangle", "params": rectangle})
+    assert drafted.status_code == 200 and drafted.json()["piece_ids"][-1] == "pocket"
+    again = client.post(url, json={"command": "add_rectangle", "params": rectangle})
+    assert (again.status_code, again.json()["code"]) == (400, "INPUT_INVALID")
