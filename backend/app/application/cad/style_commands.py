@@ -9,6 +9,7 @@ from dataclasses import dataclass, field
 from app.application.cad.command import Params, require_params
 from app.application.cad.registry import Registry
 from app.application.cad.tools_draft import register_draft_tools
+from app.application.cad.tools_garment import register_garment_tools
 from app.application.cad.tools_modify import register_modify_tools
 from app.domain.pattern.ids import PieceId, PointId, SegmentId
 from app.domain.pattern.point import require_finite
@@ -83,4 +84,5 @@ def style_registry() -> Registry[Style]:
     registry.register("set_seam_allowance", set_seam_allowance)
     register_draft_tools(registry)
     register_modify_tools(registry)
+    register_garment_tools(registry)
     return registry

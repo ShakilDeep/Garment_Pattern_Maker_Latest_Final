@@ -37,7 +37,7 @@ def _vector(transform: Transform2D, vector: Vector2D) -> Vector2D:
     return Vector2D(t.a * vector.x + t.c * vector.y, t.b * vector.x + t.d * vector.y)
 
 
-def _segment(transform: Transform2D, segment: Segment, mirrored: bool) -> Segment:
+def transformed_segment(transform: Transform2D, segment: Segment, mirrored: bool) -> Segment:
     if isinstance(segment, CubicBezier):
         handles = _vector(transform, segment.start_handle), _vector(transform, segment.end_handle)
         return replace(segment, start_handle=handles[0], end_handle=handles[1])
@@ -46,7 +46,7 @@ def _segment(transform: Transform2D, segment: Segment, mirrored: bool) -> Segmen
     return segment
 
 
-def _direction(transform: Transform2D, angle_degrees: float, mirrored: bool) -> float:
+def label_direction(transform: Transform2D, angle_degrees: float, mirrored: bool) -> float:
     """A label's direction: turned by a rotation, reflected about a mirror axis (2φ = atan2(b, a))."""
     turn = degrees(atan2(transform.b, transform.a))
     return turn - angle_degrees if mirrored else angle_degrees + turn
@@ -59,12 +59,12 @@ def transformed(piece: Piece, transform: Transform2D) -> Piece:
     return replace(
         piece,
         points=tuple(replace(p, position=move(p.position)) for p in piece.points),
-        outline=tuple(_segment(transform, s, mirrored) for s in piece.outline),
+        outline=tuple(transformed_segment(transform, s, mirrored) for s in piece.outline),
         internal_lines=tuple(replace(m, points=tuple(map(move, m.points))) for m in piece.internal_lines),
         drills=tuple(replace(m, position=move(m.position)) for m in piece.drills),
         labels=tuple(
             replace(m, position=move(m.position),
-                    rotation_degrees=_direction(transform, m.rotation_degrees, mirrored))
+                    rotation_degrees=label_direction(transform, m.rotation_degrees, mirrored))
             for m in piece.labels
         ),
         grainline=None if grain is None else Grainline(move(grain.start), move(grain.end)),
