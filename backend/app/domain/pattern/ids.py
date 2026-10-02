@@ -41,6 +41,10 @@ class GradeRuleId(ElementId):
     pass
 
 
+class StyleId(ElementId):
+    pass
+
+
 def require_unique(ids: Iterable[object], kind: str) -> None:
     seen: set[str] = set()
     for identifier in ids:

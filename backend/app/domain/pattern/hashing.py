@@ -5,15 +5,15 @@ Equal hashes mean equal after quantization to 1e-6 cm (the model stores quantize
 tolerance"; text is hashed as given (no Unicode normalization).
 """
 
-import json
 from hashlib import sha256
 
+from app.domain.pattern.canonical import canonical_dumps
 from app.domain.pattern.piece import Piece
 from app.domain.pattern.serialize import piece_to_data
 
 
 def canonical_json(piece: Piece) -> str:
-    return json.dumps(piece_to_data(piece), sort_keys=True, separators=(",", ":"), allow_nan=False)
+    return canonical_dumps(piece_to_data(piece))
 
 
 def geometry_hash(piece: Piece) -> str:
