@@ -147,7 +147,7 @@ Each step is one small change set, usually 3–8 files. Run it as a loop:
 | P1-06 ✅ DONE (c18874a) | PM-05 | → `application/cad/{command,bus,history,registry}.py`: `Command.apply(style) → style`, a 100-step history keyed by geometry hash, persisted. ~`commands.py` delegates to the bus (legacy commands registered) | Command + Registry | 100 undos restore identical hashes |
 | P1-07 ✅ DONE (809cf92) | CAD-07 | → `api/cad_routes.py`: `POST /pieces/{id}/commands`, `GET /pieces/{id}` (typed models); → `application/cad/guard.py` validates the result before saving | Chain of Responsibility | An invalid result returns 422 `GEOMETRY_INVALID` and nothing is saved |
 | P1-08 ✅ DONE (9b14bd2) | CAD-01 | → `application/cad/tools_draft/{point,line,curve,shape,construct}.py`: point, line, curve, rectangle, circle, offset, parallel, perpendicular, intersection | Command per tool | One unit test per tool |
-| P1-09 | CAD-02 | → `tools_modify/{transform,split_join,trim_extend,smooth}.py`: move, rotate, mirror, split, join, trim, extend, smooth | Command | Self-intersection is blocked with a message |
+| P1-09 ✅ DONE (eaf815e) | CAD-02 | → `tools_modify/{transform,split_join,trim_extend,smooth}.py`: move, rotate, mirror, split, join, trim, extend, smooth | Command | Self-intersection is blocked with a message |
 | P1-10 | CAD-03 | → `tools_garment/{dart,pleat_tuck,slash_spread,fold}.py` | Command | Dart rotation keeps seam length within 0.01 cm |
 | P1-11 | CAD-04, CAD-05 | → `domain/pattern/measure.py` (distance, curve length, angle, area, perimeter); → `application/cad/walk.py` (walk and true seams, notch while walking); query endpoints | Pure functions | Sleeve cap vs armhole ease matches hand calculation within 0.01 cm |
 
