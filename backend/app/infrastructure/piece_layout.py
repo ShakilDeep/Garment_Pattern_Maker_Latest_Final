@@ -1,10 +1,17 @@
-"""Shared strip layout (cm) so the SVG and DXF exports place every piece at the same offset."""
+"""Shared strip layout (cm) for the SVG and DXF exports; the DXF lays out drawn_pieces() to match the preview."""
 
 STRIP_WIDTH = 160
 MARGIN = 5
 TOP = 12
 PIECE_GAP = 8
 ROW_GAP = 12
+# The Pattern Preview (frontend/src/PatternCanvas.tsx) draws these pieces twice; the DXF export matches it.
+PAIRED_IN_PREVIEW = frozenset({"Sleeve"})
+
+
+def drawn_pieces(pieces: list[dict]) -> list[dict]:
+    """The shapes the preview draws, in order: each paired piece is repeated right after itself."""
+    return [copy for piece in pieces for copy in [piece] * (2 if piece["name"] in PAIRED_IN_PREVIEW else 1)]
 
 
 def strip_layout(pieces: list[dict]) -> tuple[list[tuple[dict, float, float]], float]:

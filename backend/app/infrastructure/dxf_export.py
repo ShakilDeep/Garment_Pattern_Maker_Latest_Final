@@ -1,7 +1,8 @@
 """AutoCAD DXF export: every piece at true 1:1 scale, with $INSUNITS naming the drawing unit.
 
 Each piece is a BLOCK (cut line, sew line, grainline, notches, label) inserted at the same strip offset the SVG
-uses. Model coordinates are cm with y down; DXF is y up, so y is negated (pieces read upright in AutoCAD).
+uses. The drawing shows the same shapes as the app's Pattern Preview: a paired piece (the Sleeve) is one BLOCK
+inserted twice. Model coordinates are cm with y down; DXF is y up, so y is negated (pieces read upright in AutoCAD).
 A 10 cm CALIBRATION square lets the user check scale with DIST.
 """
 from io import StringIO
@@ -10,7 +11,7 @@ import ezdxf
 from ezdxf import units as dxf_units
 
 from app.domain.units import from_cm
-from app.infrastructure.piece_layout import STRIP_WIDTH, TOP, strip_layout
+from app.infrastructure.piece_layout import STRIP_WIDTH, TOP, drawn_pieces, strip_layout
 
 INSUNITS = {"cm": dxf_units.CM, "mm": dxf_units.MM, "inch": dxf_units.IN}
 LAYERS = {"CUT": 7, "SEW": 8, "GRAIN": 3, "NOTCH": 1, "LABEL": 5, "CALIBRATION": 6}
@@ -36,9 +37,10 @@ def export_dxf(pattern: dict, unit: str) -> bytes:
     def at(x: float, y: float) -> tuple[float, float]:
         return from_cm(x, unit), -from_cm(y, unit)
 
-    placed, _ = strip_layout(pattern["pieces"])
+    placed, _ = strip_layout(drawn_pieces(pattern["pieces"]))
     for piece, x, y in placed:
-        _piece_block(doc, piece, pattern["size"], at)
+        if piece["id"] not in doc.blocks:
+            _piece_block(doc, piece, pattern["size"], at)
         msp.add_blockref(piece["id"], at(x, y))
     _calibration_square(msp, at)
     stream = StringIO()
