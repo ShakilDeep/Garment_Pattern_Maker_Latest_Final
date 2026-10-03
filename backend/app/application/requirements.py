@@ -26,7 +26,7 @@ def requirements(project, size="L"):
                     'Drafting rules' if key == 'profile' else 'Source conflicts' if key in ('placket', 'fabric') else 'Review',
                 "source": rows.get(key.removeprefix('measurement:'), {}).get('source', 'Project source files'),
                 "confidence": None,
-                "accepted_units": ['cm'] if key == 'units' or key.startswith('measurement:') else [],
+                "accepted_units": ['cm', 'inch'] if key == 'units' else ['cm'] if key.startswith('measurement:') else [],
                 "question": why,
                 "fallback_policy": 'Explicit demo default available' if key == 'profile' else 'No automatic default',
                 "resolution": project.get('resolution_metadata', {}).get(key),
@@ -37,8 +37,8 @@ def requirements(project, size="L"):
         "units",
         "Workbook units",
         "AVAILABLE" if "units" in answers else "AMBIGUOUS",
-        "The workbook has no explicit unit column. Confirm its numeric values are centimeters.",
-        ["cm"],
+        "The workbook has no explicit unit column. Confirm whether its values are centimeters or inches.",
+        ["cm", "inch"],
     )
     add(
         "profile",

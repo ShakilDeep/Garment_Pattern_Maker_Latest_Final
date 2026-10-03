@@ -22,7 +22,7 @@ export function nestAndExport(ctx: NestCtx) {
         await refresh(project.id);
       }, 'Marker calculated from actual piece areas and quantities.');
     },
-    exportFile: async (kind: string) => {
+    exportFile: async (kind: string, unit?: string) => {
       if (!project) throw new Error('Open a project before downloading.');
       const extension = kind.endsWith('svg') ? 'svg' : kind.endsWith('pdf') ? 'pdf' : kind;
       const markerExport = kind.startsWith('marker');
@@ -33,11 +33,15 @@ export function nestAndExport(ctx: NestCtx) {
         ? `/projects/${project.id}/calibration-request`
         : markerExport
           ? `/projects/${project.id}/exports/${kind}`
-          : `/projects/${project.id}/exports/${kind}?size=${encodeURIComponent(size)}`;
+          : `/projects/${project.id}/exports/${kind}?size=${encodeURIComponent(size)}${dxfUnit(kind, unit)}`;
       const name = kind === 'calibration'
         ? 'production-calibration-request.txt'
         : `1078983_${label}_${markerExport ? 'marker' : 'pattern'}_demo.${extension}`;
       await run(() => download(path, name), 'Download ready.');
     },
   };
+}
+
+function dxfUnit(kind: string, unit?: string) {
+  return kind === 'dxf' && unit ? `&unit=${encodeURIComponent(unit)}` : '';
 }

@@ -4,11 +4,11 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What this is
 
-Garment Pattern Maker V5: a local **demo** app (FastAPI + SQLite backend, React 19 + Vite frontend) that takes a shirt measurement workbook (XLSX) and tech pack (PDF). It drafts an eight-piece shirt pattern, regenerates it for sizes S–3XL, nests a fabric marker, and exports SVG/PDF/JSON. It is not production-certified CAD. Never invent drafting, grading or manufacturing rules that the sources don't supply. Missing inputs must go through the requirements / Missing Information flow and must never be guessed.
+Garment Pattern Maker V5, being extended to V6 (a full apparel CAD suite; plan in `Follow/plan.md`, PRD in `Follow/AI-implemented.pdf`): a local **demo** app (FastAPI + SQLite backend, React 19 + Vite frontend) that takes a shirt measurement workbook (XLSX) and tech pack (PDF). It drafts an eight-piece shirt pattern, regenerates it for sizes S–3XL, nests a fabric marker, and exports SVG/PDF/JSON. It is not production-certified CAD. Never invent drafting, grading or manufacturing rules that the sources don't supply. Missing inputs must go through the requirements / Missing Information flow and must never be guessed.
 
 ## Environment & commands
 
-The Python env is Conda `patter-codex` (Python 3.12), created from `environment.yml`, which installs `-e ./backend[dev]`. Frontend dependencies live in `frontend/` and need Node 20+.
+The Python env is Conda `patter-codex` (Python 3.12), created from `environment.yml`, which installs `-e ./backend[dev]`. Frontend dependencies live in `frontend/` and need Node 22.12+ (Vitest 5 and jest-dom 7 require it).
 
 ```bash
 # Backend tests (from repo root)
@@ -54,8 +54,13 @@ The backend (`backend/app/`) uses ports/adapters layering. Dependencies point in
   - Geometry: `shapely`-based validation and seam allowance.
   - Marker: nesting and search.
   - Exports: `reportlab` for PDF, plus SVG.
-  - `repository.py` and `migrations.py`: SQLite. It keeps a `projects` JSON snapshot table plus additive normalized projection tables (schema v3). Foreign keys are on.
+  - `repository.py` and `migrations.py`: SQLite. It keeps a `projects` JSON snapshot table plus additive normalized projection tables and the V6 `styles` table (schema v4, `LATEST_VERSION` in `migrations.py`). Foreign keys are on.
   - The local offline AI provider.
+- V6 CAD layer (`application/cad/`, `domain/pattern/`): the new typed model, separate from the V5 dict pieces.
+  - `domain/pattern/`: a `Style` holds sizes → lazily decoded `SizePieces` of typed `Piece`s (points, Line/CubicBezier/Arc segments referencing point ids; Bézier handles are offsets from their end point, arcs use a DXF bulge). Coordinates quantize to 1e-6; JSON is canonical (`canonical.py`) and digested.
+  - Every edit is a `Command` built by a `Registry` and run by `CommandBus.dispatch` (`bus.py`), which records a content-addressed `History` (100 steps across undo+redo). Draft tools live in `tools_draft/`, modify tools in `tools_modify/`, wired in `style_commands.py`; geometry stays in pure `domain/pattern/` functions.
+  - `guard.py` re-validates only changed pieces (outline, then Shapely cut outline) and raises `GeometryInvalid` → 422 `GEOMETRY_INVALID`. `StyleRepository` uses optimistic concurrency → 409 `STYLE_CONFLICT`.
+  - Routes: `api/cad_routes.py` under `/api/v1/styles` (create from project, get, piece detail, piece/style commands, undo, redo). V5 project undo/redo also runs through the bus (`legacy_commands.py`).
 - `ports/`: protocols (`AIProvider`, `DocumentClassifier`, `AttributeExtractor`). AI proposals are validated action envelopes that need explicit confirmation before a deterministic service dispatches them. Invalid provider output → `AI_OUTPUT_INVALID` (502); provider failure → `AI_UNAVAILABLE` (503).
 
 The frontend (`frontend/src/`) is a flat component directory with no router. `useAppController.ts` holds app state and the current `page`. `App.tsx` switches the page panels: Project Dashboard, Measurements, Pattern Studio, Grading, Marker Nesting, Validation Center and Export. `api.ts` is the single fetch wrapper to `/api/v1`. Unsaved measurement drafts go to sessionStorage; the server is authoritative once saved.
@@ -77,9 +82,9 @@ All AI work uses **Google Gemini** and **Groq** (decided 2026-10-01), plugged in
   - Use a `<label class="browse-files">` that contains a transparent `<input type="file" class="browse-files-input">` stretched over it (`position:absolute; inset:0; opacity:0`).
   - Never hide the file input off-screen, with `clip`, or with `.sr-only`. Never set `pointer-events:none` on it, and never add a bare native file control.
 
-## Specification pack (`markdown/`)
+## Specification pack (`markdown/`) and V6 plan
 
-`markdown/MASTER.md` (the task table and session log), `AGENTS.md`, `REQUIREMENTS.md` and `docs/01–106` are the governing specs. Update `MASTER.md` at the end of a task.
+`markdown/MASTER.md` (the task table and session log), `AGENTS.md`, `REQUIREMENTS.md` and `markdown/docs/` are the governing specs. Each V6 step (`P1-xx` in `Follow/plan.md`, `T0xx` in MASTER) follows the plan's §0 protocol: RED tests first, the backend and frontend gates above plus `python scripts/check_lines.py`, review, one commit per step, then mark the step ✅ DONE in the plan and COMPLETE (with evidence and a session-log line) in MASTER.
 - Frontend work: read `markdown/UI_REFERENCE_TARGET.md` and `markdown/docs/106_PIXEL_EXACT_UI_REFERENCE.md`, and inspect `references/ui/garment-pattern-maker-v5-ui-reference-1536x1024.png` (REF-004). Reproduce the reference instead of redesigning. The strict REF-004 pixel test is a known open failure (see `artifacts/qa/release-readiness.md`).
 - Task states are only `NOT_STARTED`, `IN_PROGRESS`, `BLOCKED`, `IN_REVIEW`, `COMPLETE` and `DEFERRED`. `COMPLETE` needs the gates in `docs/44_DEFINITION_OF_DONE.md`. Bug fixes need a regression test that fails first.
 - File length: the spec pack allows up to 200 lines, with 230 as a hard ceiling. The user's global standards are stricter (100 lines, enforced by a hook), so apply 100. A few existing files (`domain/geometry.py`, `application/service.py`, `api/main.py`) are already over that limit.

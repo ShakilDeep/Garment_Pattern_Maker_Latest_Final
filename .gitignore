@@ -17,9 +17,11 @@ markdown/
 references/
 .playwright-mcp/
 *.egg-info/
-.claude/.*
-.claude/settings.local.json
-Follow/markdown-v5-backup.tar.gz
+# Local agent/editor config, planning notes and drafts (not shipped)
+.claude/
+.cursor/
+Follow/
+post.md
 
 # Local secrets (AI provider keys); never commit
 .env

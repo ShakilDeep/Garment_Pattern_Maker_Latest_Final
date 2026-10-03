@@ -6,7 +6,7 @@ Local React + FastAPI application built from the 118 Markdown specifications, tw
 
 ### First-time setup
 
-Install [Conda](https://docs.conda.io/projects/conda/en/latest/user-guide/install/) and Node.js 20 or later, then run these commands in PowerShell from the workspace root:
+Install [Conda](https://docs.conda.io/projects/conda/en/latest/user-guide/install/) and Node.js 22.12 or later, then run these commands in PowerShell from the workspace root:
 
 ```powershell
 conda env create -f environment.yml
@@ -65,11 +65,11 @@ Then run `npm run dev` again. Do not reuse a `node_modules` directory installed 
 ## Try the workflow
 
 1. Choose **Open demo project**, or create a project and upload `Book2(4).xlsx` and `1078983(5).pdf`.
-2. Review source measurements and PDF details. Confirm centimeters, the demo profile, measurement review, and the placket source choice under **Requirements**.
+2. Review source measurements and PDF details. Under **Requirements**, confirm whether the workbook values are centimeters or inches, then the demo profile, measurement review and the placket source choice.
 3. Generate a size, inspect the eight pattern pieces, and review seam warnings in **Pattern Studio**.
 4. Generate all six sizes under **Grading**.
-5. Set fabric width, per-size quantities and spacing in **Marker Nesting** and calculate a layout.
-6. Review all checks in **Validation Center**, then download pattern or marker SVG/PDF and traceable JSON from **Export**.
+5. Set fabric width, per-size quantities and spacing in **Marker Nesting**, calculate a layout and download the marker SVG/PDF.
+6. Review all checks in **Validation Center**, then choose cm, mm or inch and download the AutoCAD DXF from **Export**.
 
 Saved projects, measurement overrides, requirement resolutions, generated versions and audit events persist in the local `backend/garment.db` SQLite database. Keep that file to retain your work. Unsaved main-form drafts are held in browser session storage; saved measurements are authoritative on the server.
 
@@ -77,18 +77,33 @@ Saved projects, measurement overrides, requirement resolutions, generated versio
 
 - Local PDF text extraction and XLSX parsing with numeric/formula provenance.
 - Explicit missing-input gates and workbook-versus-tech-pack placket resolution.
-- Manual entry, table edits, unit display conversion and saved-edit undo/redo.
+- Manual entry, table edits, exact cm/inch handling and saved-edit undo/redo.
 - Deterministic demo drafting, uniform seam offset, geometric validation and source comparison warnings.
 - Per-size regeneration for S, M, L, XL, XXL and 3XL; visual overlays.
 - Deterministic fabric placement using cut quantities, calculated utilization, bounds and spacing validation.
 - Project dashboard, six persistent review gates, state-transition history and normalized SQLite projections.
 - Local provider-neutral AI action proposals with explicit confirmation and deterministic service dispatch.
-- SVG/PDF pattern and marker previews plus JSON geometry/project exports.
+- AutoCAD DXF pattern export at 1:1 scale, marker SVG/PDF downloads, and API-only pattern SVG/PDF/JSON exports.
 - Keyboard navigation, pan/zoom/fit, piece selection, source details, activity and mobile review.
+
+## Units and AutoCAD DXF
+
+The pattern model is always centimeters. The workbook has no unit column, so the app never guesses its unit. You confirm it under **Requirements**:
+
+- **Inches:** every workbook value and tolerance is multiplied by exactly 2.54 and stored to 0.000001 cm. The as-read numbers are kept, so switching between cm and inches restores the original values exactly.
+- **Manual edits:** values you enter by hand are stored in cm and are never converted. Edits typed with the Measurements **inch** toggle are converted with the same exact factor.
+
+Export Center downloads the pattern as an AutoCAD DXF (R2010) in cm, mm or inch:
+
+- The file's `$INSUNITS` header names the chosen unit, so AutoCAD imports it at true 1:1 scale.
+- Each piece is a block with these layers: `CUT`, `SEW`, `GRAIN`, `NOTCH` and `LABEL`.
+- A 10 cm square on the `CALIBRATION` layer lets you check the scale. Run `DIST` on it: it should read 100.0000 mm, 10.0000 cm or 3.9370 in.
+
+API: `GET /api/v1/projects/{id}/exports/dxf?size=M&unit=mm`. `unit` accepts `cm` (the default), `mm` or `inch`. Any other value returns 422.
 
 ## Boundaries
 
-This is a working **demo application**, not a production-certified garment CAD system. The supplied files do not establish a calibrated drafting block. Sleeve and collar comparisons can report warnings; physical fit and client manufacturing validation remain necessary. Cloud AI providers, OCR, 3D draping, industry-certified DXF, freehand curve editing, and production certification are outside the implemented local demo.
+This is a working **demo application**, not a production-certified garment CAD system. The supplied files do not establish a calibrated drafting block. Sleeve and collar comparisons can report warnings; physical fit and client manufacturing validation remain necessary. Cloud AI providers, OCR, 3D draping, AAMA/ASTM DXF dialects and DXF import, freehand curve editing, and production certification are outside the implemented local demo. The plain DXF export is checked by reading files back with ezdxf, not certified against any CAD system.
 
 The UI follows the reference composition and colors; generated geometry and actual source values differ from the illustration. Pixel-identical acceptance is not claimed. SQLite retains compatibility snapshots and additive normalized records for sources, measurements, requirements, patterns, validation, markers, exports, reviews, and audit history.
 

@@ -2,6 +2,8 @@ from typing import Annotated, Literal
 
 from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
 
+from app.domain.units import OutputUnit as DxfUnit
+
 Size = Literal["S", "M", "L", "XL", "XXL", "3XL"]
 Quantity = Annotated[int, Field(strict=True, ge=1, le=20)]
 
@@ -60,8 +62,9 @@ class Resolve(RequestModel):
 
 
 class ExportCreate(RequestModel):
-    kind: Literal['svg', 'pdf', 'json', 'marker-svg', 'marker-pdf']
+    kind: Literal['svg', 'pdf', 'json', 'dxf', 'marker-svg', 'marker-pdf']
     size: Size | None = None
+    unit: DxfUnit = 'cm'
 
 
 class JsonImport(RequestModel):

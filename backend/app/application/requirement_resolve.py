@@ -2,11 +2,12 @@
 from datetime import UTC, datetime
 
 from app.application.calibration import CALIBRATION
+from app.application.unit_conversion import apply_workbook_unit
 
 
 def resolve(project, key, value, note='', actor='local user', source_id=None, resolution_type='manual'):
     allowed = {
-        "units": ["cm"],
+        "units": ["cm", "inch"],
         "profile": ["demo_v1"],
         "review": ["confirmed"],
         "placket": ["workbook", "techpack"],
@@ -32,6 +33,5 @@ def resolve(project, key, value, note='', actor='local user', source_id=None, re
         'source_id': source_id, 'resolution_type': resolution_type, 'at': datetime.now(UTC).isoformat()}
     project["resolutions"][key] = value
     if key == "units":
-        for r in project["measurements"]:
-            r["unit"] = "cm"
+        apply_workbook_unit(project, value)
     return project

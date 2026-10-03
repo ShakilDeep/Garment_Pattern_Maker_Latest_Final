@@ -18,7 +18,7 @@ const CATALOG: Omit<PaletteCommand, 'disabled'>[] = [
   {id: 'validation', label: 'Validation Center', page: 'Validation Center', hint: 'Open errors, warnings, and corrective actions'},
   {id: 'grading', label: 'Grading', page: 'Grading', hint: 'Regenerate S–3XL from the size table'},
   {id: 'marker', label: 'Marker Nesting', page: 'Marker Nesting', hint: 'Compare utilization only when a prior marker exists'},
-  {id: 'export', label: 'Export', page: 'Export', hint: 'Download SVG, PDF, or JSON with demo assumptions'},
+  {id: 'export', label: 'Export', page: 'Export', hint: 'AutoCAD DXF download, validation results and calibration request'},
 ];
 
 export function paletteCommands(query: string, state: PaletteState): PaletteCommand[] {

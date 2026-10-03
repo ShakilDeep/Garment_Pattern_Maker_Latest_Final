@@ -5,11 +5,14 @@ from app.application.errors import NotReady
 from app.application.measurement_write import bound_changes
 from app.application.state import transition
 from app.domain.measurement_bounds import keep_source_value
+from app.domain.tolerances import MODEL_DECIMALS
 
 
 def update_measurements(service, p, changes, size):
     service._ensure_active(p)
     bound_changes(p, changes)
+    # Browser inch->cm conversion leaves float noise (45.974000000000004); store on the 1e-6 model grid.
+    changes = {key: round(value, MODEL_DECIMALS) + 0.0 for key, value in changes.items()}
     before = copy.deepcopy(p["measurements"])
     rows = {r["key"]: r for r in p["measurements"]}
     for key, value in changes.items():

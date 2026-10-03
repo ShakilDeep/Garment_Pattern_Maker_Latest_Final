@@ -2844,23 +2844,23 @@
     "seam_allowance": 1.0,
     "schema_version": 1,
     "calibration": "demo",
-    "id": "c4e05222-9cd3-4896-8662-12a6b5371144",
+    "id": "9211bf2b-5750-470f-a79d-99ce546b0d51",
     "sources": [
       {
-        "id": "db8bf45f-e0eb-4882-a9ce-3b1a6935d447",
+        "id": "b96e82f6-520c-41a7-b84d-49d61d88adc5",
         "filename": "Book2(4).xlsx",
         "sha256": "66865dac719d23cab0c2d8a99f0ef638d3ce88ffea644605c65d8c85d5df751d",
         "bytes": 14811,
         "parser_version": "xlsx_v2",
-        "imported_at": "2026-10-01T14:47:31.729984+00:00"
+        "imported_at": "2026-10-02T14:55:18.381040+00:00"
       },
       {
-        "id": "3bf27039-b6ea-46f9-b257-559a42929e9d",
+        "id": "fc4d98ff-d30f-4afb-a344-900b0cfb57ac",
         "filename": "1078983(5).pdf",
         "sha256": "e4049aa9af3d3cf1b6933d7e6c4c7b860fcbb9e67405efcc88dc131db50465e7",
         "bytes": 1061148,
         "parser_version": "local_text_v2",
-        "imported_at": "2026-10-01T14:47:33.242387+00:00"
+        "imported_at": "2026-10-02T14:55:19.870693+00:00"
       }
     ],
     "resolutions": {
@@ -6276,23 +6276,23 @@
       "seam_allowance": 1.0,
       "schema_version": 1,
       "calibration": "demo",
-      "id": "5313f390-a730-41cf-b7e6-2f664d2a7c5c",
+      "id": "1deaff22-0eee-477a-9caf-a706ac87d40c",
       "sources": [
         {
-          "id": "db8bf45f-e0eb-4882-a9ce-3b1a6935d447",
+          "id": "b96e82f6-520c-41a7-b84d-49d61d88adc5",
           "filename": "Book2(4).xlsx",
           "sha256": "66865dac719d23cab0c2d8a99f0ef638d3ce88ffea644605c65d8c85d5df751d",
           "bytes": 14811,
           "parser_version": "xlsx_v2",
-          "imported_at": "2026-10-01T14:47:31.729984+00:00"
+          "imported_at": "2026-10-02T14:55:18.381040+00:00"
         },
         {
-          "id": "3bf27039-b6ea-46f9-b257-559a42929e9d",
+          "id": "fc4d98ff-d30f-4afb-a344-900b0cfb57ac",
           "filename": "1078983(5).pdf",
           "sha256": "e4049aa9af3d3cf1b6933d7e6c4c7b860fcbb9e67405efcc88dc131db50465e7",
           "bytes": 1061148,
           "parser_version": "local_text_v2",
-          "imported_at": "2026-10-01T14:47:33.242387+00:00"
+          "imported_at": "2026-10-02T14:55:19.870693+00:00"
         }
       ],
       "resolutions": {
@@ -9699,23 +9699,23 @@
       "seam_allowance": 1.0,
       "schema_version": 1,
       "calibration": "demo",
-      "id": "c4e05222-9cd3-4896-8662-12a6b5371144",
+      "id": "9211bf2b-5750-470f-a79d-99ce546b0d51",
       "sources": [
         {
-          "id": "db8bf45f-e0eb-4882-a9ce-3b1a6935d447",
+          "id": "b96e82f6-520c-41a7-b84d-49d61d88adc5",
           "filename": "Book2(4).xlsx",
           "sha256": "66865dac719d23cab0c2d8a99f0ef638d3ce88ffea644605c65d8c85d5df751d",
           "bytes": 14811,
           "parser_version": "xlsx_v2",
-          "imported_at": "2026-10-01T14:47:31.729984+00:00"
+          "imported_at": "2026-10-02T14:55:18.381040+00:00"
         },
         {
-          "id": "3bf27039-b6ea-46f9-b257-559a42929e9d",
+          "id": "fc4d98ff-d30f-4afb-a344-900b0cfb57ac",
           "filename": "1078983(5).pdf",
           "sha256": "e4049aa9af3d3cf1b6933d7e6c4c7b860fcbb9e67405efcc88dc131db50465e7",
           "bytes": 1061148,
           "parser_version": "local_text_v2",
-          "imported_at": "2026-10-01T14:47:33.242387+00:00"
+          "imported_at": "2026-10-02T14:55:19.870693+00:00"
         }
       ],
       "resolutions": {
@@ -13114,23 +13114,23 @@
       "seam_allowance": 1.0,
       "schema_version": 1,
       "calibration": "demo",
-      "id": "12a32b53-18b1-4962-b654-f6c5971d3a4f",
+      "id": "092bd904-ae8a-4d29-9242-10c3cf085a43",
       "sources": [
         {
-          "id": "db8bf45f-e0eb-4882-a9ce-3b1a6935d447",
+          "id": "b96e82f6-520c-41a7-b84d-49d61d88adc5",
           "filename": "Book2(4).xlsx",
           "sha256": "66865dac719d23cab0c2d8a99f0ef638d3ce88ffea644605c65d8c85d5df751d",
           "bytes": 14811,
           "parser_version": "xlsx_v2",
-          "imported_at": "2026-10-01T14:47:31.729984+00:00"
+          "imported_at": "2026-10-02T14:55:18.381040+00:00"
         },
         {
-          "id": "3bf27039-b6ea-46f9-b257-559a42929e9d",
+          "id": "fc4d98ff-d30f-4afb-a344-900b0cfb57ac",
           "filename": "1078983(5).pdf",
           "sha256": "e4049aa9af3d3cf1b6933d7e6c4c7b860fcbb9e67405efcc88dc131db50465e7",
           "bytes": 1061148,
           "parser_version": "local_text_v2",
-          "imported_at": "2026-10-01T14:47:33.242387+00:00"
+          "imported_at": "2026-10-02T14:55:19.870693+00:00"
         }
       ],
       "resolutions": {
@@ -16529,23 +16529,23 @@
       "seam_allowance": 1.0,
       "schema_version": 1,
       "calibration": "demo",
-      "id": "b658f0ab-d888-450e-80a9-5e799c348f1e",
+      "id": "f075ed96-54f9-4a86-8736-761316179231",
       "sources": [
         {
-          "id": "db8bf45f-e0eb-4882-a9ce-3b1a6935d447",
+          "id": "b96e82f6-520c-41a7-b84d-49d61d88adc5",
           "filename": "Book2(4).xlsx",
           "sha256": "66865dac719d23cab0c2d8a99f0ef638d3ce88ffea644605c65d8c85d5df751d",
           "bytes": 14811,
           "parser_version": "xlsx_v2",
-          "imported_at": "2026-10-01T14:47:31.729984+00:00"
+          "imported_at": "2026-10-02T14:55:18.381040+00:00"
         },
         {
-          "id": "3bf27039-b6ea-46f9-b257-559a42929e9d",
+          "id": "fc4d98ff-d30f-4afb-a344-900b0cfb57ac",
           "filename": "1078983(5).pdf",
           "sha256": "e4049aa9af3d3cf1b6933d7e6c4c7b860fcbb9e67405efcc88dc131db50465e7",
           "bytes": 1061148,
           "parser_version": "local_text_v2",
-          "imported_at": "2026-10-01T14:47:33.242387+00:00"
+          "imported_at": "2026-10-02T14:55:19.870693+00:00"
         }
       ],
       "resolutions": {
@@ -19944,23 +19944,23 @@
       "seam_allowance": 1.0,
       "schema_version": 1,
       "calibration": "demo",
-      "id": "31ab4dbc-b326-42fb-beae-1fb53d3d6342",
+      "id": "77b9796e-3d94-42db-8bdd-2c132b90349e",
       "sources": [
         {
-          "id": "db8bf45f-e0eb-4882-a9ce-3b1a6935d447",
+          "id": "b96e82f6-520c-41a7-b84d-49d61d88adc5",
           "filename": "Book2(4).xlsx",
           "sha256": "66865dac719d23cab0c2d8a99f0ef638d3ce88ffea644605c65d8c85d5df751d",
           "bytes": 14811,
           "parser_version": "xlsx_v2",
-          "imported_at": "2026-10-01T14:47:31.729984+00:00"
+          "imported_at": "2026-10-02T14:55:18.381040+00:00"
         },
         {
-          "id": "3bf27039-b6ea-46f9-b257-559a42929e9d",
+          "id": "fc4d98ff-d30f-4afb-a344-900b0cfb57ac",
           "filename": "1078983(5).pdf",
           "sha256": "e4049aa9af3d3cf1b6933d7e6c4c7b860fcbb9e67405efcc88dc131db50465e7",
           "bytes": 1061148,
           "parser_version": "local_text_v2",
-          "imported_at": "2026-10-01T14:47:33.242387+00:00"
+          "imported_at": "2026-10-02T14:55:19.870693+00:00"
         }
       ],
       "resolutions": {
@@ -23351,23 +23351,23 @@
       "seam_allowance": 1.0,
       "schema_version": 1,
       "calibration": "demo",
-      "id": "cb6c3937-b4b3-46d6-9918-544de8d8ef76",
+      "id": "e0b19dc4-3e2b-47cc-8b78-179e964b4f37",
       "sources": [
         {
-          "id": "db8bf45f-e0eb-4882-a9ce-3b1a6935d447",
+          "id": "b96e82f6-520c-41a7-b84d-49d61d88adc5",
           "filename": "Book2(4).xlsx",
           "sha256": "66865dac719d23cab0c2d8a99f0ef638d3ce88ffea644605c65d8c85d5df751d",
           "bytes": 14811,
           "parser_version": "xlsx_v2",
-          "imported_at": "2026-10-01T14:47:31.729984+00:00"
+          "imported_at": "2026-10-02T14:55:18.381040+00:00"
         },
         {
-          "id": "3bf27039-b6ea-46f9-b257-559a42929e9d",
+          "id": "fc4d98ff-d30f-4afb-a344-900b0cfb57ac",
           "filename": "1078983(5).pdf",
           "sha256": "e4049aa9af3d3cf1b6933d7e6c4c7b860fcbb9e67405efcc88dc131db50465e7",
           "bytes": 1061148,
           "parser_version": "local_text_v2",
-          "imported_at": "2026-10-01T14:47:33.242387+00:00"
+          "imported_at": "2026-10-02T14:55:19.870693+00:00"
         }
       ],
       "resolutions": {
@@ -23937,7 +23937,7 @@
       {
         "name": "Front",
         "size": "M",
-        "pattern_id": "c4e05222-9cd3-4896-8662-12a6b5371144",
+        "pattern_id": "9211bf2b-5750-470f-a79d-99ce546b0d51",
         "piece_id": "front",
         "instance": 0,
         "points": [
@@ -24268,7 +24268,7 @@
       {
         "name": "Front",
         "size": "M",
-        "pattern_id": "c4e05222-9cd3-4896-8662-12a6b5371144",
+        "pattern_id": "9211bf2b-5750-470f-a79d-99ce546b0d51",
         "piece_id": "front",
         "instance": 1,
         "points": [
@@ -24599,7 +24599,7 @@
       {
         "name": "Back",
         "size": "M",
-        "pattern_id": "c4e05222-9cd3-4896-8662-12a6b5371144",
+        "pattern_id": "9211bf2b-5750-470f-a79d-99ce546b0d51",
         "piece_id": "back",
         "instance": 0,
         "points": [
@@ -25022,7 +25022,7 @@
       {
         "name": "Sleeve",
         "size": "M",
-        "pattern_id": "c4e05222-9cd3-4896-8662-12a6b5371144",
+        "pattern_id": "9211bf2b-5750-470f-a79d-99ce546b0d51",
         "piece_id": "sleeve",
         "instance": 0,
         "points": [
@@ -25245,7 +25245,7 @@
       {
         "name": "Sleeve",
         "size": "M",
-        "pattern_id": "c4e05222-9cd3-4896-8662-12a6b5371144",
+        "pattern_id": "9211bf2b-5750-470f-a79d-99ce546b0d51",
         "piece_id": "sleeve",
         "instance": 1,
         "points": [
@@ -25468,7 +25468,7 @@
       {
         "name": "Sleeve Placket",
         "size": "M",
-        "pattern_id": "c4e05222-9cd3-4896-8662-12a6b5371144",
+        "pattern_id": "9211bf2b-5750-470f-a79d-99ce546b0d51",
         "piece_id": "sleeve_placket",
         "instance": 0,
         "points": [
@@ -25507,7 +25507,7 @@
       {
         "name": "Sleeve Placket",
         "size": "M",
-        "pattern_id": "c4e05222-9cd3-4896-8662-12a6b5371144",
+        "pattern_id": "9211bf2b-5750-470f-a79d-99ce546b0d51",
         "piece_id": "sleeve_placket",
         "instance": 1,
         "points": [
@@ -25546,7 +25546,7 @@
       {
         "name": "Yoke",
         "size": "M",
-        "pattern_id": "c4e05222-9cd3-4896-8662-12a6b5371144",
+        "pattern_id": "9211bf2b-5750-470f-a79d-99ce546b0d51",
         "piece_id": "yoke",
         "instance": 0,
         "points": [
@@ -25769,7 +25769,7 @@
       {
         "name": "Collar",
         "size": "M",
-        "pattern_id": "c4e05222-9cd3-4896-8662-12a6b5371144",
+        "pattern_id": "9211bf2b-5750-470f-a79d-99ce546b0d51",
         "piece_id": "collar",
         "instance": 0,
         "points": [
@@ -25808,7 +25808,7 @@
       {
         "name": "Collar",
         "size": "M",
-        "pattern_id": "c4e05222-9cd3-4896-8662-12a6b5371144",
+        "pattern_id": "9211bf2b-5750-470f-a79d-99ce546b0d51",
         "piece_id": "collar",
         "instance": 1,
         "points": [
@@ -25847,7 +25847,7 @@
       {
         "name": "Cuff",
         "size": "M",
-        "pattern_id": "c4e05222-9cd3-4896-8662-12a6b5371144",
+        "pattern_id": "9211bf2b-5750-470f-a79d-99ce546b0d51",
         "piece_id": "cuff",
         "instance": 0,
         "points": [
@@ -25882,7 +25882,7 @@
       {
         "name": "Cuff",
         "size": "M",
-        "pattern_id": "c4e05222-9cd3-4896-8662-12a6b5371144",
+        "pattern_id": "9211bf2b-5750-470f-a79d-99ce546b0d51",
         "piece_id": "cuff",
         "instance": 1,
         "points": [
@@ -25917,7 +25917,7 @@
       {
         "name": "Cuff",
         "size": "M",
-        "pattern_id": "c4e05222-9cd3-4896-8662-12a6b5371144",
+        "pattern_id": "9211bf2b-5750-470f-a79d-99ce546b0d51",
         "piece_id": "cuff",
         "instance": 2,
         "points": [
@@ -25952,7 +25952,7 @@
       {
         "name": "Cuff",
         "size": "M",
-        "pattern_id": "c4e05222-9cd3-4896-8662-12a6b5371144",
+        "pattern_id": "9211bf2b-5750-470f-a79d-99ce546b0d51",
         "piece_id": "cuff",
         "instance": 3,
         "points": [
@@ -25987,7 +25987,7 @@
       {
         "name": "Collar Stand",
         "size": "M",
-        "pattern_id": "c4e05222-9cd3-4896-8662-12a6b5371144",
+        "pattern_id": "9211bf2b-5750-470f-a79d-99ce546b0d51",
         "piece_id": "collar_stand",
         "instance": 0,
         "points": [
@@ -26022,7 +26022,7 @@
       {
         "name": "Collar Stand",
         "size": "M",
-        "pattern_id": "c4e05222-9cd3-4896-8662-12a6b5371144",
+        "pattern_id": "9211bf2b-5750-470f-a79d-99ce546b0d51",
         "piece_id": "collar_stand",
         "instance": 1,
         "points": [
@@ -26068,9 +26068,9 @@
     "size": "M",
     "strategy": "first_fit_decreasing_v2",
     "grain_policy": "vertical",
-    "pattern_id": "c4e05222-9cd3-4896-8662-12a6b5371144",
+    "pattern_id": "9211bf2b-5750-470f-a79d-99ce546b0d51",
     "pattern_ids": {
-      "M": "c4e05222-9cd3-4896-8662-12a6b5371144"
+      "M": "9211bf2b-5750-470f-a79d-99ce546b0d51"
     },
     "seed": 0,
     "iterations": 3,
@@ -26081,36 +26081,36 @@
   },
   "audit": [
     {
-      "id": "bcaf153e-9147-4455-b1cc-513b079de1bd",
+      "id": "aafd5798-31e4-464b-ab4c-1193dfd9069e",
       "event": "project_created",
-      "at": "2026-10-01T14:47:31.412206+00:00",
+      "at": "2026-10-02T14:55:18.085927+00:00",
       "details": null,
       "actor": "local user",
       "outcome": "success",
-      "correlation_id": "ffae51ea-cb5a-4ebe-b16a-bc606ca3aaee"
+      "correlation_id": "5c40b504-1e08-4405-915e-c7822e471d8c"
     },
     {
-      "id": "6d5e47e1-3624-4462-99d4-8902a9ee5319",
+      "id": "dfd01c32-e16c-4fd3-89ce-c9bd0fef7ba2",
       "event": "document_imported",
-      "at": "2026-10-01T14:47:31.730031+00:00",
+      "at": "2026-10-02T14:55:18.381084+00:00",
       "details": "Book2(4).xlsx",
       "actor": "local user",
       "outcome": "success",
-      "correlation_id": "28ce5bdd-a608-4887-a56f-d6bfa7c4f53b"
+      "correlation_id": "d0e70fa6-e76a-4f11-8668-e529dcfa3c3b"
     },
     {
-      "id": "76d1523c-08e4-47e7-a1e0-466f8d9d9c87",
+      "id": "216f506e-e952-4719-b3c2-92b493220b6d",
       "event": "document_imported",
-      "at": "2026-10-01T14:47:33.242419+00:00",
+      "at": "2026-10-02T14:55:19.870731+00:00",
       "details": "1078983(5).pdf",
       "actor": "local user",
       "outcome": "success",
-      "correlation_id": "1d3f87a8-d930-4758-96f9-c7a2262f1f21"
+      "correlation_id": "d967d4c2-72f0-48d3-9e8a-d307247ec146"
     },
     {
-      "id": "5a3e99ad-63bc-4703-9baa-7229bca0b1ee",
+      "id": "c5723747-a8fa-4ba4-820b-bbf78da018f4",
       "event": "requirement_resolved",
-      "at": "2026-10-01T14:47:33.526625+00:00",
+      "at": "2026-10-02T14:55:20.194755+00:00",
       "details": {
         "key": "units",
         "value": "cm",
@@ -26119,16 +26119,16 @@
         "actor": "local user",
         "source_id": null,
         "resolution_type": "manual",
-        "at": "2026-10-01T14:47:33.526507+00:00"
+        "at": "2026-10-02T14:55:20.194630+00:00"
       },
       "actor": "local user",
       "outcome": "success",
-      "correlation_id": "12196d7a-e137-4f87-be14-ec457e12d441"
+      "correlation_id": "36defbbd-eaa2-44e8-b118-22edcaef5de3"
     },
     {
-      "id": "e384fa15-793d-4421-9605-f18c245859c4",
+      "id": "5110dc8c-3b48-4040-86a6-4141bf6cf0bc",
       "event": "requirement_resolved",
-      "at": "2026-10-01T14:47:33.717162+00:00",
+      "at": "2026-10-02T14:55:20.366149+00:00",
       "details": {
         "key": "profile",
         "value": "demo_v1",
@@ -26137,16 +26137,16 @@
         "actor": "local user",
         "source_id": null,
         "resolution_type": "manual",
-        "at": "2026-10-01T14:47:33.717034+00:00"
+        "at": "2026-10-02T14:55:20.366023+00:00"
       },
       "actor": "local user",
       "outcome": "success",
-      "correlation_id": "7d8ade8f-98b8-43f4-81d6-354b5cd0a739"
+      "correlation_id": "da9b491d-339a-4d8b-99b8-f53469c9903f"
     },
     {
-      "id": "139554dc-0125-49c6-ad1e-4174128ec5c7",
+      "id": "a722e79a-d115-4c06-a1a8-c45d6ccc03ba",
       "event": "requirement_resolved",
-      "at": "2026-10-01T14:47:33.916861+00:00",
+      "at": "2026-10-02T14:55:20.548912+00:00",
       "details": {
         "key": "review",
         "value": "confirmed",
@@ -26155,16 +26155,16 @@
         "actor": "local user",
         "source_id": null,
         "resolution_type": "manual",
-        "at": "2026-10-01T14:47:33.916735+00:00"
+        "at": "2026-10-02T14:55:20.548797+00:00"
       },
       "actor": "local user",
       "outcome": "success",
-      "correlation_id": "b219bcdd-989c-4316-997f-6f941f1c9d7f"
+      "correlation_id": "9b312e36-4bc8-41c7-8384-81f528168735"
     },
     {
-      "id": "2e846a18-aec5-482d-88cb-c3df94b0a1a0",
+      "id": "a22b38d9-6379-4084-b96c-35e7f6b770e3",
       "event": "requirement_resolved",
-      "at": "2026-10-01T14:47:34.116995+00:00",
+      "at": "2026-10-02T14:55:20.733201+00:00",
       "details": {
         "key": "placket",
         "value": "workbook",
@@ -26173,28 +26173,28 @@
         "actor": "local user",
         "source_id": null,
         "resolution_type": "manual",
-        "at": "2026-10-01T14:47:34.116869+00:00"
+        "at": "2026-10-02T14:55:20.733067+00:00"
       },
       "actor": "local user",
       "outcome": "success",
-      "correlation_id": "7f63ddf8-a646-44e0-8b97-16e0d43e251a"
+      "correlation_id": "02f8e894-f2da-4b7f-853c-e5b1a4d6e5cf"
     },
     {
-      "id": "deff78e5-b7a3-4815-b8b9-abef6d0f2825",
+      "id": "156f844a-6d1f-4dee-8767-c5e978f19106",
       "event": "pattern_generated",
-      "at": "2026-10-01T14:47:34.302401+00:00",
+      "at": "2026-10-02T14:55:20.964985+00:00",
       "details": {
-        "id": "13bae31e-9a44-45ed-be12-8532035a702c",
+        "id": "727de266-2566-4aa4-b5db-2a7a215dfb6d",
         "size": "M"
       },
       "actor": "local user",
       "outcome": "success",
-      "correlation_id": "35c1436a-9d26-40fa-9d1d-3b5df40e4cf8"
+      "correlation_id": "63ff536d-2815-45e4-b42a-892c63622dd5"
     },
     {
-      "id": "721c4753-e4e8-42ea-b11e-3ae69955cfae",
+      "id": "bec5f22e-e55e-4268-9883-a0ed0f09568f",
       "event": "measurements_changed",
-      "at": "2026-10-01T14:47:35.308021+00:00",
+      "at": "2026-10-02T14:55:21.976191+00:00",
       "details": {
         "size": "M",
         "changes": {
@@ -26203,12 +26203,12 @@
       },
       "actor": "local user",
       "outcome": "success",
-      "correlation_id": "14d54b70-e57b-44f9-ae6f-d98998b6dd89"
+      "correlation_id": "5fa070a9-f3ab-4784-b346-3b6af1299f13"
     },
     {
-      "id": "cd6edfa2-9faf-4ec8-8a92-bec04b279c1e",
+      "id": "e1ddba5f-1f40-46a1-963a-810be7ae6418",
       "event": "requirement_resolved",
-      "at": "2026-10-01T14:47:35.603744+00:00",
+      "at": "2026-10-02T14:55:22.268559+00:00",
       "details": {
         "key": "review",
         "value": "confirmed",
@@ -26217,28 +26217,28 @@
         "actor": "local user",
         "source_id": null,
         "resolution_type": "manual",
-        "at": "2026-10-01T14:47:35.603610+00:00"
+        "at": "2026-10-02T14:55:22.268421+00:00"
       },
       "actor": "local user",
       "outcome": "success",
-      "correlation_id": "14f8d366-c751-4056-81ab-3565614cb6de"
+      "correlation_id": "614cb6e3-b46b-4341-a52d-07eab1f527be"
     },
     {
-      "id": "2cc1b0ef-3375-4afa-93b0-8f3fba59d9f5",
+      "id": "d85d6ad4-b159-4e37-bffc-97c0eacd9756",
       "event": "pattern_generated",
-      "at": "2026-10-01T14:47:35.790452+00:00",
+      "at": "2026-10-02T14:55:22.557816+00:00",
       "details": {
-        "id": "4b0a8f1d-b663-40b3-bbd2-60c29873265a",
+        "id": "4297267c-81f1-4507-8123-a54d289c54a3",
         "size": "M"
       },
       "actor": "local user",
       "outcome": "success",
-      "correlation_id": "141835d6-5f0d-428b-8e06-fade149dae55"
+      "correlation_id": "d09b7b04-8bf6-406d-9e9c-efb40dc71169"
     },
     {
-      "id": "70999a38-a7ea-4623-8bfd-9ee5ecd03e7e",
+      "id": "857f3bc4-2104-4be0-b84f-937ced5a1c1a",
       "event": "sizes_generated",
-      "at": "2026-10-01T14:47:36.099374+00:00",
+      "at": "2026-10-02T14:55:22.898196+00:00",
       "details": [
         "S",
         "M",
@@ -26249,12 +26249,12 @@
       ],
       "actor": "local user",
       "outcome": "success",
-      "correlation_id": "8f4f3bba-dd30-4418-995d-a9720727f58f"
+      "correlation_id": "de4809c1-ecdc-4ee5-b70a-7a8f4ea66220"
     },
     {
-      "id": "7ceb2a7a-6635-4d0d-9633-fa38d83ed131",
+      "id": "a7257585-6638-4381-af77-806b2593c21d",
       "event": "marker_generated",
-      "at": "2026-10-01T14:47:36.861370+00:00",
+      "at": "2026-10-02T14:55:23.558949+00:00",
       "details": {
         "width": 150.0,
         "gap": 0.5,
@@ -26262,42 +26262,42 @@
           "M": 1
         },
         "pattern_ids": {
-          "M": "c4e05222-9cd3-4896-8662-12a6b5371144"
+          "M": "9211bf2b-5750-470f-a79d-99ce546b0d51"
         }
       },
       "actor": "local user",
       "outcome": "success",
-      "correlation_id": "3b09ced2-7c84-4d44-a480-772c9a2d9224"
+      "correlation_id": "d2504ef8-cd20-442d-a4ad-46c445748201"
     },
     {
-      "id": "530a16fe-1358-436a-b440-f2f032dd5164",
+      "id": "b96fb4ce-ac9d-4673-95cd-9c1d78392661",
       "event": "export_created",
-      "at": "2026-10-01T14:47:37.441727+00:00",
+      "at": "2026-10-02T14:55:24.105487+00:00",
       "details": {
-        "id": "078567c6-6108-4f18-86cc-36078b25c9a8",
+        "id": "56637651-ef98-4554-b2ba-d73358a36110",
         "kind": "svg",
         "size": "M",
         "sha256": "6a8badef2348558033d5d807c7f362e19fce3cf3efd4e93f633632683868b942",
-        "at": "2026-10-01T14:47:37.441680+00:00"
+        "at": "2026-10-02T14:55:24.105441+00:00"
       },
       "actor": "local user",
       "outcome": "success",
-      "correlation_id": "f36649e4-9321-4de3-9d18-0bc32c52a73d"
+      "correlation_id": "366bc871-4472-4917-acc0-0b7551946f58"
     },
     {
-      "id": "f9bf88f1-9a11-4920-bf86-255e73aa8b16",
+      "id": "5c5e2ea3-f3da-4956-a97e-79b56cb5b197",
       "event": "export_created",
-      "at": "2026-10-01T14:47:37.662097+00:00",
+      "at": "2026-10-02T14:55:24.329995+00:00",
       "details": {
-        "id": "fc4144fa-5ddf-4b87-8c38-fb6314822105",
+        "id": "6708dc14-7d1a-460b-b095-7bf9c3d0bd4e",
         "kind": "pdf",
         "size": "M",
-        "sha256": "447b904774cb74f5b96e163e3e1794eba698e02d9854a3318f96ec348ebe7388",
-        "at": "2026-10-01T14:47:37.662054+00:00"
+        "sha256": "abae7d738c95cd8154d18657a6be8a2bb92e899b9cbf25d5a4f9a4c77833a91d",
+        "at": "2026-10-02T14:55:24.329962+00:00"
       },
       "actor": "local user",
       "outcome": "success",
-      "correlation_id": "a561d456-487c-40ec-9a56-f3419f32397a"
+      "correlation_id": "74f1e2bb-cdbc-445a-b424-71d5646c676d"
     }
   ]
 }

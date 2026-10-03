@@ -50,11 +50,6 @@ test('customer workflow, persistence, sizes, marker, export and responsive revie
  await expect(page.getByText(/% utilization$/).first()).toBeVisible();
  await page.screenshot({path:'../artifacts/qa/marker.png',fullPage:true});
  await page.getByRole('button',{name:'Export',exact:false}).first().click();
- for(const kind of ['SVG','PDF','JSON']){
-  const pending=page.waitForEvent('download');
-  await page.getByRole('button',{name:'Download '+kind,exact:true}).click();
-  const download=await pending;await download.saveAs(path.resolve('../artifacts/qa/demo.'+kind.toLowerCase()));
- }
  await page.reload();
  // Startup always opens the Projects picker (startup.ts); the saved project and the #Export page must survive the reload.
  await page.getByRole('button',{name:'Close dialog'}).click();

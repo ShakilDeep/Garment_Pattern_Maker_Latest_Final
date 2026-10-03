@@ -1,7 +1,7 @@
 # Multi-stage image for Render / any container host.
 # Serves FastAPI + built React SPA from one process.
 
-FROM node:20-bookworm AS frontend
+FROM node:22-bookworm AS frontend
 WORKDIR /src/frontend
 COPY frontend/package.json frontend/package-lock.json ./
 RUN npm ci
