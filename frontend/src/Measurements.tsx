@@ -1,6 +1,7 @@
 import {useEffect,useState} from 'react';
 import {Upload,Pencil} from 'lucide-react';
-import {fields,sizeLabels,sizes,type Project} from './types';
+import {projectSizes} from './projectSizes';
+import {fields,sizeLabels,type Project} from './types';
 import {displayedValues,changedValues} from './measurementDraft';
 import SourceDropzone from './SourceDropzone';
 type Props={project:Project;size:string;setSize:(s:string)=>void;save:(changes:Record<string,number>)=>Promise<boolean>;upload:(f:File,replace?:boolean)=>void;open:()=>void;busy:boolean;onDirtyChange?:(dirty:boolean)=>void;clearSources?:()=>Promise<void>|void};
@@ -54,7 +55,7 @@ export default function Measurements({project,size,setSize,save,upload,open,busy
  }
  return <section className="measurement-panel card"><h2>Measurements</h2><p>Upload your measurement file or enter values manually</p><div className="tabs import-tabs"><button className={tab==='upload'?'selected':''} onClick={()=>setTab('upload')}><Upload size={18}/>Upload XLSX</button><button className={tab==='manual'?'selected':''} onClick={()=>setTab('manual')}><Pencil size={18}/>Manual Entry</button></div>
  {tab==='upload'&&<SourceDropzone upload={upload} busy={busy} documents={project.documents} replaceSource={replaceSource} setReplaceSource={setReplaceSource}/>}
- <label className="field-title" htmlFor="size-select">Size</label><div className="size-row"><select id="size-select" value={size} disabled={dirty.length>0} onChange={e=>setSize(e.target.value)}>{sizes.map(s=><option key={s} value={s}>{sizeLabels[s]||s}</option>)}</select><button className="link" onClick={open}>View all sizes</button></div>
+ <label className="field-title" htmlFor="size-select">Size</label><div className="size-row"><select id="size-select" value={size} disabled={dirty.length>0} onChange={e=>setSize(e.target.value)}>{projectSizes(project).map(s=><option key={s} value={s}>{sizeLabels[s]||s}</option>)}</select><button className="link" onClick={open}>View all sizes</button></div>
  <div className="unit-row"><strong>Unit</strong><div className="tabs"><button disabled={dirty.length>0} className={unit==='cm'?'selected fill':''} onClick={()=>setUnit('cm')}>cm</button><button disabled={dirty.length>0} className={unit==='inch'?'selected fill':''} onClick={()=>setUnit('inch')}>inch</button></div></div>
  <div className="measurement-rows">{fields.map(([key,label])=><label className="measurement-row" key={key}><span>{label}</span><input type="number" min="0.1" max="1000" step="0.01" value={values[key]??''} onChange={e=>edit(key,e.target.value)} aria-label={label}/><small>{unit}</small></label>)}</div>
  {error&&<p role="alert" className="warning">{error}</p>}<div className="measurement-actions"><button type="button" onClick={()=>void reset()}>Reset</button><button className="primary" onClick={()=>void submit()} disabled={busy}>Save Measurements</button></div><small className="source-note">{dirty.length?'Unsaved edits are kept on this device. Save or reset before changing units or size.':project.measurements.length?`${project.measurements.length} source measurements · ${project.resolutions.units?'cm confirmed':'confirm units in Requirements'}`:'Enter measurements or import your workbook.'}</small>

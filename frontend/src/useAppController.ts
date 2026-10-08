@@ -4,6 +4,7 @@ import type {Project, ProjectListItem, Requirements} from './types';
 import {listProjects} from './projectList';
 import {guardedGo} from './navigationGuard';
 import {projectMutations} from './projectMutations';
+import {defaultSize, projectSizes} from './projectSizes';
 import {bootProjectsDialog, shouldRestoreLastProject} from './startup';
 import {useHashPage} from './useHashPage';
 import {useKeyboardShortcuts} from './useKeyboardShortcuts';
@@ -30,8 +31,11 @@ export function useAppController() {
     const p = await api<Project>('/projects/' + id);
     setProject(p);
     localStorage.setItem('garment-project', id);
-    setRequirements(await api<Requirements>(`/projects/${id}/requirements?size=${size}`));
-    setProjects(await listProjects());
+    const current = projectSizes(p).includes(size) ? size : defaultSize(p);
+    if (current !== size) setSize(current);
+    setRequirements(await api<Requirements>(`/projects/${id}/requirements?size=${encodeURIComponent(current)}`));
+    // The project list is not part of this project's state: refresh it without delaying the caller.
+    void listProjects().then(setProjects).catch((e) => setError(e.message));
     return p;
   }, [size]);
 
@@ -59,11 +63,12 @@ export function useAppController() {
   }, []);
 
   useEffect(() => {
+    if (project && !projectSizes(project).includes(size)) { setSize(defaultSize(project)); return; }
     if (project) {
-      api<Requirements>(`/projects/${project.id}/requirements?size=${size}`)
+      api<Requirements>(`/projects/${project.id}/requirements?size=${encodeURIComponent(size)}`)
         .then(setRequirements).catch((e) => setError(e.message));
     }
-  }, [size, project?.id]);
+  }, [size, project?.id, project?.chart?.sizes.join('|')]);
 
   const history = useCallback((direction: string) => {
     if (project) void run(async () => {

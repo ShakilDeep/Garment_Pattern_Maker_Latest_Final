@@ -5,7 +5,8 @@ from uuid import uuid4
 
 from app.application.errors import NotReady
 from app.application.state import ALLOWED, transition
-from app.infrastructure.parsers import parse_pdf, parse_xlsx
+from app.infrastructure.chart_parser import parse_chart
+from app.infrastructure.parsers import parse_pdf
 
 
 def import_source(service, p, filename, data, replace=False):
@@ -21,8 +22,9 @@ def import_source(service, p, filename, data, replace=False):
         if p["measurements"]:
             p.setdefault("measurement_versions", []).append({
                 "documents": list(p.get("documents", [])), "measurements": p["measurements"],
-                "replaced_at": replacement_at})
-        p["measurements"] = parse_xlsx(data, filename)
+                "chart": p.get("chart"), "replaced_at": replacement_at})
+        chart = parse_chart(data, filename)
+        p["measurements"], p["chart"] = chart.measurements, chart.to_project()
     elif filename.lower().endswith(".pdf"):
         if p["techpack"] and not replace:
             raise NotReady("This project already has a tech pack. Create a new project to compare another source.")
@@ -53,11 +55,13 @@ def clear_sources(service, p):
         p.setdefault("measurement_versions", []).append({
             "documents": list(p.get("documents", [])),
             "measurements": list(p.get("measurements", [])),
+            "chart": p.get("chart"),
             "replaced_at": replaced_at,
         })
     if p.get("techpack"):
         p.setdefault("techpack_versions", []).append(p["techpack"])
     p["measurements"] = []
+    p["chart"] = None
     p["documents"] = []
     p["techpack"] = None
     p["resolutions"] = {}

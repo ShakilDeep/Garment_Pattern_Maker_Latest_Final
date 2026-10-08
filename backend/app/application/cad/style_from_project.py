@@ -1,6 +1,6 @@
 """A V6 style from a V5 project's current pattern and its grades (Strangler Fig, via the P1-03 adapter).
 
-Nothing is invented: the size range is V5's catalog range, and sizes the project has not graded stay empty.
+Nothing is invented: the size range is the project's chart, and sizes the project has not graded stay empty.
 Every piece gets the pattern's own uniform seam allowance with mitred corners. V5 cuts with Shapely's mitre
 buffer, whose default mitre limit (5) clips very sharp corners; V6 mitres run to the meeting point, so a cut
 can differ from V5's `cut_points` at acute corners. Only grades drafted from the current pattern
@@ -12,7 +12,7 @@ from dataclasses import replace
 from uuid import uuid4
 
 from app.application.errors import NotReady
-from app.domain.catalog import SIZES
+from app.application.project_sizes import project_sizes
 from app.domain.pattern.ids import StyleId
 from app.domain.pattern.seam import SeamAllowance
 from app.domain.pattern.size_pieces import SizePieces
@@ -40,10 +40,10 @@ def style_from_project(project: dict) -> Style:
     base = project["pattern"]
     geometry = {
         size: SizePieces.from_pieces(legacy.piece for legacy in map(piece_from_v5, patterns[size]["pieces"]))
-        for size in SIZES
+        for size in project_sizes(project)
         if size in patterns
     }
     allowance = SeamAllowance(base.get("seam_allowance", 0))
     style_id = StyleId(f"style-{uuid4().hex[:STYLE_ID_HEX]}")
-    style = Style(style_id, project["name"], SIZES, base["size"], geometry)
+    style = Style(style_id, project["name"], project_sizes(project), base["size"], geometry)
     return replace(style, allowances={piece: allowance for piece in style.piece_ids})

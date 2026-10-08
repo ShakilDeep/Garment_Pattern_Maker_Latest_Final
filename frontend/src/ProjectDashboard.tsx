@@ -1,5 +1,6 @@
 import {CheckCircle2, Circle, Trash2} from 'lucide-react';
 import {useState} from 'react';
+import {projectSizes} from './projectSizes';
 import type {Project, Requirements} from './types';
 
 type ListItem = {id: string; name: string; archived?: boolean};
@@ -27,7 +28,7 @@ export default function ProjectDashboard({
     ['Files imported', p.documents.length > 0, `${p.documents.length} source file${p.documents.length === 1 ? '' : 's'}`, 'Measurements'],
     ['Measurements reviewed', Boolean(p.resolutions.review), `${p.measurements.length} measurement rows`, 'Requirements'],
     ['Pattern generated', Boolean(p.pattern && !p.pattern.stale), p.pattern ? `${p.pattern.pieces.length} pieces · ${p.pattern.size}` : 'Waiting', 'Generate Pattern'],
-    ['Grading validated', p.grades.length === 6, `${p.grades.length} of 6 sizes`, 'Grading'],
+    ['Grading validated', p.grades.length === projectSizes(p).length, `${p.grades.length} of ${projectSizes(p).length} sizes`, 'Grading'],
     ['Marker optimized', Boolean(p.marker), p.marker ? `${p.marker.utilization.toFixed(1)}% utilization` : 'Waiting', 'Marker Nesting'],
     ['Export ready', ['EXPORT_READY', 'DEMO_COMPLETE'].includes(p.state), p.state.replaceAll('_', ' '), 'Export'],
   ];
@@ -77,7 +78,7 @@ export default function ProjectDashboard({
         <h3>Project insight</h3>
         <dl>
           <div><dt>Fabric</dt><dd>{p.techpack?.fabric || 'Not extracted'}</dd></div>
-          <div><dt>Detected sizes</dt><dd>{p.measurements.length ? 'S, M, L, XL, XXL, 3XL' : 'None'}</dd></div>
+          <div><dt>Detected sizes</dt><dd>{p.measurements.length ? projectSizes(p).join(', ') : 'None'}</dd></div>
           <div><dt>Drafting profile</dt><dd>{p.resolutions.profile || 'Unresolved'}</dd></div>
           <div><dt>Output trust</dt><dd>Demo; production calibration required</dd></div>
         </dl>

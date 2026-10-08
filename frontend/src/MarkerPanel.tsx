@@ -1,5 +1,6 @@
 import {useEffect, useState} from 'react';
-import {sizes, type Project} from './types';
+import {projectSizes} from './projectSizes';
+import type {Project} from './types';
 import {api} from './api';
 
 type Props = {
@@ -26,6 +27,7 @@ export default function MarkerPanel({project: p, size, setSize, busy, nest, down
       .catch(() => {if (live) setCompare(null)});
     return () => {live = false};
   }, [p.id, p.marker, p.previous_marker]);
+  const sizes = projectSizes(p);
   const generated = [p.pattern, ...p.grades].filter(g => g && !g.stale).map(g => g!.size);
   const quantities = Object.fromEntries(sizes.filter(s => generated.includes(s) && Number(counts[s]) > 0)
     .map(s => [s, Number(counts[s])]));

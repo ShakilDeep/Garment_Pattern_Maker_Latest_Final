@@ -6,6 +6,15 @@ from app.application.errors import NotReady
 INPUT_KEYS = ("measurements", "resolutions", "techpack")
 
 
+def drafting_values(p, size):
+    """Size values the drafting engine may read: never unmapped rows, whose key is only a source code."""
+    return {
+        row["key"]: row["values"][size]["value"]
+        for row in p["measurements"]
+        if row.get("mapping_status") != "unmapped" and row["values"].get(size, {}).get("value") is not None
+    }
+
+
 def snapshot_inputs(p):
     """Parameter object persisted on a generated version: everything build() reads besides the size."""
     return {key: deepcopy(p.get(key)) for key in INPUT_KEYS}

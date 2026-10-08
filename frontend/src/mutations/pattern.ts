@@ -1,7 +1,6 @@
 import {api} from '../api';
+import {projectSizes} from '../projectSizes';
 import type {MutationContext} from './context';
-
-const ALL_SIZES = ['S', 'M', 'L', 'XL', 'XXL', '3XL'];
 
 /** Generate, grade and clear the pattern for the current project. */
 export function patternMutations(ctx: MutationContext) {
@@ -18,10 +17,11 @@ export function patternMutations(ctx: MutationContext) {
     },
     grade: async () => {
       if (!project) return;
+      const sizes = projectSizes(project);
       await run(async () => {
-        await api(`/projects/${project.id}/grade`, 'POST', {sizes: ALL_SIZES});
+        await api(`/projects/${project.id}/grade`, 'POST', {sizes});
         await refresh(project.id);
-      }, 'All six sizes generated from source measurements.');
+      }, `All ${sizes.length} sizes generated from source measurements.`);
     },
     clearPattern: async () => {
       if (!project) return;

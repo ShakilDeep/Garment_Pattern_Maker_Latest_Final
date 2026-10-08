@@ -8,6 +8,7 @@ from app.api.import_contract import check_import_contract
 from app.api.models.project import GeometryImport
 from app.api.schemas import DxfUnit, ExportCreate, JsonImport, Size
 from app.application.geometry_import import persist_import
+from app.application.project_sizes import require_sizes
 from app.application.state import transition
 from app.infrastructure.exports import export_artifact
 from app.infrastructure.import_geometry import assert_importable, require_project
@@ -25,6 +26,7 @@ def artifact_routes(service):
     repo = service.repo
 
     def response(project, kind, size=None, unit='cm'):
+        require_sizes(project, [size] if size else [])
         data, mime = export_artifact(project, kind, size=size, unit=unit)
         export_size = size or (project.get('pattern') or {}).get('size') or (project.get('marker') or {}).get('size') or 'M'
         extension = {'marker-svg': 'svg', 'marker-pdf': 'pdf'}.get(kind, kind)

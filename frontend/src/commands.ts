@@ -16,7 +16,7 @@ const CATALOG: Omit<PaletteCommand, 'disabled'>[] = [
   {id: 'generate', label: 'Generate Pattern', page: 'Generate Pattern', hint: 'Create the current size from confirmed sources'},
   {id: 'studio', label: 'Pattern Studio', page: 'Pattern Studio', hint: 'Inspect pieces, notches, and CAD commands', shortcut: 'F'},
   {id: 'validation', label: 'Validation Center', page: 'Validation Center', hint: 'Open errors, warnings, and corrective actions'},
-  {id: 'grading', label: 'Grading', page: 'Grading', hint: 'Regenerate S–3XL from the size table'},
+  {id: 'grading', label: 'Grading', page: 'Grading', hint: 'Regenerate every size in the chart'},
   {id: 'marker', label: 'Marker Nesting', page: 'Marker Nesting', hint: 'Compare utilization only when a prior marker exists'},
   {id: 'export', label: 'Export', page: 'Export', hint: 'AutoCAD DXF download, validation results and calibration request'},
 ];

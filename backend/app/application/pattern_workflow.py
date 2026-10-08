@@ -2,7 +2,7 @@
 from uuid import uuid4
 
 from app.application.errors import NotReady
-from app.application.pattern_inputs import snapshot_inputs
+from app.application.pattern_inputs import drafting_values, snapshot_inputs
 from app.application.requirements import requirements
 from app.application.state import ALLOWED, transition
 from app.domain.drafting import draft
@@ -14,11 +14,7 @@ def build(p, size, allowance=0):
     check = requirements(p, size)
     if not check["ready"]:
         raise NotReady("Resolve required inputs: " + ", ".join(i["name"] for i in check["blockers"]))
-    values = {
-        r["key"]: r["values"][size]["value"]
-        for r in p["measurements"]
-        if r["values"].get(size, {}).get("value") is not None
-    }
+    values = drafting_values(p, size)
     if p["resolutions"].get("placket") == "techpack":
         values["front_placket_width"] = p["techpack"]["placket_cm"]
     pattern = draft(values, size, p["resolutions"].get("profile", "demo_v1"))

@@ -10,10 +10,12 @@ from app.application.assistant_context import build_context
 from app.application.assistant_contracts import ActionEnvelope, AssistantFailure, ProviderProposal
 from app.application.commands import execute as execute_command
 from app.application.mapping_acceptance import apply as accept_mapping
+from app.application.project_sizes import project_sizes, require_sizes
 from app.application.service import NotReady
 
 
 def propose(service, project, provider, prompt, size, piece_id=None):
+    require_sizes(project, [size])
     context = build_context(project, size, piece_id)
     try:
         raw = provider.propose(prompt, size, context=context)
@@ -24,6 +26,8 @@ def propose(service, project, provider, prompt, size, piece_id=None):
         raw = ProviderProposal.model_validate(raw).model_dump()
     except ValidationError:
         raise AssistantFailure() from None
+    if raw["parameters"].get("size", project_sizes(project)[0]) not in project_sizes(project):
+        raise AssistantFailure()
     action = ActionEnvelope.model_validate(
         {
             **raw,

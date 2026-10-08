@@ -43,3 +43,17 @@ describe('project mutations composition', () => {
     expect(ctx.run).not.toHaveBeenCalled();
   });
 });
+
+describe('grading', () => {
+  it('posts every size of the project chart', async () => {
+    const project = {id: 'p1', chart: {sizes: ['4', '4½', '5'], base_size: '4', unit_hint: null}} as never;
+    const run = vi.fn(async (task: () => Promise<unknown>) => { await task(); return true; });
+    const fetchMock = vi.fn(async () => new Response('[]', {status: 200, headers: {'content-type': 'application/json'}}));
+    vi.stubGlobal('fetch', fetchMock);
+    await patternMutations(context({project, run})).grade();
+    expect(JSON.parse(String((fetchMock.mock.calls[0] as unknown as [string, RequestInit])[1].body)))
+      .toEqual({sizes: ['4', '4½', '5']});
+    expect(run).toHaveBeenCalledWith(expect.any(Function), 'All 3 sizes generated from source measurements.');
+    vi.unstubAllGlobals();
+  });
+});

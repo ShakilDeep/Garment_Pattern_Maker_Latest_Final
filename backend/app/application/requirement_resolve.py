@@ -11,6 +11,7 @@ def resolve(project, key, value, note='', actor='local user', source_id=None, re
         "profile": ["demo_v1"],
         "review": ["confirmed"],
         "placket": ["workbook", "techpack"],
+        "base_size": list((project.get("chart") or {}).get("sizes", [])),
     }
     if key.startswith('calibration:') and key.removeprefix('calibration:') in CALIBRATION:
         if resolution_type != 'source' or source_id is None or not note.strip() or not actor.strip():

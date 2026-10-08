@@ -4,7 +4,7 @@ import MarkerPanel from './MarkerPanel';
 import ReviewPanel from './ReviewPanel';
 import {CheckCircle2,AlertTriangle,ArrowRight,RefreshCw} from 'lucide-react';
 import type {Project,Requirements} from './types';
-import {sizes} from './types';
+import {projectSizes} from './projectSizes';
 import SourceReview from './SourceReview';
 import ValidationCenter from './ValidationCenter';
 
@@ -46,8 +46,8 @@ export default function Workflow({page,project:p,requirements:r,resolve,generate
  if(page==='Grading')return <section className="workflow card">
   <div className="section-heading"><div><h2>Grading</h2><p>Regenerate each size from its own workbook values.</p></div>
   <button className="primary" disabled={busy||!r?.ready} onClick={grade}><RefreshCw size={16}/>Generate all sizes</button></div>
-  <div className="grade-sizes">{sizes.map(s=><button key={s} className={size===s?'primary':''} onClick={()=>setSize(s)}>{s}<small>{p.grades.some(g=>g.size===s)?'Generated':'Not generated'}</small></button>)}</div>
-  <p>{p.grades.length} of 6 sizes generated. Source values remain authoritative; no extrapolation beyond 3XL.</p>
+  <div className="grade-sizes">{projectSizes(p).map(s=><button key={s} className={size===s?'primary':''} onClick={()=>setSize(s)}>{s}<small>{p.grades.some(g=>g.size===s)?'Generated':'Not generated'}</small></button>)}</div>
+  <p>{p.grades.length} of {projectSizes(p).length} sizes generated. Source values remain authoritative; no extrapolation beyond {projectSizes(p).at(-1)}.</p>
   <button onClick={()=>open('measurements')}>Compare size measurements</button>
  </section>;
  return null;

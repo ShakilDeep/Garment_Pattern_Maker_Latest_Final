@@ -19,6 +19,7 @@ class Project(ProjectSummary):
     documents: list[Document] = Field(default_factory=list)
     resolutions: Record = Field(default_factory=dict)
     techpack: Record | None = None
+    chart: Record | None = None
     pattern: Pattern | None = None
     pattern_history: list[Record] = Field(default_factory=list)
     grades: list[Pattern] = Field(default_factory=list)

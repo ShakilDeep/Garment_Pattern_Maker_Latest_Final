@@ -2,9 +2,11 @@ from typing import Annotated, Literal
 
 from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
 
+from app.application.project_sizes import SizeLabel
 from app.domain.units import OutputUnit as DxfUnit
 
-Size = Literal["S", "M", "L", "XL", "XXL", "3XL"]
+Size = SizeLabel  # checked against the project's chart by the application (422 SIZE_UNKNOWN)
+MAX_SIZES = 30
 Quantity = Annotated[int, Field(strict=True, ge=1, le=20)]
 
 
@@ -23,7 +25,7 @@ class Generate(RequestModel):
 
 
 class Grade(RequestModel):
-    sizes: list[Size] = Field(min_length=1, max_length=6)
+    sizes: list[Size] = Field(min_length=1, max_length=MAX_SIZES)
 
     @field_validator("sizes")
     @classmethod
@@ -38,7 +40,7 @@ class Nest(RequestModel):
     quantity: Quantity = 1
     gap: float = Field(default=0.5, ge=0.1, le=5)
     size: Size = "L"
-    quantities: dict[Size, Quantity] | None = Field(default=None, min_length=1, max_length=6)
+    quantities: dict[Size, Quantity] | None = Field(default=None, min_length=1, max_length=MAX_SIZES)
     seed: int = Field(default=0, ge=0, le=2**31 - 1)
     time_budget_ms: int = Field(default=250, ge=1, le=10_000)
     iterations: int = Field(default=1, ge=1, le=10_000)

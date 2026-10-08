@@ -9,6 +9,7 @@ from app.application.pattern_workflow import build as build_pattern
 from app.application.pattern_workflow import clear as clear_pattern
 from app.application.pattern_workflow import generate as generate_pattern
 from app.application.pattern_workflow import nest as nest_marker
+from app.application.project_sizes import require_sizes
 from app.application.source_import import clear_sources, import_source
 from app.application.versioned_grading import grade as grade_sizes
 
@@ -62,6 +63,7 @@ class Service:
         p["previous_marker"] = None
 
     def update_measurements(self, p, changes, size):
+        require_sizes(p, [size])
         return edit_measurements(self, p, changes, size)
 
     def history(self, p, direction):
@@ -71,6 +73,7 @@ class Service:
         return build_pattern(p, size, allowance)
 
     def generate(self, p, size, allowance=0):
+        require_sizes(p, [size])
         return generate_pattern(self, p, size, allowance)
 
     def clear_pattern(self, p):
@@ -81,7 +84,9 @@ class Service:
         return clear_sources(self, p)
 
     def grade(self, p, sizes, allowance=None, source=None):
+        require_sizes(p, sizes)
         return grade_sizes(self, p, sizes, allowance, source)
 
     def nest(self, p, size, width, quantity, gap, quantities=None, seed=0, time_budget_ms=250, iterations=1, grain_policy="vertical"):
+        require_sizes(p, [size, *(quantities or {})])
         return nest_marker(self, p, size, width, quantity, gap, quantities, seed, time_budget_ms, iterations, grain_policy)

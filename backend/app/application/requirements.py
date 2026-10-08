@@ -1,4 +1,5 @@
 from app.application.calibration import calibration_requirements
+from app.application.chart_requirements import chart_items
 from app.application.requirement_resolve import resolve
 from app.application.source_readiness import source_blockers
 from app.domain.catalog import REQUIRED
@@ -89,6 +90,7 @@ def requirements(project, size="L"):
             )
     items.extend(calibration_requirements(project))
     items.extend(source_blockers(project))
+    items.extend(chart_items(project))
     return {
         "ready": not any(i["blocking"] and i["status"] != "AVAILABLE" for i in items),
         "items": items,

@@ -1,11 +1,8 @@
 """Parameter schemas and application-owned assistant dispatch policy."""
-from typing import Literal
-
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
+from app.application.project_sizes import SizeLabel as Size
 from app.domain.catalog import MAPPING
-
-Size = Literal["S", "M", "L", "XL", "XXL", "3XL"]
 
 
 class StrictModel(BaseModel):
