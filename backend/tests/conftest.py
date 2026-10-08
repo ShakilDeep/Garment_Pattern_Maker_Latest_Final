@@ -42,3 +42,19 @@ def import_mutated(exported):
         return client.post(f"{url}/exports/import", content=json.dumps(body),
                            headers={"content-type": "application/json"})
     return post
+
+
+REFERENCE_PATTERNS = Path(__file__).resolve().parents[2] / "fixtures" / "reference_patterns"
+
+
+@pytest.fixture(scope="session")
+def pds_bytes():
+    """Raw bytes of the build-plan Optitex PDS fixtures, keyed by style number."""
+    return {style: (REFERENCE_PATTERNS / f"{style}.PDS").read_bytes() for style in ("1078375", "1074664")}
+
+
+@pytest.fixture(scope="session")
+def pds_styles(pds_bytes):
+    from app.infrastructure.pds import read_pds
+
+    return {style: read_pds(data) for style, data in pds_bytes.items()}
