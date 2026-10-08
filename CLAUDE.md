@@ -4,7 +4,25 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What this is
 
-Garment Pattern Maker V5, being extended to V6 (a full apparel CAD suite; plan in `Follow/plan.md`, PRD in `Follow/AI-implemented.pdf`): a local **demo** app (FastAPI + SQLite backend, React 19 + Vite frontend) that takes a shirt measurement workbook (XLSX) and tech pack (PDF). It drafts an eight-piece shirt pattern, regenerates it for sizes S–3XL, nests a fabric marker, and exports SVG/PDF/JSON. It is not production-certified CAD. Never invent drafting, grading or manufacturing rules that the sources don't supply. Missing inputs must go through the requirements / Missing Information flow and must never be guessed.
+Garment Pattern Maker: a FastAPI + SQLite backend and React 19 + Vite frontend. Today it takes a shirt measurement workbook (XLSX) and tech pack (PDF), drafts an eight-piece demo shirt pattern, regenerates it for sizes S–3XL, nests a fabric marker, and exports SVG/PDF/JSON/AutoCAD DXF. It is being extended under the **build plan** (below) into an app that turns garment images plus a measurement Excel file into a complete graded shirt or pant pattern set. That pattern set is shown in a 2D workspace and exported as DXF-AAMA/ASTM + `.RUL` for Optitex. It is not production-certified CAD. Never invent drafting, grading or manufacturing rules that the sources don't supply. Missing inputs must go through the requirements / Missing Information flow and must never be guessed.
+
+## Governing plan (since 2026-10-08)
+
+Follow `new_implement/garment-pattern-app-build-plan.md` (milestones M0–M9; v1 = M0–M7 including M6 nesting; 3D M8–M9 deferred). `markdown/docs/124_BUILD_PLAN_STARTING_POINT.md` maps each milestone to the existing modules, and `markdown/MASTER.md` tasks T123–T137 track it (next: T123). `Follow/plan.md` (V6) is reference only: use its §0 per-step protocol, not its step list. Why: `new_implement/codebase-vs-plan-review.md`.
+
+**Extend this repo; never start a second app.** The plan's prompts were written for a blank project. Where they conflict with this repo, this repo wins:
+
+| Plan says | Do instead |
+|---|---|
+| Monorepo `/api` + `/web`, Docker Compose, PostgreSQL, Redis, Arq/Celery | Keep `backend/` + `frontend/`, SQLite, the existing `Dockerfile`; run nesting off the request path without new infrastructure |
+| Paste the plan's CLAUDE.md at the repo root | Don't. Its rules on naming points, test-first work, seam matching, AAMA layers, no `.PDS` writing and no double ease apply. Its paths, `make` commands and stack do not |
+| Internal unit millimetres | Keep cm, quantized to 1e-6 (`tolerances.py`); convert at import/export |
+| Claude vision for `style_detect` | Gemini vision behind `AIProvider` (see AI providers) |
+| `/testdata` | `fixtures/` (tracked); never edit golden files |
+| `/api/importers/pom_excel.py`, `/api/export/dxf_aama.py`, … | Generalize `infrastructure/parsers.py`, `domain/catalog.py`, `catalog_source_codes.py`; upgrade `infrastructure/dxf_export.py`; blocks via a registry emitting the `domain/pattern/` model with named points |
+| React 18, Zustand, Mantine/shadcn | Keep React 19, `useAppController.ts`, `api.ts` and the existing tokens/components |
+
+Remove the hard-coding first: fixed sizes S–3XL, the 35-code source mapping and the single `demo_v1` profile block every later milestone. Do the M2 manual Optitex import early. Only a person with Optitex can confirm it, so record it as external evidence and never claim it.
 
 ## Environment & commands
 
@@ -82,9 +100,14 @@ All AI work uses **Google Gemini** and **Groq** (decided 2026-10-01), plugged in
   - Use a `<label class="browse-files">` that contains a transparent `<input type="file" class="browse-files-input">` stretched over it (`position:absolute; inset:0; opacity:0`).
   - Never hide the file input off-screen, with `clip`, or with `.sr-only`. Never set `pointer-events:none` on it, and never add a bare native file control.
 
-## Specification pack (`markdown/`) and V6 plan
+## Specification pack (`markdown/`)
 
-`markdown/MASTER.md` (the task table and session log), `AGENTS.md`, `REQUIREMENTS.md` and `markdown/docs/` are the governing specs. Each V6 step (`P1-xx` in `Follow/plan.md`, `T0xx` in MASTER) follows the plan's §0 protocol: RED tests first, the backend and frontend gates above plus `python scripts/check_lines.py`, review, one commit per step, then mark the step ✅ DONE in the plan and COMPLETE (with evidence and a session-log line) in MASTER.
-- Frontend work: read `markdown/UI_REFERENCE_TARGET.md` and `markdown/docs/106_PIXEL_EXACT_UI_REFERENCE.md`, and inspect `references/ui/garment-pattern-maker-v5-ui-reference-1536x1024.png` (REF-004). Reproduce the reference instead of redesigning. The strict REF-004 pixel test is a known open failure (see `artifacts/qa/release-readiness.md`).
+Read `markdown/MASTER.md` (the task table and session log) first, then `docs/124_BUILD_PLAN_STARTING_POINT.md`, `AGENTS.md`, `REQUIREMENTS.md` and the active task's docs. Every spec file has a "Build-plan update (2026-10-08)" section that overrides older V5/V6 text in the same file. Each build-plan task (T123–T137) follows the `Follow/plan.md` §0 protocol:
+1. RED tests first, using the plan's acceptance numbers.
+2. The backend and frontend gates above, plus `python scripts/check_lines.py`.
+3. Review.
+4. One commit per task.
+5. Mark the task COMPLETE in MASTER, with evidence and a session-log line.
+- Frontend work: **our own clean design** (the build plan's "Our own UI" section, `markdown/UI_MASTER.md`, docs 54–75, the doc 99 checklist, axe). REF-004 (`references/ui/…png`, doc 106, `UI_REFERENCE_TARGET.md`) is a historical reference, not a target. Its pixel test is not a COMPLETE gate.
 - Task states are only `NOT_STARTED`, `IN_PROGRESS`, `BLOCKED`, `IN_REVIEW`, `COMPLETE` and `DEFERRED`. `COMPLETE` needs the gates in `docs/44_DEFINITION_OF_DONE.md`. Bug fixes need a regression test that fails first.
-- File length: the spec pack allows up to 200 lines, with 230 as a hard ceiling. The user's global standards are stricter (100 lines, enforced by a hook), so apply 100. A few existing files (`domain/geometry.py`, `application/service.py`, `api/main.py`) are already over that limit.
+- File length: every source and test file is ≤100 lines (hook-enforced; supersedes the spec pack's old 200/230).
