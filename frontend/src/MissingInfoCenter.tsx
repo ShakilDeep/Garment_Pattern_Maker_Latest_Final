@@ -58,7 +58,7 @@ export default function MissingInfoCenter({
               {' '}· {item.blocking ? 'Blocks generation' : 'Non-blocking'}
             </small>
           </div>
-          <button onClick={() => go(item.key.startsWith('measurement:') ? 'Measurements' : 'Requirements')}>
+          <button onClick={() => go(/^(measurement|mapping):/.test(item.key) ? 'Measurements' : 'Requirements')}>
             Resolve <ExternalLink size={14} />
           </button>
         </article>

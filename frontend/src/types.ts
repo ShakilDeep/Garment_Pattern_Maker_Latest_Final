@@ -1,6 +1,6 @@
 export const sizes = ['S','M','L','XL','XXL','3XL'];
 export type Cell = {value:number|null;raw:string|number|null;formula:string|null;cell:string;issue:string|null;override:boolean};
-export type Measurement = {key:string;code:string;label:string;unit:string;tolerance:number|string|null;source:string;sheet:string;row:number;values:Record<string,Cell>};
+export type Measurement = {key:string;code:string;label:string;mapping_status?:string;unit:string;tolerance:number|string|null;source:string;sheet:string;row:number;values:Record<string,Cell>};
 export type Point = [number,number];
 export type Piece = {id:string;name:string;points:Point[];cut_points:Point[];grainline:Point[];notches:Point[];quantity:number;cut_on_fold:boolean;width:number;height:number;area:number;perimeter:number};
 export type Issue = {code:string;severity:'PASS'|'WARNING'|'ERROR';message:string;piece?:string};
@@ -14,3 +14,7 @@ export const sizeLabels: Record<string,string> = {S:'S (Small)',M:'M (Medium)',L
 export const fields: [string,string,number][] = [['half_chest','Chest Circumference',2],['half_waist','Waist Circumference',2],['half_bottom_opening','Hip Circumference',2],['shoulder_point_to_point','Shoulder Width',1],['half_armhole_straight','Armhole Straight (Half)',1],['sleeve_length','Sleeve Length (Incl. Cuff)',1],['half_bicep','Bicep Circumference',2],['cuff_edge_to_edge','Cuff Edge to Edge',1],['neck_width','Neck Width',1],['collar_width_cb','Collar Height',1],['front_length_hps','Front Length',1],['back_length_hps','Back Length',1]];
 export type Page<T> = {items: T[]; total: number; limit: number; offset: number};
 export type ProjectListItem = {id: string; name: string; archived?: boolean};
+export type MappingSuggestion = {row:number;key:string|null;confidence:number;provider:string;reason:string};
+export type ChartRowView = {row:number;code:string;label:string;alt_label:string|null;key:string;status:string|null;mapped_from:string|null;half:boolean;tolerance:number|null;base_value:number|null;suggestion:(MappingSuggestion&{at:string})|null};
+export type ChartView = {sizes:string[];base_size:string|null;value_size:string;unit_hint:string|null;canonical_keys:string[];rows:ChartRowView[]};
+export type MappingChoice = {key:string}|{not_used:true};

@@ -3,6 +3,7 @@ from pydantic import BaseModel, ConfigDict, Field, model_validator
 
 from app.application.project_sizes import SizeLabel as Size
 from app.domain.catalog import MAPPING
+from app.domain.pom_synonyms import canonical_keys
 
 
 class StrictModel(BaseModel):
@@ -45,7 +46,7 @@ class LabelMapping(StrictModel):
 
     @model_validator(mode="after")
     def known_key(self):
-        if self.canonical_key not in MAPPING.values():
+        if self.canonical_key not in canonical_keys():
             raise ValueError("Unknown canonical measurement")
         return self
 

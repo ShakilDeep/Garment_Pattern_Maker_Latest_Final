@@ -11,6 +11,9 @@ from app.domain.pom_labels import normalize
 from app.domain.pom_synonyms import lookup, source_codes
 
 Match = tuple[str, str, str] | None
+UNMAPPED = "unmapped"
+NOT_USED = "not_used"  # the user said the row is not needed
+UNMATCHED = frozenset({UNMAPPED, NOT_USED})  # statuses whose key is only the source code
 Matcher = Callable[[str, str, str | None], Match]
 
 
@@ -35,5 +38,5 @@ def map_row(code: str, name: str, alt_name: str | None, taken: AbstractSet[str])
     for matcher in MATCHERS:
         match = matcher(code, name, alt_name)
         if match:
-            return match if match[0] not in taken else (code, "unmapped", None)
-    return code, "unmapped", None
+            return match if match[0] not in taken else (code, UNMAPPED, None)
+    return code, UNMAPPED, None

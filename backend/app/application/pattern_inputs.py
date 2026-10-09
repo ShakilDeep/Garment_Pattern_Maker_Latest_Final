@@ -2,16 +2,17 @@
 from copy import deepcopy
 
 from app.application.errors import NotReady
+from app.domain.pom_mapping import UNMATCHED
 
 INPUT_KEYS = ("measurements", "resolutions", "techpack")
 
 
 def drafting_values(p, size):
-    """Size values the drafting engine may read: never unmapped rows, whose key is only a source code."""
+    """Size values the drafting engine may read: never unmapped or not-used rows (key = source code)."""
     return {
         row["key"]: row["values"][size]["value"]
         for row in p["measurements"]
-        if row.get("mapping_status") != "unmapped" and row["values"].get(size, {}).get("value") is not None
+        if row.get("mapping_status") not in UNMATCHED and row["values"].get(size, {}).get("value") is not None
     }
 
 

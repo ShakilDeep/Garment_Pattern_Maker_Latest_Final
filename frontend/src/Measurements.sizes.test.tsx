@@ -17,3 +17,12 @@ describe('Measurements size selector', () => {
     expect(options()).toEqual(['S', 'M', 'L', 'XL', 'XXL', '3XL']);
   });
 });
+
+describe('Measurements mapping screen', () => {
+  it('opens on the upload tab when the chart has unmapped rows', () => {
+    const base = projectWithChest(56);
+    const measurements = [...base.measurements, {...base.measurements[0], key: 'Z9', mapping_status: 'unmapped'}];
+    setup({...base, measurements});
+    expect(screen.getByRole('button', {name: /Upload XLSX/}).className).toContain('selected');
+  });
+});

@@ -9,7 +9,8 @@ from pydantic import ValidationError
 from app.application.assistant_context import build_context
 from app.application.assistant_contracts import ActionEnvelope, AssistantFailure, ProviderProposal
 from app.application.commands import execute as execute_command
-from app.application.mapping_acceptance import apply as accept_mapping
+from app.application.mapping_service import confirm_mapping
+from app.application.pom_mapping_confirm import row_by_label
 from app.application.project_sizes import project_sizes, require_sizes
 from app.application.service import NotReady
 
@@ -63,8 +64,9 @@ def _dispatch(service, project, action):
     if action.intent == "explain":
         return {"project": project, "answer": values["answer"], "validation": {"status": "NO_CHANGE"}}
     if action.intent == "accept_mapping":
-        project = accept_mapping(project, values["source_label"], values["canonical_key"])
-        return {"project": project, "validation": {"status": "NO_VALUE_CHANGE"}}
+        source_row = row_by_label(project, values["source_label"])
+        project = confirm_mapping(service, project, source_row, values["canonical_key"])
+        return {"project": project, "validation": {"status": "INPUTS_INVALIDATED"}}
     if action.intent == "adjust_measurement":
         row = next((r for r in project["measurements"] if r["key"] == values["measurement"]), None)
         cell = row.get("values", {}).get(values["size"]) if row else None

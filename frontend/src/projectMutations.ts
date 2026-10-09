@@ -1,4 +1,5 @@
 import {lifecycleMutations} from './mutations/lifecycle';
+import {mappingMutations} from './mutations/mapping';
 import {measurementMutations} from './mutations/measurement';
 import {patternMutations} from './mutations/pattern';
 import type {MutationContext} from './mutations/context';
@@ -10,6 +11,7 @@ export function projectMutations(ctx: MutationContext) {
   return {
     ...lifecycleMutations(ctx),
     ...measurementMutations(ctx),
+    ...mappingMutations(ctx),
     ...patternMutations(ctx),
     ...nestAndExport({project, size, refresh, run}),
   };

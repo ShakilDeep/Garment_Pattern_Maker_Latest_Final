@@ -38,6 +38,15 @@ def canonical_keys() -> tuple[str, ...]:
 
 
 @cache
+def synonym_names() -> Mapping[str, tuple[str, ...]]:
+    """Key -> its normalized known names, the key's own words first (used for fuzzy suggestions)."""
+    return MappingProxyType({
+        key: (normalize(key.replace("_", " ")), *map(normalize, names))
+        for key, names in _table()["keys"].items()
+    })
+
+
+@cache
 def source_codes() -> Mapping[str, str]:
     """Every buyer's exact source code -> key (codes are unique across buyers)."""
     merged: dict[str, str] = {}

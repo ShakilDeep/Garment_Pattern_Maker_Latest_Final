@@ -26,3 +26,11 @@ it('filters blockers and keeps a guided next item', () => {
   fireEvent.click(screen.getByRole('button', {name: /Resolve/}));
   expect(go).toHaveBeenCalledWith('Requirements');
 });
+
+it('sends an unmapped POM row to the mapping screen on Measurements', () => {
+  const go = vi.fn();
+  const mapping = {...blockers[1], key: 'mapping:12', name: 'MYSTERY POINT'} as Requirements['blockers'][number];
+  render(<MissingInfoCenter blockers={[mapping]} go={go} />);
+  fireEvent.click(screen.getByRole('button', {name: /Resolve/}));
+  expect(go).toHaveBeenCalledWith('Measurements');
+});

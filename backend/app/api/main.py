@@ -12,14 +12,17 @@ from app.api.routes import router
 from app.application.service import Service
 from app.infrastructure.repository import Repository
 from app.ports.ai_provider import AIProvider
+from app.ports.pom_suggester import PomSuggester
 
 
-def create_app(database_url=None, *, ai_provider: AIProvider | None = None):
+def create_app(
+    database_url=None, *, ai_provider: AIProvider | None = None, pom_suggester: PomSuggester | None = None,
+):
     app = FastAPI(title="Garment Pattern Maker V5", version="0.1.0")
     db_url = database_url or os.getenv("DATABASE_URL") or "sqlite:///garment.db"
     repository = Repository(db_url)
     service = Service(repository)
-    app.include_router(router(service, ai_provider))
+    app.include_router(router(service, ai_provider, pom_suggester))
     app.include_router(artifact_routes(service), prefix='/api/v1')
     origins = [origin.strip() for origin in os.getenv(
         'FRONTEND_ORIGINS', 'http://localhost:5173,http://127.0.0.1:5173').split(',') if origin.strip()]

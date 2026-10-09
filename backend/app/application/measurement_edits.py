@@ -7,6 +7,8 @@ from app.application.state import transition
 from app.domain.measurement_bounds import keep_source_value
 from app.domain.tolerances import MODEL_DECIMALS
 
+UNDO_DEPTH = 20
+
 
 def update_measurements(service, p, changes, size):
     service._ensure_active(p)
@@ -28,13 +30,18 @@ def update_measurements(service, p, changes, size):
         )
         keep_source_value(cell)
         cell.update(value=value, override=True, issue=None)
+    return commit_change(service, p, before, "measurements_changed", {"size": size, "changes": changes})
+
+
+def commit_change(service, p, before, event, details):
+    """Record an undoable change to the measurement rows: drafting input changed, so the pattern is stale."""
     p["undo"].append(before)
-    p["undo"] = p["undo"][-20:]
+    p["undo"] = p["undo"][-UNDO_DEPTH:]
     p["redo"] = []
     p["resolutions"].pop("review", None)
     service.invalidate(p)
-    transition(p, "NEEDS_INPUT", "measurements_changed")
-    return service.repo.save(p, "measurements_changed", {"size": size, "changes": changes})
+    transition(p, "NEEDS_INPUT", event)
+    return service.repo.save(p, event, details)
 
 
 def history(service, p, direction):
