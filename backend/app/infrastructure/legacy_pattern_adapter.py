@@ -14,7 +14,8 @@ and cut_on_fold travels with the other V5-only fields (seams, marks, cut_points,
 from copy import deepcopy
 from dataclasses import replace
 
-from app.domain.drafting import draft
+from app.domain.blocks.registry import demo_block, installed
+from app.domain.blocks.run import draft_pattern
 from app.domain.pattern.codec_values import pair_of, point_at, xy
 from app.domain.pattern.cutting import CutQuantity, Grainline
 from app.domain.pattern.ids import PieceId
@@ -64,9 +65,10 @@ def piece_to_v5(legacy: LegacyPiece) -> dict:
             **legacy.extra_fields()}
 
 
-def draft_pieces(values: dict[str, float], size: str, profile_id: str = "demo_v1") -> tuple[LegacyPiece, ...]:
-    """V5 `draft()` wrapped: the same drafting, returned as pattern Pieces."""
-    return tuple(piece_from_v5(piece) for piece in draft(values, size, profile_id)["pieces"])
+def draft_pieces(values: dict[str, float], size: str, profile_id: str | None = None) -> tuple[LegacyPiece, ...]:
+    """A registered block's draft (the demo shirt by default), returned as pattern Pieces."""
+    block = installed().get(profile_id) if profile_id else demo_block()
+    return tuple(piece_from_v5(piece) for piece in draft_pattern(block, values, size, {})["pieces"])
 
 
 def pattern_with_pieces(pattern: dict, pieces: tuple[LegacyPiece, ...]) -> dict:

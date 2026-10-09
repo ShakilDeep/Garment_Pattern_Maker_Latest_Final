@@ -3,12 +3,13 @@ from datetime import UTC, datetime
 
 from app.application.calibration import CALIBRATION
 from app.application.unit_conversion import apply_workbook_unit
+from app.domain.blocks.registry import installed
 
 
 def resolve(project, key, value, note='', actor='local user', source_id=None, resolution_type='manual'):
     allowed = {
         "units": ["cm", "inch"],
-        "profile": ["demo_v1"],
+        "profile": list(installed().ids()),
         "review": ["confirmed"],
         "placket": ["workbook", "techpack"],
         "base_size": list((project.get("chart") or {}).get("sizes", [])),

@@ -1,0 +1,66 @@
+{
+  "version": 1,
+  "note": "Finishing settings (T128). Seam allowances are measured from the client's own Optitex PDS files: median cut-to-sew distance along each edge between corners. Edge roles are inferred from the geometry and need a pattern maker's confirmation. Evidence locates each edge in the PDS marker view (cm, y up). Edit values here, not in code.",
+  "families": {
+    "shirt": {
+      "source_pds": "1078375",
+      "fold_edge_cm": 0,
+      "corner": {"value": "mitre", "source": "build-plan default - pattern maker to confirm"},
+      "notch": {"depth_cm": 0.7, "position": "sew_line", "source": "1078375 PDS measured: notch slits 0.70 cm from the sew line"},
+      "allowances": [
+        {"role": "hem", "value_cm": 3.5, "source": "1078375 PDS measured", "status": "needs_pattern_maker_review",
+         "evidence": [{"piece": "FRT", "mid": [1.5, -19.8], "length": 36.5}, {"piece": "back", "mid": [1.4, -65.2], "length": 30.9}]},
+        {"role": "front_edge", "value_cm": 1.7, "source": "1078375 PDS measured", "status": "needs_pattern_maker_review",
+         "evidence": [{"piece": "FRT", "mid": [38.5, -38.1], "length": 74.1}]},
+        {"role": "side_seam_front", "value_cm": 0.8, "source": "1078375 PDS measured (felled pair with side_seam_back)", "status": "needs_pattern_maker_review",
+         "evidence": [{"piece": "FRT", "mid": [28.1, -1.4], "length": 50.9}]},
+        {"role": "side_seam_back", "value_cm": 1.7, "source": "1078375 PDS measured (felled pair with side_seam_front)", "status": "needs_pattern_maker_review",
+         "evidence": [{"piece": "back", "mid": [27.7, -49.6], "length": 50.5}]},
+        {"role": "armhole_body", "value_cm": 0.8, "source": "1078375 PDS measured", "status": "needs_pattern_maker_review",
+         "evidence": [{"piece": "FRT", "mid": [61.3, -8.4], "length": 24.0}, {"piece": "back", "mid": [58.7, -55.4], "length": 18.3},
+                      {"piece": "back YK", "mid": [79.3, -55.2], "length": 14.5}]},
+        {"role": "shoulder", "value_cm": 1.0, "source": "1078375 PDS measured", "status": "needs_pattern_maker_review",
+         "evidence": [{"piece": "FRT", "mid": [76.7, -16.3], "length": 19.1}, {"piece": "back YK", "mid": [88.9, -62.9], "length": 19.1}]},
+        {"role": "neckline", "value_cm": 1.0, "source": "1078375 PDS measured", "status": "needs_pattern_maker_review",
+         "evidence": [{"piece": "FRT", "mid": [74.9, -27.7], "length": 11.8}, {"piece": "back YK", "mid": [86.7, -75.0], "length": 11.5}]},
+        {"role": "yoke_seam", "value_cm": 1.0, "source": "1078375 PDS measured", "status": "needs_pattern_maker_review",
+         "evidence": [{"piece": "back", "mid": [68.7, -68.2], "length": 24.9}, {"piece": "back YK", "mid": [72.0, -68.3], "length": 24.7}]},
+        {"role": "collar", "value_cm": 1.3, "source": "1078375 PDS measured (all collar edges)", "status": "needs_pattern_maker_review",
+         "evidence": [{"piece": "CLR", "mid": [137.5, -74.8], "length": 22.6}, {"piece": "CLR", "mid": [138.4, -67.2], "length": 24.3}]},
+        {"role": "collar_band", "value_cm": 1.3, "source": "1078375 PDS measured (all band edges)", "status": "needs_pattern_maker_review",
+         "evidence": [{"piece": "BND TOP", "mid": [141.5, -98.9], "length": 28.9}, {"piece": "BND IN", "mid": [140.0, -80.7], "length": 26.4}]},
+        {"role": "sleeve_cap", "value_cm": 2.0, "source": "1078375 PDS measured", "status": "needs_pattern_maker_review",
+         "evidence": [{"piece": "Sleeve", "mid": [143.7, -24.7], "length": 61.3}]},
+        {"role": "sleeve_hem", "value_cm": 1.5, "source": "1078375 PDS measured", "status": "needs_pattern_maker_review",
+         "evidence": [{"piece": "Sleeve", "mid": [113.7, -24.9], "length": 41.5}]},
+        {"role": "underarm_narrow", "value_cm": 0.8, "source": "1078375 PDS measured (felled pair with underarm_wide)", "status": "needs_pattern_maker_review",
+         "evidence": [{"piece": "Sleeve", "mid": [122.0, -2.8], "length": 10.1}]},
+        {"role": "underarm_wide", "value_cm": 1.7, "source": "1078375 PDS measured (felled pair with underarm_narrow)", "status": "needs_pattern_maker_review",
+         "evidence": [{"piece": "Sleeve", "mid": [121.8, -46.9], "length": 9.6}]}
+      ]
+    },
+    "pant": {
+      "source_pds": "1074664",
+      "fold_edge_cm": 0,
+      "corner": {"value": "mitre", "source": "build-plan default - pattern maker to confirm"},
+      "notch": {"depth_cm": 0.7, "position": "sew_line", "source": "1074664 PDS measured: notch slits 0.70 cm from the sew line"},
+      "allowances": [
+        {"role": "body_seam", "value_cm": 1.0, "source": "1074664 PDS measured", "status": "needs_pattern_maker_review",
+         "evidence": [{"piece": "FRONT", "mid": [60.9, -81.7], "length": 109.7}, {"piece": "FRONT", "mid": [47.6, -51.6], "length": 83.2},
+                      {"piece": "BACK", "mid": [60.4, -40.3], "length": 109.0}, {"piece": "PKT-IN", "mid": [126.9, -67.7], "length": 36.2},
+                      {"piece": "FACING", "mid": [177.1, -74.9], "length": 23.9}]},
+        {"role": "waist_edge", "value_cm": 1.3, "source": "1074664 PDS measured", "status": "needs_pattern_maker_review",
+         "evidence": [{"piece": "FRONT", "mid": [114.4, -66.0], "length": 22.1}, {"piece": "BACK", "mid": [116.9, -28.6], "length": 27.1},
+                      {"piece": "PKT-IN", "mid": [153.5, -71.2], "length": 27.5}, {"piece": "FACING", "mid": [188.7, -69.0], "length": 11.0}]},
+        {"role": "hem", "value_cm": 1.5, "source": "1074664 PDS measured", "status": "needs_pattern_maker_review",
+         "evidence": [{"piece": "FRONT", "mid": [6.0, -66.5], "length": 30.0}, {"piece": "BACK", "mid": [6.0, -22.6], "length": 35.1}]},
+        {"role": "waistband", "value_cm": 1.3, "source": "1074664 PDS measured (all waistband edges)", "status": "needs_pattern_maker_review",
+         "evidence": [{"piece": "WAIST- BELT", "mid": [89.5, -106.9], "length": 52.8}, {"piece": "WAIST- BELT", "mid": [115.9, -100.4], "length": 13.0}]}
+      ]
+    }
+  },
+  "fabrics": {
+    "linen_cl1086464": {"warp_pct": 5.0, "weft_pct": 5.0,
+                        "source": "CL1086464 tech pack p5: 100% linen, piece dyed, -5% warp and weft"}
+  }
+}

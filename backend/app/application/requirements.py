@@ -2,6 +2,7 @@ from app.application.calibration import calibration_requirements
 from app.application.chart_requirements import chart_items
 from app.application.requirement_resolve import resolve
 from app.application.source_readiness import source_blockers
+from app.domain.blocks.registry import installed
 from app.domain.catalog import REQUIRED
 
 __all__ = ["requirements", "resolve"]
@@ -46,7 +47,7 @@ def requirements(project, size="L"):
         "Drafting profile",
         "AVAILABLE" if "profile" in answers else "DEMO_DEFAULT_AVAILABLE",
         "No client base block was supplied. Demo v1 uses documented geometric assumptions and needs production calibration.",
-        ["demo_v1"],
+        list(installed().ids()),
     )
     add(
         "review",
