@@ -22,3 +22,9 @@ it('keeps marker exports free of size and unit parameters', async () => {
   await exporter()('marker-svg', 'mm');
   expect(download).toHaveBeenCalledWith('/projects/p1/exports/marker-svg', '1078983_M_marker_demo.svg');
 });
+
+it('requests DXF-AAMA in its unit with an _aama.dxf name', async () => {
+  const {download} = await import('./api');
+  await exporter()('dxf-aama', 'mm');
+  expect(download).toHaveBeenCalledWith('/projects/p1/exports/dxf-aama?size=L&unit=mm', '1078983_L_pattern_demo_aama.dxf');
+});

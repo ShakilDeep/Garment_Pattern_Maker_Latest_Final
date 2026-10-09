@@ -24,7 +24,7 @@ export function nestAndExport(ctx: NestCtx) {
     },
     exportFile: async (kind: string, unit?: string) => {
       if (!project) throw new Error('Open a project before downloading.');
-      const extension = kind.endsWith('svg') ? 'svg' : kind.endsWith('pdf') ? 'pdf' : kind;
+      const extension = kind.endsWith('svg') ? 'svg' : kind.endsWith('pdf') ? 'pdf' : kind.startsWith('dxf') ? 'dxf' : kind;
       const markerExport = kind.startsWith('marker');
       const label = markerExport
         ? (project.marker?.size || project.pattern?.size || size)
@@ -36,12 +36,12 @@ export function nestAndExport(ctx: NestCtx) {
           : `/projects/${project.id}/exports/${kind}?size=${encodeURIComponent(size)}${dxfUnit(kind, unit)}`;
       const name = kind === 'calibration'
         ? 'production-calibration-request.txt'
-        : `1078983_${label}_${markerExport ? 'marker' : 'pattern'}_demo.${extension}`;
+        : `1078983_${label}_${markerExport ? 'marker' : 'pattern'}_demo${kind === 'dxf-aama' ? '_aama' : ''}.${extension}`;
       await run(() => download(path, name), 'Download ready.');
     },
   };
 }
 
 function dxfUnit(kind: string, unit?: string) {
-  return kind === 'dxf' && unit ? `&unit=${encodeURIComponent(unit)}` : '';
+  return kind.startsWith('dxf') && unit ? `&unit=${encodeURIComponent(unit)}` : '';
 }

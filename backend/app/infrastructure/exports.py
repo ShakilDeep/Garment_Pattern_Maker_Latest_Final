@@ -2,6 +2,8 @@ import json
 
 from app.application.errors import NotReady
 from app.application.version_select import select_for_size
+from app.infrastructure.aama.from_pattern import pattern_to_interchange
+from app.infrastructure.aama.writer import write_aama
 from app.infrastructure.dxf_export import export_dxf
 from app.infrastructure.export_pdf import export_pdf
 from app.infrastructure.export_svg import export_svg
@@ -30,6 +32,9 @@ def export_artifact(p, kind, size=None, unit="cm"):
         return export_svg(p["pattern"]).encode(), "image/svg+xml"
     if kind == "dxf":
         return export_dxf(p["pattern"], unit), "application/dxf"
+    if kind == "dxf-aama":  # AAMA metric files are millimetres, so cm is written as mm
+        aama_unit = "inch" if unit == "inch" else "mm"
+        return write_aama(pattern_to_interchange(p["pattern"], p["name"]), aama_unit), "application/dxf"
     if kind == "pdf":
         return export_pdf(p), "application/pdf"
     if kind == "json":

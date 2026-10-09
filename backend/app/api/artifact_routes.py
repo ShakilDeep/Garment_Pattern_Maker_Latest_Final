@@ -29,9 +29,10 @@ def artifact_routes(service):
         require_sizes(project, [size] if size else [])
         data, mime = export_artifact(project, kind, size=size, unit=unit)
         export_size = size or (project.get('pattern') or {}).get('size') or (project.get('marker') or {}).get('size') or 'M'
-        extension = {'marker-svg': 'svg', 'marker-pdf': 'pdf'}.get(kind, kind)
+        extension = {'marker-svg': 'svg', 'marker-pdf': 'pdf', 'dxf-aama': 'dxf'}.get(kind, kind)
+        suffix = '_aama' if kind == 'dxf-aama' else ''
         metadata = {'id': str(uuid4()), 'kind': kind, 'size': export_size,
-                    **({'unit': unit} if kind == 'dxf' else {}),
+                    **({'unit': unit} if kind in ('dxf', 'dxf-aama') else {}),
                     'sha256': sha256(data).hexdigest(), 'at': now()}
         project.setdefault('export_records', []).append(metadata)
         # Best-effort state update — never block returning the artifact bytes.
@@ -41,7 +42,7 @@ def artifact_routes(service):
         except ValueError:
             repo.save(project, 'export_created', metadata, artifact=(metadata, data))
         return Response(data, media_type=mime, headers={
-            'Content-Disposition': f'attachment; filename="1078983_shirt_{export_size}_demo.{extension}"'})
+            'Content-Disposition': f'attachment; filename="1078983_shirt_{export_size}_demo{suffix}.{extension}"'})
 
     @routes.post('/projects/{pid}/exports', response_class=Response, responses=EXPORT_RESPONSES)
     def create(pid: str, body: ExportCreate):

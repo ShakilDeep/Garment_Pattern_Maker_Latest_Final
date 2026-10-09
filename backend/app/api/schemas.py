@@ -64,7 +64,7 @@ class Resolve(RequestModel):
 
 
 class ExportCreate(RequestModel):
-    kind: Literal['svg', 'pdf', 'json', 'dxf', 'marker-svg', 'marker-pdf']
+    kind: Literal['svg', 'pdf', 'json', 'dxf', 'dxf-aama', 'marker-svg', 'marker-pdf']
     size: Size | None = None
     unit: DxfUnit = 'cm'
 

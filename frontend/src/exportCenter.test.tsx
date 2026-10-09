@@ -26,9 +26,17 @@ describe('export center',()=>{
   fireEvent.click(screen.getByRole('button',{name:'Download DXF (AutoCAD)'}));
   expect(download).toHaveBeenCalledWith('dxf','mm');
  });
+ it('downloads DXF-AAMA for Optitex in mm, or inch when inch is chosen',()=>{
+  const download = show('Export');
+  fireEvent.click(screen.getByRole('button',{name:'Download DXF-AAMA (Optitex)'}));
+  fireEvent.change(screen.getByLabelText('DXF unit'),{target:{value:'inch'}});
+  fireEvent.click(screen.getByRole('button',{name:'Download DXF-AAMA (Optitex)'}));
+  expect(download.mock.calls).toEqual([['dxf-aama','mm'],['dxf-aama','inch']]);
+ });
  it('blocks the DXF download while the pattern is stale',()=>{
   show('Export', project(true));
   expect((screen.getByRole('button',{name:'Download DXF (AutoCAD)'}) as HTMLButtonElement).disabled).toBe(true);
+  expect((screen.getByRole('button',{name:'Download DXF-AAMA (Optitex)'}) as HTMLButtonElement).disabled).toBe(true);
  });
  it('lets the user confirm an inch workbook',()=>{
   const units = {key:'units', name:'Workbook units', status:'AMBIGUOUS', blocking:true, why:'Confirm units.', options:['cm','inch'], resolved:false, value:null, source:''};
