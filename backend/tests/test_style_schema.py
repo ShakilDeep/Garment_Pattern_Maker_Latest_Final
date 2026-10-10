@@ -24,3 +24,9 @@ def test_options_are_split_by_family():
     assert {"leg", "waistband", "pockets"} == pant
     assert {spec.id for spec in options_for(UNKNOWN)} == shirt | pant
     assert FAMILIES == ("shirt", "pant")
+
+
+def test_pocket_choices_follow_the_clients_naming():
+    note = next(spec.note for spec in ALL_SPECS if spec.id == "pockets")
+    assert "cross: slanted opening from the waist into the side seam" in note
+    assert "side_seam: opening hidden inside the side seam" in note

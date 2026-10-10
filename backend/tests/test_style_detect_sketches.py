@@ -20,13 +20,12 @@ RECORDED = REFERENCE_PATTERNS.parent / "style_detect"
 EXPECTED = {
     "1078375": {"garment": {"shirt"}, "collar": {"shirt_collar"}, "yoke": {"yes"}, "sleeve": {"short"}},
     "CL1086464": {"garment": {"pant"}, "leg": {"wide"}, "waistband": {"elastic", "elastic_drawcord"},
-                  "pockets": {"side_seam"}},
+                  "pockets": {"cross"}},
 }
 
-# Owner, 2026-10-11: the CL1086464 pockets are side-seam pockets. Gemini (prompt v2) answers "cross" at 0.92,
-# so the pant acceptance is a known, strict failure: T132 stays IN_REVIEW until it classifies correctly.
-POCKET_MISS = pytest.mark.xfail(strict=True, reason="Gemini reads the CL1086464 side-seam pockets as cross")
-CASES = [pytest.param("1078375"), pytest.param("CL1086464", marks=POCKET_MISS)]
+# Owner, 2026-10-11: the CL1086464 pockets are cross pockets, the client's name for a slant pocket from the
+# waist into the side seam (as cut in the 1074664 CROSS PKT PANT: diagonal FRONT corner + FACING1 strip).
+CASES = list(EXPECTED)
 
 
 def _image(style):

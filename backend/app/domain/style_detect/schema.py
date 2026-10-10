@@ -6,7 +6,7 @@ placket width, for example, comes from the tech pack, never from the image. Ever
 """
 from dataclasses import dataclass
 
-PROMPT_VERSION = "style_detect_v2"  # v2: pocket choices defined (owner, 2026-10-11)
+PROMPT_VERSION = "style_detect_v3"  # v3: pocket choices in the client's naming (owner, 2026-10-11)
 UNKNOWN = "unknown"
 FAMILIES = ("shirt", "pant")
 _BOTH = FAMILIES
@@ -35,8 +35,8 @@ OPTIONS = (
     _spec("leg", "Leg", ("pant",), "straight", "wide", "tapered"),
     _spec("waistband", "Waistband", ("pant",), "fixed", "elastic", "drawcord", "elastic_drawcord"),
     _spec("pockets", "Pockets", _BOTH, "none", "side_seam", "patch", "cross", note=(
-        "side_seam: the opening runs along the side seam, straight or slightly angled; patch: sewn on top "
-        "of the panel; cross: a clearly diagonal opening cut across the front panel, away from the side seam")),
+        "cross: slanted opening from the waist into the side seam (a slant pocket, e.g. 1074664 CROSS PKT); "
+        "side_seam: opening hidden inside the side seam itself; patch: sewn on top of the panel")),
 )
 ALL_SPECS = (GARMENT, FIT, *OPTIONS)
 

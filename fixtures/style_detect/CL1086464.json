@@ -3,8 +3,8 @@
   "source": "CL1086464.pdf",
   "page": 1,
   "model": "gemini-3.8-flash",
-  "prompt_version": "style_detect_v2",
+  "prompt_version": "style_detect_v3",
   "image_sha256": "28bd001c86a36bb4ed704f294075bb19aa35ee5e1d25907b64c51e7cc688e949",
   "recorded_at": "2026-10-10",
-  "response": "{\n  \"garment\": {\n    \"value\": \"pant\",\n    \"confidence\": 1.0\n  },\n  \"fit\": {\n    \"value\": \"relaxed\",\n    \"confidence\": 0.92\n  },\n  \"collar\": {\n    \"value\": \"none\",\n    \"confidence\": 1.0\n  },\n  \"placket\": {\n    \"value\": \"none\",\n    \"confidence\": 1.0\n  },\n  \"yoke\": {\n    \"value\": \"no\",\n    \"confidence\": 0.95\n  },\n  \"sleeve\": {\n    \"value\": \"unknown\",\n    \"confidence\": 1.0\n  },\n  \"leg\": {\n    \"value\": \"wide\",\n    \"confidence\": 0.98\n  },\n  \"waistband\": {\n    \"value\": \"elastic_drawcord\",\n    \"confidence\": 0.98\n  },\n  \"pockets\": {\n    \"value\": \"cross\",\n    \"confidence\": 0.92\n  }\n}"
+  "response": "{\n  \"garment\": {\n    \"value\": \"pant\",\n    \"confidence\": 1.0\n  },\n  \"fit\": {\n    \"value\": \"relaxed\",\n    \"confidence\": 0.9\n  },\n  \"collar\": {\n    \"value\": \"none\",\n    \"confidence\": 1.0\n  },\n  \"placket\": {\n    \"value\": \"none\",\n    \"confidence\": 1.0\n  },\n  \"yoke\": {\n    \"value\": \"no\",\n    \"confidence\": 0.95\n  },\n  \"sleeve\": {\n    \"value\": \"unknown\",\n    \"confidence\": 1.0\n  },\n  \"leg\": {\n    \"value\": \"wide\",\n    \"confidence\": 1.0\n  },\n  \"waistband\": {\n    \"value\": \"elastic_drawcord\",\n    \"confidence\": 1.0\n  },\n  \"pockets\": {\n    \"value\": \"cross\",\n    \"confidence\": 0.95\n  }\n}"
 }
