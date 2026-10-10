@@ -47,7 +47,7 @@ def requirements(project, size="L"):
         "Drafting profile",
         "AVAILABLE" if "profile" in answers else "DEMO_DEFAULT_AVAILABLE",
         "No client base block was supplied. Demo v1 uses documented geometric assumptions and needs production calibration.",
-        list(installed().ids()),
+        list(installed().project_ids()),
     )
     add(
         "review",

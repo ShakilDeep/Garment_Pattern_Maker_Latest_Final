@@ -10,6 +10,10 @@
       "allowances": [
         {"role": "hem", "value_cm": 3.5, "source": "1078375 PDS measured", "status": "confirmed",
          "evidence": [{"piece": "FRT", "mid": [1.5, -19.8], "length": 36.5}, {"piece": "back", "mid": [1.4, -65.2], "length": 30.9}]},
+        {"role": "placket_top", "value_cm": 1.0, "source": "1078375 PDS measured (top of the grown-on placket, shirt.md Q3)", "status": "confirmed",
+         "evidence": [{"piece": "FRT", "mid": [75.54, -35.64], "length": 4.9}]},
+        {"role": "placket_cf_step", "value_cm": 0.0, "source": "1078375 PDS measured (cut line on the sew line, shirt.md Q3)", "status": "confirmed",
+         "evidence": [{"piece": "FRT", "mid": [74.435, -33.19], "length": 2.21}]},
         {"role": "front_edge", "value_cm": 1.7, "source": "1078375 PDS measured", "status": "confirmed",
          "evidence": [{"piece": "FRT", "mid": [38.5, -38.1], "length": 74.1}]},
         {"role": "side_seam_front", "value_cm": 0.8, "source": "1078375 PDS measured (felled pair with side_seam_back)", "status": "confirmed",
@@ -34,9 +38,9 @@
         {"role": "sleeve_hem", "value_cm": 1.5, "source": "1078375 PDS measured", "status": "confirmed",
          "evidence": [{"piece": "Sleeve", "mid": [113.7, -24.9], "length": 41.5}]},
         {"role": "underarm_narrow", "value_cm": 0.8, "source": "1078375 PDS measured (felled pair with underarm_wide)", "status": "confirmed",
-         "evidence": [{"piece": "Sleeve", "mid": [122.0, -2.8], "length": 10.1}]},
+         "evidence": [{"piece": "Sleeve", "mid": [122.0, -2.8], "length": 10.1}, {"piece": "Sleeve", "mid": [116.2, -4.02], "length": 2.106}]},
         {"role": "underarm_wide", "value_cm": 1.7, "source": "1078375 PDS measured (felled pair with underarm_narrow)", "status": "confirmed",
-         "evidence": [{"piece": "Sleeve", "mid": [121.8, -46.9], "length": 9.6}]}
+         "evidence": [{"piece": "Sleeve", "mid": [121.8, -46.9], "length": 9.6}, {"piece": "Sleeve", "mid": [116.205, -45.815], "length": 2.119}]}
       ]
     },
     "pant": {

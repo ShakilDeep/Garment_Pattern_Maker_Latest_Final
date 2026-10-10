@@ -54,3 +54,15 @@ def test_the_pds_front_armhole_fits_and_reports_its_true_deviation(pds_styles):
     assert len(run) == 16
     assert fit.max_deviation == pytest.approx(_deviation(run, run[0], (fit.start_handle, fit.end_handle)), abs=2e-3)
     assert fit.max_deviation < 0.05
+
+
+def test_a_sparse_run_never_fits_a_looping_curve(pds_styles):
+    ring = list(pds_styles["1078375"].pieces[2].outline.sew[0])  # back YK: armhole, 5 PDS samples
+    start, end = ring.index((73.03, -56.66)), ring.index((85.6, -54.7))
+    run = [Point2D(*p) for p in ring[start:end + 1]]
+    fit = fit_cubic(run)
+    chord = Vector2D.between(run[0], run[-1])
+    assert len(run) == 5
+    assert fit.start_handle.x * chord.x + fit.start_handle.y * chord.y > 0
+    assert fit.end_handle.x * chord.x + fit.end_handle.y * chord.y < 0
+    assert fit.max_deviation < 0.1  # the agreed curve tolerance (docs/drafting/shirt.md Q4)

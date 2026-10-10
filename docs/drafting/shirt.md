@@ -193,6 +193,19 @@ Every value here is **PDS-derived**. When the client sends the 1078375 measureme
 | T11 | Sum of piece areas × quantity = SUM_AREA per size | L 1.4262 m² | grading (T131) |
 | T12 | Notches | exactly the two PDS notches: YK `shoulder_notch` and sleeve `crown_notch` | no others are added (Q6) |
 
+## Block implementation (T130)
+- **Recipes:** `backend/app/domain/blocks/shirt/` drafts each piece from a recipe (`body.py`, `parts.py`). A recipe lists the named points above in drafting order, and each point is a linear formula of named measurements. The 35 measurement definitions are in `measures.py` (for example `front_length` = x(`HPS`) − x(`FE_hem`) on FRT).
+- **Data:** the values (`domain/data/measurements_1078375_L.json`) and the shape constants (`shirt_1078375_shape.json`) are written from the PDS by `scripts/derive_shirt_1078375.py`. The shape constants are each point's leftover offset, each curve's handles as chord fractions, and the notch parameters. `test_shirt_reference_data.py` fails if either file drifts from the PDS.
+- **Curve fits:** the yoke armhole (`SP:yoke_armhole`) has only 5 PDS samples. The free fit loops there, so it uses the tangent-constrained fit, which is 0.053 cm off, within the 0.1 tolerance (Q4).
+- **Collar rule:** the build plan's "collar sew line = neckline within 0.3 cm" does not hold for this client pattern (Q2: the band neck edge is the half neckline + 0.945). The accuracy suite checks the PDS value instead.
+- **Accuracy suite** (`application/accuracy/`, test `test_shirt_accuracy.py`, run on every commit) at L:
+  - every piece's cut length, width and area against the PDS (1.5 cm and 3 %; actual differences are at most 0.2 cm and about 0.1 %)
+  - all 37 sew edges within 0.1 (actual at most 0.046)
+  - the side, shoulder and yoke seams
+  - cap ease 3.934 (PDS 3.930)
+  - band and collar against the PDS
+  - valid outlines, the two notches, and grain along x
+
 ## Questions for the pattern maker
 Answered on 2026-10-10. The source is named for each answer.
 1. **Sleeve cap ease 3.93 cm.** **Answer (owner):** keep the PDS ease of 3.93 cm; the build plan's 0–1 cm rule does not apply.

@@ -1,0 +1,147 @@
+{
+ "source_pds": "1078375",
+ "size": "L",
+ "note": "Derived from the 1078375 PDS sew line, base size L, by scripts/derive_shirt_1078375.py. Do not edit.",
+ "measurements": {
+  "front_length": {
+   "value_cm": 74.03,
+   "source": "FRT: HPS.x - FE_hem.x, PDS sew line"
+  },
+  "front_neck_width": {
+   "value_cm": 8.62,
+   "source": "FRT: HPS.y - CF_neck.y, PDS sew line"
+  },
+  "front_neck_drop": {
+   "value_cm": 6.57,
+   "source": "FRT: HPS.x - CF_neck.x, PDS sew line"
+  },
+  "placket_rise": {
+   "value_cm": 2.21,
+   "source": "FRT: CF_top.x - CF_neck.x, PDS sew line"
+  },
+  "front_extension": {
+   "value_cm": 3.2,
+   "source": "FRT: CF_top.y - FE_top.y, PDS sew line"
+  },
+  "front_shoulder_drop": {
+   "value_cm": 6.39,
+   "source": "FRT: HPS.x - SP.x, PDS sew line"
+  },
+  "front_shoulder_width": {
+   "value_cm": 16.27,
+   "source": "FRT: SP.y - HPS.y, PDS sew line"
+  },
+  "front_armhole_depth": {
+   "value_cm": 19.59,
+   "source": "FRT: SP.x - UA.x, PDS sew line"
+  },
+  "half_chest_front": {
+   "value_cm": 31.36,
+   "source": "FRT: UA.y - CF_neck.y, PDS sew line"
+  },
+  "front_hem_width": {
+   "value_cm": 30.81,
+   "source": "FRT: side_hem.y - CF_neck.y, PDS sew line"
+  },
+  "back_length": {
+   "value_cm": 63.49,
+   "source": "back: CB_yoke.x - CB_hem.x, PDS sew line"
+  },
+  "back_yoke_drop": {
+   "value_cm": 1.07,
+   "source": "back: CB_yoke.x - yoke_armhole.x, PDS sew line"
+  },
+  "back_yoke_width": {
+   "value_cm": 24.05,
+   "source": "back: yoke_armhole.y - CB_yoke.y, PDS sew line"
+  },
+  "back_armhole_depth": {
+   "value_cm": 14.32,
+   "source": "back: yoke_armhole.x - UA.x, PDS sew line"
+  },
+  "half_chest_back": {
+   "value_cm": 29.76,
+   "source": "back: UA.y - CB_hem.y, PDS sew line"
+  },
+  "back_hem_width": {
+   "value_cm": 29.2,
+   "source": "back: side_hem.y - CB_hem.y, PDS sew line"
+  },
+  "yoke_depth_cb": {
+   "value_cm": 12.04,
+   "source": "back YK: CB_neck.x - CB_yoke.x, PDS sew line"
+  },
+  "back_neck_rise": {
+   "value_cm": 5.23,
+   "source": "back YK: HPS.x - CB_neck.x, PDS sew line"
+  },
+  "back_neck_width": {
+   "value_cm": 9.18,
+   "source": "back YK: HPS.y - CB_neck.y, PDS sew line"
+  },
+  "yoke_shoulder_drop": {
+   "value_cm": 4.71,
+   "source": "back YK: HPS.x - SP.x, PDS sew line"
+  },
+  "across_back_half": {
+   "value_cm": 25.96,
+   "source": "back YK: SP.y - CB_yoke.y, PDS sew line"
+  },
+  "yoke_seam_width": {
+   "value_cm": 24.0,
+   "source": "back YK: yoke_armhole.y - CB_yoke.y, PDS sew line"
+  },
+  "collar_width_cb": {
+   "value_cm": 4.79,
+   "source": "CLR: CB_collar_outer.y - CB_collar_neck.y, PDS sew line"
+  },
+  "collar_length": {
+   "value_cm": 22.7,
+   "source": "CLR: collar_point.x - CB_collar_neck.x, PDS sew line"
+  },
+  "collar_neck_reach": {
+   "value_cm": 21.38,
+   "source": "CLR: collar_neck_end.x - CB_collar_neck.x, PDS sew line"
+  },
+  "collar_point_rise": {
+   "value_cm": 3.63,
+   "source": "CLR: collar_point.y - CB_collar_neck.y, PDS sew line"
+  },
+  "band_height_cb": {
+   "value_cm": 3.31,
+   "source": "BND TOP: CB_band_neck.y - CB_band_top.y, PDS sew line"
+  },
+  "band_length": {
+   "value_cm": 24.38,
+   "source": "BND TOP: band_neck_end.x - CB_band_top.x, PDS sew line"
+  },
+  "band_top_reach": {
+   "value_cm": 23.23,
+   "source": "BND TOP: band_top_end.x - CB_band_top.x, PDS sew line"
+  },
+  "underarm_height": {
+   "value_cm": 9.99,
+   "source": "Sleeve: UA_front.x - hem_front.x, PDS sew line"
+  },
+  "bicep": {
+   "value_cm": 43.86,
+   "source": "Sleeve: UA_front.y - UA_back.y, PDS sew line"
+  },
+  "cap_height": {
+   "value_cm": 16.481032,
+   "source": "Sleeve: cap_crown.x - UA_front.x, PDS sew line"
+  },
+  "cap_front_width": {
+   "value_cm": 21.928899,
+   "source": "Sleeve: UA_front.y - cap_crown.y, PDS sew line"
+  },
+  "hem_turnup": {
+   "value_cm": 2.0,
+   "source": "Sleeve: hem_fold_front.x - hem_front.x, PDS sew line"
+  },
+  "sleeve_hem_width": {
+   "value_cm": 39.83,
+   "source": "Sleeve: hem_front.y - hem_back.y, PDS sew line"
+  }
+ }
+}

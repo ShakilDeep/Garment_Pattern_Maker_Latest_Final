@@ -1,8 +1,9 @@
 """Registry of installed drafting blocks, one per garment family version (replaces the single demo profile)."""
 from functools import cache
 
-from app.domain.blocks.base import Block, NamedBlock
+from app.domain.blocks.base import Block, DictBlock, NamedBlock
 from app.domain.blocks.demo_shirt import DemoShirtBlock
+from app.domain.blocks.shirt.block import ShirtBlock
 
 
 class BlockRegistry:
@@ -26,6 +27,10 @@ class BlockRegistry:
     def ids(self, family: str | None = None) -> tuple[str, ...]:
         return tuple(key for key, block in self._blocks.items() if family is None or block.family == family)
 
+    def project_ids(self) -> tuple[str, ...]:
+        """Blocks a V5 project can draft with: they draft the V5 dict its grading, markers and exports read."""
+        return tuple(key for key, block in self._blocks.items() if isinstance(block, DictBlock))
+
     def demo(self) -> Block:
         """The block a project falls back to before the user picks one (the demo shirt today)."""
         found = next((block for block in self._blocks.values() if block.calibration == "demo"), None)
@@ -38,6 +43,7 @@ class BlockRegistry:
 def installed() -> BlockRegistry:
     registry = BlockRegistry()
     registry.register(DemoShirtBlock())
+    registry.register(ShirtBlock())
     return registry
 
 

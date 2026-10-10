@@ -20,9 +20,14 @@ def ready(tmp_path_factory):
     return project
 
 
-def test_the_profile_requirement_offers_the_installed_blocks(ready):
+def test_the_profile_requirement_offers_only_blocks_a_v5_project_can_draft(ready):
     item = next(i for i in requirements(ready, "L")["items"] if i["key"] == "profile")
-    assert item["options"] == list(installed().ids())
+    assert item["options"] == list(installed().project_ids()) == ["demo_v1"]
+
+
+def test_a_named_v6_block_cannot_be_a_project_profile(ready):
+    with pytest.raises(ValueError, match="Unsupported requirement resolution"):
+        resolve(dict(ready, resolutions=dict(ready["resolutions"])), "profile", "shirt_1078375")
 
 
 def test_resolving_an_uninstalled_profile_is_refused(ready):

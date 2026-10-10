@@ -9,7 +9,7 @@ from app.domain.blocks.registry import installed
 def resolve(project, key, value, note='', actor='local user', source_id=None, resolution_type='manual'):
     allowed = {
         "units": ["cm", "inch"],
-        "profile": list(installed().ids()),
+        "profile": list(installed().project_ids()),
         "review": ["confirmed"],
         "placket": ["workbook", "techpack"],
         "base_size": list((project.get("chart") or {}).get("sizes", [])),
