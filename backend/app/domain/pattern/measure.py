@@ -40,11 +40,11 @@ def edge_between(piece: Piece, start: PointId, end: PointId) -> Segment:
     return found
 
 
-def segment_length(piece: Piece, segment: Segment) -> float:
+def segment_length(piece: Piece, segment: Segment, steps: int = LENGTH_STEPS) -> float:
     curve = resolve_segment(segment, {p.id: p.position for p in piece.points})
     if isinstance(curve, LineSegment):
         return float(curve.length)
-    return length([(p.x, p.y) for p in curve.sample(LENGTH_STEPS)])
+    return length([(p.x, p.y) for p in curve.sample(steps)])
 
 
 def path_length(piece: Piece, segment_ids: Sequence[SegmentId]) -> float:
@@ -70,13 +70,13 @@ def angle_at(piece: Piece, point_id: PointId) -> float:
     return degrees(acos(max(-1.0, min(1.0, cosine))))
 
 
-def dense_ring(piece: Piece) -> tuple[Point2D, ...]:
+def dense_ring(piece: Piece, steps: int = LENGTH_STEPS) -> tuple[Point2D, ...]:
     """The sew outline as an open ring with curves sampled densely, for area and perimeter."""
     positions = {p.id: p.position for p in piece.points}
     ring: list[Point2D] = []
     for segment in piece.outline:
         curve = resolve_segment(segment, positions)
-        points = (curve.start, curve.end) if isinstance(curve, LineSegment) else curve.sample(LENGTH_STEPS)
+        points = (curve.start, curve.end) if isinstance(curve, LineSegment) else curve.sample(steps)
         ring.extend(points[:-1])
     return tuple(ring)
 

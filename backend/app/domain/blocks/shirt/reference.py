@@ -8,6 +8,7 @@ from functools import cache
 from pathlib import Path
 
 MEASUREMENTS_FILE = Path(__file__).parents[2] / "data" / "measurements_1078375_L.json"
+GRADED_FILE = Path(__file__).parents[2] / "data" / "measurements_1078375_graded.json"
 
 
 @cache
@@ -19,3 +20,21 @@ def _values() -> tuple[tuple[str, float], ...]:
 def reference_measurements() -> dict[str, float]:
     """A fresh copy, so a caller can change a value without touching the cached set."""
     return dict(_values())
+
+
+@cache
+def _graded() -> dict[str, tuple[tuple[str, float], ...]]:
+    data = json.loads(GRADED_FILE.read_text(encoding="utf-8"))
+    return {size: tuple(values.items()) for size, values in data["sizes"].items()}
+
+
+def graded_sizes() -> tuple[str, ...]:
+    """The PDS size range, S to 3XL, in order (docs/grading/shirt.md)."""
+    return tuple(_graded())
+
+
+def graded_measurements(size: str) -> dict[str, float]:
+    """One size's graded measurement set; KeyError for a size the PDS does not have."""
+    if size not in _graded():
+        raise KeyError(f"The 1078375 grading has no size {size}")
+    return dict(_graded()[size])
