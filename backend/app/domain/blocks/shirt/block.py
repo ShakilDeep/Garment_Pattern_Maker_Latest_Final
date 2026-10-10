@@ -1,8 +1,8 @@
 """ShirtBlock (a ``NamedBlock``): the 1078375 men's regular short-sleeve shirt, drafted as docs/drafting/shirt.md.
 
 Back yoke, grown-on 3.5 cm placket, collar on a band and a short set-in sleeve are the only construction the
-client pattern has, so each is a fixed option. The shape constants are the base size L of the PDS; per-size
-drafting arrives with grading (T131), so ``size`` does not change the draft yet.
+client pattern has, so each is a fixed option. Every size is drafted from its own measurement set (graded
+from the PDS, docs/grading/shirt.md) with the base-size shape constants; ``size`` is only a label.
 """
 from collections.abc import Mapping
 
@@ -10,7 +10,7 @@ from app.domain.blocks.base import Calibration, Pieces, StyleOption
 from app.domain.blocks.shirt.allowances import seam_allowance as piece_allowance
 from app.domain.blocks.shirt.draft import draft_recipe
 from app.domain.blocks.shirt.measures import RECIPES, REQUIRED, require
-from app.domain.blocks.shirt.reference import reference_measurements
+from app.domain.blocks.shirt.reference import graded_measurements, graded_sizes, reference_measurements
 from app.domain.blocks.shirt.shape import shape
 from app.domain.blocks.transforms import Transform
 from app.domain.pattern.seam import SeamAllowance
@@ -39,6 +39,12 @@ class ShirtBlock:
 
     def reference_measurements(self) -> Mapping[str, float]:
         return reference_measurements()
+
+    def graded_sizes(self) -> tuple[str, ...]:
+        return graded_sizes()
+
+    def graded_measurements(self, size: str) -> Mapping[str, float]:
+        return graded_measurements(size)
 
     def seam_allowance(self, piece_id: object) -> SeamAllowance:
         return piece_allowance(str(piece_id))

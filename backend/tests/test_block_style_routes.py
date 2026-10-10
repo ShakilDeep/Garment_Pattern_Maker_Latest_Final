@@ -18,9 +18,11 @@ def drafted(tmp_path_factory):
     return client, response.json()
 
 
-def test_the_style_has_the_seven_pieces_at_l_with_allowances(drafted):
+def test_the_style_has_the_seven_pieces_in_every_size_with_allowances(drafted):
     client, summary = drafted
-    assert (summary["sizes"], summary["base_size"], summary["project_id"]) == (["L"], "L", None)
+    assert (summary["sizes"], summary["base_size"], summary["project_id"]) == (
+        ["S", "M", "L", "XL", "XXL", "3XL"], "L", None)
+    assert summary["graded_sizes"] == summary["sizes"]
     assert summary["piece_ids"] == ["FRT", "back", "back_YK", "CLR", "BND_TOP", "BND_IN", "Sleeve"]
     piece = client.get(f"/api/v1/styles/{summary['id']}/pieces/back_YK", params={"size": "L"}).json()
     assert piece["points"][1]["id"] == "HPS" and piece["cut_outline"]

@@ -17,7 +17,7 @@
 - **Shared:** two measurements set one extreme together, so their sum takes the PDS step.
   - The yoke's `yoke_depth_cb` takes its proportional share, and `back_neck_rise` takes the rest.
   - The sleeve's `cap_height` is trued, and `underarm_height` takes the rest.
-- **Follows:** the hem widths move with the chest.
+- **Follows:** the hem widths move with the chest, and the band's rounded end (`band_top_reach`) moves with the band length, keeping its PDS shape. The Hypothesis fuzzing found that grading it proportionally could squeeze the band end until the cut outline lost allowance.
 - **Constant:** the 3.5 cm placket (`front_extension`, `placket_rise`) and the 2 cm turn-up (tech pack).
 - **Trued** (`truing.py`): solved so one seam relation keeps its L value in every size. Each relation is solved with a secant in turn, and the round repeats until all hold within 2e-6 cm:
   - side seams equal
@@ -55,11 +55,11 @@
 | `yoke_seam_width` | 24.000 | -1.528 | -0.764 | +1.147 | +2.293 | +3.439 | trued: yoke seam |
 | `collar_width_cb` | 4.790 | -0.095 | -0.048 | +0.049 | +0.097 | +0.146 | proportional: CLR width |
 | `collar_length` | 22.700 | -1.998 | -0.999 | +0.999 | +1.999 | +2.998 | PDS CLR length step |
-| `collar_neck_reach` | 21.380 | -1.798 | -0.899 | +0.899 | +1.798 | +2.697 | trued: collar on band top edge |
+| `collar_neck_reach` | 21.380 | -2.007 | -1.003 | +1.003 | +2.007 | +3.010 | trued: collar on band top edge |
 | `collar_point_rise` | 3.630 | -0.072 | -0.037 | +0.037 | +0.074 | +0.110 | proportional: CLR width |
 | `band_height_cb` | 3.310 | -0.118 | -0.059 | +0.059 | +0.118 | +0.178 | proportional: BND width |
 | `band_length` | 24.380 | -2.000 | -1.000 | +1.000 | +2.000 | +3.000 | PDS BND TOP length step |
-| `band_top_reach` | 23.230 | -1.792 | -0.896 | +0.896 | +1.792 | +2.688 | proportional: BND length |
+| `band_top_reach` | 23.230 | -2.000 | -1.000 | +1.000 | +2.000 | +3.000 | follows band_length (the rounded band end keeps its PDS shape) |
 | `underarm_height` | 9.990 | -1.841 | -0.944 | +1.317 | +2.733 | +4.342 | Sleeve length step less cap_height |
 | `bicep` | 43.860 | -4.369 | -2.183 | +3.308 | +6.615 | +9.919 | PDS Sleeve width step |
 | `cap_height` | 16.481 | +0.841 | +0.444 | -0.815 | -1.728 | -2.831 | trued: sleeve cap ease 3.929 |
@@ -69,7 +69,8 @@
 
 ## Checks
 - Every seam relation holds its L value in every size, within 1e-5 cm (`test_shirt_grading.py`).
-- Cut SUM_AREA against the PDS: S −0.92 %, M −0.45 %, L +0.02 %, XL +0.59 %, XXL +1.38 %, 3XL +2.21 %. The build-plan gate is 3 %.
+- Cut SUM_AREA against the PDS: S −0.93 %, M −0.45 %, L +0.02 %, XL +0.59 %, XXL +1.38 %, 3XL +2.22 %. The build-plan gate is 3 % (`test_shirt_graded_accuracy.py`).
+- Hypothesis fuzzing (`test_shirt_fuzz.py`) moves the driving PDS steps by up to ±5 % and runs the full pipeline. Seams stay trued, and every outline and cut outline stays valid.
 
 ## Decisions and findings (2026-10-10)
 1. **Source:** grade from the PDS per-size steps (owner).
@@ -81,7 +82,8 @@
 5. **For the pattern maker to review:**
    - **The cap gets lower in bigger sizes** (−2.83 cm at 3XL). The PDS bicep grows +3.3 cm per size, faster than the armhole, while the ease is held.
    - **`back_armhole_depth` dips at XL.** The PDS front length grows +2.0 at XL but the back only +1.0 (the yoke takes the other +1.0), so the side seams pull the back armhole up at that step.
-6. **When the client sends the 1078375 chart,** it replaces this table through Missing Information.
+6. **Sleeve area per size** (owner, 2026-10-10): with the ease held at 3.93, the graded Sleeve's cut area runs −3.1 % (S), −1.6 % (M), +2.9 % (XL), +5.9 % (XXL) and +9.0 % (3XL) of the PDS sleeve. The build plan's M4 gate (SUM_AREA per size within 3 %) passes in every size. Per-piece checks are gated at L and reported in the other sizes. Letting the ease float instead (2.07 at S to 7.74 at 3XL) would keep the sleeve within about 3 %. The pattern maker should choose between these two.
+7. **When the client sends the 1078375 chart,** it replaces this table through Missing Information.
 
 ## Sign-off
 | Reviewer (pattern maker) | Date | Verdict | Notes |

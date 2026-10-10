@@ -5,7 +5,7 @@ built from what the PDS XML does give per size and piece (owner's decisions, 202
 is exactly one of:
 - DRIVEN: its step from L is a PDS piece number's step (it sets that piece's extreme on that axis);
 - SHARED: two measurements set one extreme together; their sum takes the step;
-- FOLLOWS: it moves with another measurement (hem widths with the chest);
+- FOLLOWS: it moves with another measurement (hem widths with the chest, the band end with the band);
 - CONSTANT: construction the tech pack fixes (3.5 cm placket, 2 cm turn-up);
 - TRUED: solved so one seam relation (``seams.py``) keeps its base value (``truing.py``);
 - PROPORTIONAL: its L value scaled by its own piece's PDS growth on its axis (GROWS_WITH overrides the
@@ -30,7 +30,9 @@ SHARED: Mapping[tuple[str, str], PdsNumber] = {  # the first's step is proportio
     ("yoke_depth_cb", "back_neck_rise"): ("back YK", "size_x_cm"),
     ("cap_height", "underarm_height"): ("Sleeve", "size_x_cm"),
 }
-FOLLOWS: Mapping[str, str] = {"front_hem_width": "half_chest_front", "back_hem_width": "half_chest_back"}
+FOLLOWS: Mapping[str, str] = {  # band_top_reach: the band's rounded end keeps its PDS shape in every size
+    "front_hem_width": "half_chest_front", "back_hem_width": "half_chest_back", "band_top_reach": "band_length",
+}
 CONSTANT: tuple[str, ...] = ("front_extension", "placket_rise", "hem_turnup")
 TRUED: Mapping[str, str] = {  # seam relation (``seams.py``) -> the measurement solved to hold it
     "band neck edge vs neckline": "front_neck_width",
@@ -43,7 +45,7 @@ TRUED: Mapping[str, str] = {  # seam relation (``seams.py``) -> the measurement 
 PROPORTIONAL: tuple[str, ...] = (
     "front_neck_drop", "front_shoulder_drop", "front_armhole_depth", "back_yoke_drop", "back_yoke_width",
     "back_neck_width", "yoke_shoulder_drop", "collar_width_cb", "collar_point_rise", "band_height_cb",
-    "band_top_reach", "cap_front_width", "sleeve_hem_width",
+    "cap_front_width", "sleeve_hem_width",
 )
 GROWS_WITH: Mapping[str, Literal["x", "y"]] = {"front_armhole_depth": "y", "back_armhole_depth": "y"}
 PARTNER: Mapping[str, str] = {first: second for first, second in SHARED}  # first -> the one that balances it

@@ -13,7 +13,8 @@ from app.infrastructure.piece_validity import check_stitch_outline
 NOTCHES = {"shoulder_notch", "crown_notch"}  # docs/drafting/shirt.md Q6: exactly the two PDS notches
 
 
-def _invalid(piece: Piece) -> bool:
+def outline_invalid(piece: Piece) -> bool:
+    """An outline that crosses or touches itself, encloses no area, or runs clockwise."""
     try:
         check_stitch_outline(piece)
     except ValueError:
@@ -22,7 +23,7 @@ def _invalid(piece: Piece) -> bool:
 
 
 def _geometry_checks(pieces: Sequence[Piece]) -> list[Check]:
-    invalid = sum(_invalid(piece) for piece in pieces)
+    invalid = sum(outline_invalid(piece) for piece in pieces)
     notches = {str(notch.id) for piece in pieces for notch in piece.notches}
     level = sum(p.grainline is None or p.grainline.start.y != p.grainline.end.y for p in pieces)
     return [
