@@ -28,3 +28,6 @@ post.md
 sshkey.md
 reference/
 .hypothesis/
+
+# Client tech packs (T132): kept local, the repository is public (owner, 2026-10-11)
+fixtures/reference_patterns/*.pdf

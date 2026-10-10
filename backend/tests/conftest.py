@@ -45,6 +45,9 @@ def import_mutated(exported):
 
 
 REFERENCE_PATTERNS = Path(__file__).resolve().parents[2] / "fixtures" / "reference_patterns"
+TECH_PACKS = ("1078375.pdf", "CL1086464.pdf")  # client tech packs: local only, the repo is public (T132)
+needs_tech_packs = pytest.mark.skipif(not all((REFERENCE_PATTERNS / name).exists() for name in TECH_PACKS),
+                                      reason="client tech-pack PDFs are kept out of the public repo")
 
 
 @pytest.fixture(scope="session")

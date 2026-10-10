@@ -6,6 +6,8 @@ from collections.abc import Sequence
 from dataclasses import dataclass
 from typing import Protocol
 
+from app.ports.ai_failure import ProviderFailure
+
 
 @dataclass(frozen=True)
 class PomQuery:
@@ -24,12 +26,7 @@ class PomSuggestion:
     reason: str
 
 
-class PomSuggestError(Exception):
-    """A provider failed (``unavailable``) or answered with output that could not be read."""
-
-    def __init__(self, provider: str, *, unavailable: bool):
-        self.provider, self.unavailable = provider, unavailable
-        super().__init__(f"{provider} {'unavailable' if unavailable else 'returned invalid output'}")
+PomSuggestError = ProviderFailure  # the shared AI port error, under the name the POM code uses
 
 
 class PomSuggester(Protocol):

@@ -1,0 +1,10 @@
+{
+  "style": "1078375",
+  "source": "1078375.pdf",
+  "page": 1,
+  "model": "gemini-3.8-flash",
+  "prompt_version": "style_detect_v2",
+  "image_sha256": "8d197471007a72cad26d8e72bc31615ae42458bdb8101d6cad97acaf27854ff6",
+  "recorded_at": "2026-10-10",
+  "response": "{\"garment\":{\"value\":\"shirt\",\"confidence\":1.0},\"fit\":{\"value\":\"regular\",\"confidence\":1.0},\"collar\":{\"value\":\"shirt_collar\",\"confidence\":1.0},\"placket\":{\"value\":\"full\",\"confidence\":1.0},\"yoke\":{\"value\":\"yes\",\"confidence\":1.0},\"sleeve\":{\"value\":\"short\",\"confidence\":1.0},\"leg\":{\"value\":\"unknown\",\"confidence\":1.0},\"waistband\":{\"value\":\"unknown\",\"confidence\":1.0},\"pockets\":{\"value\":\"none\",\"confidence\":0.99}}"
+}
