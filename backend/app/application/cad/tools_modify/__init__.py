@@ -1,6 +1,7 @@
 """Modify tools (CAD-02): one Command per tool, registered by name on the style command registry."""
 
 from app.application.cad.registry import Factory, Registry
+from app.application.cad.tools_modify.notch import add_notch
 from app.application.cad.tools_modify.smooth import smooth_point
 from app.application.cad.tools_modify.split_join import join_edges, split_edge_tool
 from app.application.cad.tools_modify.transform import mirror_piece, move_piece, rotate_piece
@@ -16,6 +17,7 @@ MODIFY_TOOLS: dict[str, Factory[Style]] = {
     "trim_line": trim_line,
     "extend_line": extend_line,
     "smooth_point": smooth_point,
+    "add_notch": add_notch,
 }
 
 

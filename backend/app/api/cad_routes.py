@@ -7,6 +7,7 @@ from typing import Annotated
 
 from fastapi import APIRouter, Query
 
+from app.api.models.cad_measure import BlockStyleCreate, MeasureBody, MeasureView, WalkBody, WalkView
 from app.api.models.cad_piece import PieceView, piece_view
 from app.api.models.cad_style import (
     CadCommandRequest,
@@ -15,8 +16,10 @@ from app.api.models.cad_style import (
     StyleSummary,
     style_summary,
 )
+from app.application.cad.measure_query import measure
 from app.application.cad.piece_detail import piece_detail
 from app.application.cad.style_service import StyleService
+from app.application.cad.walk import walk
 from app.ports.style_store import StyleRecord
 
 SizeLabel = Annotated[str, Query(min_length=1, max_length=64)]
@@ -35,6 +38,10 @@ def cad_routes(styles: StyleService):
     def create(body: StyleCreate):
         return style_summary(styles.create_from_project(body.project_id))
 
+    @routes.post("/from-block", response_model=StyleSummary)
+    def create_from_block(body: BlockStyleCreate):
+        return style_summary(styles.create_from_block(body.block_id))
+
     @routes.get("/{style_id}", response_model=StyleSummary)
     def get(style_id: str):
         return style_summary(styles.get(style_id))
@@ -42,6 +49,16 @@ def cad_routes(styles: StyleService):
     @routes.get("/{style_id}/pieces/{piece_id}", response_model=PieceView)
     def piece(style_id: str, piece_id: str, size: SizeLabel):
         return piece_view(piece_detail(styles.get(style_id).style, piece_id, size))
+
+    @routes.post("/{style_id}/measure", response_model=MeasureView)
+    def measure_piece(style_id: str, body: MeasureBody):
+        return MeasureView.of(measure(styles.get(style_id).style, body.size, body.piece_id, body.request()))
+
+    @routes.post("/{style_id}/walk", response_model=WalkView)
+    def walk_seams(style_id: str, body: WalkBody):
+        pieces = {str(piece.id): piece for piece in styles.get(style_id).style.view(body.size)}
+        first, second = [p.part() for p in body.first], [p.part() for p in body.second]
+        return WalkView.of(walk(pieces, first, second, body.at_cm))
 
     @routes.post("/{style_id}/pieces/{piece_id}/commands", response_model=CommandResult)
     def command(style_id: str, piece_id: str, body: CadCommandRequest):

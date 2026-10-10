@@ -10,10 +10,13 @@ from app.api.models.cad_marks import (
     DrillModel,
     InternalLineModel,
     LabelModel,
+    NotchMarkModel,
     NotchModel,
     SeamAllowanceModel,
 )
 from app.application.cad.piece_detail import PieceDetail
+from app.domain.pattern.notch_position import notch_mark
+from app.domain.pattern.piece import Piece
 from app.domain.pattern.seam_codec import allowance_to_data
 from app.domain.pattern.serialize import piece_to_data
 
@@ -61,6 +64,7 @@ class PieceView(BaseModel):
     fold: str | None
     internal_lines: list[InternalLineModel]
     notches: list[NotchModel]
+    notch_marks: list[NotchMarkModel]  # the notches resolved to slits, so the client never evaluates curves
     drills: list[DrillModel]
     labels: list[LabelModel]
     geometry_hash: str
@@ -68,9 +72,18 @@ class PieceView(BaseModel):
     cut_outline: list[XY] | None  # None while the piece has no seam allowance
 
 
+def _notch_marks(piece: Piece) -> list[dict]:
+    marks = []
+    for notch in piece.notches:
+        at, tip = notch_mark(piece, notch)
+        marks.append({"id": str(notch.id), "at": (at.x, at.y), "tip": (tip.x, tip.y)})
+    return marks
+
+
 def piece_view(detail: PieceDetail) -> PieceView:
     data = {key: value for key, value in piece_to_data(detail.piece).items() if key != "schema_version"}
     allowance = None if detail.allowance is None else allowance_to_data(detail.allowance)
     cut = None if detail.cut_outline is None else [(p.x, p.y) for p in detail.cut_outline]
-    extra = {"style_id": detail.style_id, "size": detail.size, "geometry_hash": detail.geometry_hash}
+    extra = {"style_id": detail.style_id, "size": detail.size, "geometry_hash": detail.geometry_hash,
+             "notch_marks": _notch_marks(detail.piece)}
     return PieceView.model_validate({**data, **extra, "seam_allowance": allowance, "cut_outline": cut})

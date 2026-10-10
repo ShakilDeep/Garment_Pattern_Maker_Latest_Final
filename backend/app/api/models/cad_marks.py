@@ -17,6 +17,14 @@ class NotchModel(BaseModel):
     t: float
 
 
+class NotchMarkModel(BaseModel):
+    """A notch drawn as a slit: ``at`` on the sew line, ``tip`` 0.7 cm inside the piece (resolved here)."""
+
+    id: str
+    at: XY
+    tip: XY
+
+
 class InternalLineModel(BaseModel):
     id: str
     points: list[XY]

@@ -10,6 +10,7 @@ from collections.abc import Mapping
 from app.application.cad.bus import CommandBus
 from app.application.cad.guard import Guard, default_guard
 from app.application.cad.style_commands import style_registry
+from app.application.cad.style_from_block import style_from_block
 from app.application.cad.style_from_project import style_from_project
 from app.application.cad.style_snapshot import StyleSnapshotter
 from app.domain.pattern.ids import PieceId
@@ -28,6 +29,11 @@ class StyleService:
         style = style_from_project(self.projects.get(project_id))
         self.guard.check(None, style)
         return self.store.add(style, project_id)
+
+    def create_from_block(self, block_id: str) -> StyleRecord:
+        style = style_from_block(block_id)
+        self.guard.check(None, style)
+        return self.store.add(style, None)
 
     def get(self, style_id: str) -> StyleRecord:
         return self.store.get(style_id)
