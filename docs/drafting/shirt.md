@@ -1,6 +1,6 @@
 # Drafting: men's regular short-sleeve shirt (1078375)
 
-**Status: PARTIALLY REVIEWED (2026-10-10).** The owner answered Q1–Q4, and Q6 was settled from `reference/`. Q5, Q7 and Q8 are still open: the reference does not answer them, and a pattern maker must. No `ShirtBlock` geometry is written until the sign-off at the end of this file is complete (build plan M3, task T129 → T130).
+**Status: REVIEWED (2026-10-10).** Every question is answered: Q6 from `reference/`, and the rest by the owner where the reference holds no answer. The `ShirtBlock` (T130) is drafted from this file.
 
 This file lists every point, line and curve of the shirt block. It also gives the measurement each one comes from and the truing checks that become tests. Every number comes from the client's Optitex file `1078375- Men Regular SS Shirt.PDS` (tracked copy `fixtures/reference_patterns/1078375.PDS`, sha256 `3bb708…`), base size **L**. The output of `python scripts/survey_pds_shirt.py` reproduces them. Nothing here is a textbook default. Where the PDS disagrees with the build plan's generic drafting rules, the PDS value is used and the conflict is listed under "Questions for the pattern maker".
 
@@ -8,7 +8,7 @@ This file lists every point, line and curve of the shirt block. It also gives th
 
 - **Style:**
   - Optitex 21.4, sizes S M L XL XXL 3XL, base L, SUM_AREA L 1.4262 m².
-  - Seven pieces. The PDS gives no grain lines. Every piece nests at 180° rotation, and FRT, back YK, CLR and Sleeve are marked "Up/Down".
+  - Seven pieces. The PDS gives no grain lines, so the block draws grain parallel to CF/CB along x (Q7). Every piece nests at 180° rotation, and FRT, back YK, CLR and Sleeve are marked "Up/Down".
 - **Tech pack `1078375.pdf`:**
   - placket 3.5 cm
   - 2 cm hems on sleeve and body
@@ -122,29 +122,29 @@ The two pieces have the same shape: every length is within 0.01 cm, and the surv
 | `CB_band_neck:CB_band_top` | line, **fold** | 3.310 / 3.310 | — | — | none (fold) |
 
 ### Sleeve — cut 2 (mirrored pair)
-The PDS does not mark which half of the sleeve is the front, so the two sides are `a` and `b` (open Q5).
+The PDS does not mark which half of the sleeve is the front. The owner decided (Q5) that the side with the narrow felled underarm (0.8) is the front.
 
 | Point | PDS L (x, y) | Defined by |
 |---|---|---|
-| `hem_fold_a` | (117.20, −43.70) | underarm seam meets the hem fold line |
-| `UA_a` | (125.19, −46.37) | underarm meets cap |
+| `hem_fold_back` | (117.20, −43.70) | underarm seam meets the hem fold line |
+| `UA_back` | (125.19, −46.37) | underarm meets cap |
 | `cap_crown` | (141.67, −24.44) | crown, at the PDS crown notch |
-| `UA_b` | (125.19, −2.51) | cap meets underarm |
-| `hem_fold_b` | (117.20, −5.19) | underarm seam meets the hem fold line |
-| `hem_b` | (115.20, −4.53) | hem turn-up edge |
-| `hem_a` | (115.20, −44.36) | hem turn-up edge |
+| `UA_front` | (125.19, −2.51) | cap meets underarm |
+| `hem_fold_front` | (117.20, −5.19) | underarm seam meets the hem fold line |
+| `hem_front` | (115.20, −4.53) | hem turn-up edge |
+| `hem_back` | (115.20, −44.36) | hem turn-up edge |
 
 | Edge | Kind | PDS length | Handles (start / end) | Fit | Allowance role |
 |---|---|---|---|---|---|
-| `hem_fold_a:UA_a` | cubic | 8.430 | (+2.705, −0.754) / (−2.588, +1.100) | 0.000 | underarm_wide |
-| `UA_a:cap_crown` | cubic | 28.449 | (+3.541, +10.218) / (−0.650, −12.896) | 0.036 | sleeve_cap |
-| `cap_crown:UA_b` | cubic | 28.759 | (+0.235, +13.735) / (+3.362, −9.953) | 0.038 | sleeve_cap |
-| `UA_b:hem_fold_b` | cubic | 8.433 | (−2.586, −1.108) / (+2.705, +0.756) | 0.000 | underarm_narrow |
-| `hem_fold_b:hem_b` | line | 2.106 | — | — | (turn-up corner) |
-| `hem_b:hem_a` | line | 39.830 | — | — | sleeve_hem |
-| `hem_a:hem_fold_a` | line | 2.106 | — | — | (turn-up corner) |
+| `hem_fold_back:UA_back` | cubic | 8.430 | (+2.705, −0.754) / (−2.588, +1.100) | 0.000 | underarm_wide |
+| `UA_back:cap_crown` | cubic | 28.449 | (+3.541, +10.218) / (−0.650, −12.896) | 0.036 | sleeve_cap |
+| `cap_crown:UA_front` | cubic | 28.759 | (+0.235, +13.735) / (+3.362, −9.953) | 0.038 | sleeve_cap |
+| `UA_front:hem_fold_front` | cubic | 8.433 | (−2.586, −1.108) / (+2.705, +0.756) | 0.000 | underarm_narrow |
+| `hem_fold_front:hem_front` | line | 2.106 | — | — | (turn-up corner) |
+| `hem_front:hem_back` | line | 39.830 | — | — | sleeve_hem |
+| `hem_back:hem_fold_back` | line | 2.106 | — | — | (turn-up corner) |
 
-A single cubic cannot follow the cap: it misses by 1.591 cm. Split at the crown notch, each half fits within 0.04 cm, so `cap_crown` is a named point. Notch `crown_notch` sits on the cap 28.759 cm from `UA_b` and 28.449 cm from `UA_a`, 0.019 cm off the sampled sew line.
+A single cubic cannot follow the cap: it misses by 1.591 cm. Split at the crown notch, each half fits within 0.04 cm, so `cap_crown` is a named point. Notch `crown_notch` sits on the cap 28.759 cm from `UA_front` and 28.449 cm from `UA_back`, 0.019 cm off the sampled sew line.
 
 The 2.0 cm between `hem_*` (x 115.20) and `hem_fold_*` (x 117.20) matches the tech pack's 2 cm sleeve hem. The PDS draws the turn-up inside the sew line, with mitred corners that mirror the underarm seam.
 
@@ -172,7 +172,7 @@ Every value here is **PDS-derived**. When the client sends the 1078375 measureme
 | Sleeve length, crown to turn-up edge | 26.47 | x(`cap_crown`) − x(`hem_*`) (the cap's highest x is 141.70: 26.50) |
 | Sleeve length, crown to hem fold | 24.47 | x(`cap_crown`) − x(`hem_fold_*`) |
 | Sleeve cap height | 16.48 | x(`cap_crown`) − x(`UA_*`) |
-| Bicep (UA to UA) | 43.86 | `UA_a` to `UA_b` |
+| Bicep (UA to UA) | 43.86 | `UA_back` to `UA_front` |
 | Sleeve width at hem fold / turn-up edge | 38.51 / 39.83 | `hem_fold_*`, `hem_*` |
 | Collar width at CB | 4.79 | CLR fold |
 | Band height at CB | 3.31 | BND fold |
@@ -184,7 +184,7 @@ Every value here is **PDS-derived**. When the client sends the 1078375 measureme
 | T2 | FRT shoulder = YK shoulder | 17.480 vs 17.428 (0.052) | within 0.1 |
 | T3 | Back yoke seam = YK yoke seam | 24.081 vs 24.000 (0.081) | within 0.1 |
 | T4 | Sleeve cap − body armhole (ease) | 57.208 − (23.670 + 16.858 + 12.751 = 53.279) = **3.929** | expected 3.929 at L, as in the PDS; the build plan's 0–1 cm rule does not apply (Q1) |
-| T5 | Cap halves at crown vs front / back armhole | 28.449 and 28.759 vs 23.670 and 29.609 | crown notch is not at the shoulder seam (Q5) |
+| T5 | Cap halves at crown vs front / back armhole | 28.449 and 28.759 vs 23.670 and 29.609 | crown notch stays where the PDS puts it, as a cap-centre notch and not at the shoulder seam (Q5) |
 | T6 | Band neck edge vs half neckline (FRT 12.016 + YK 11.847 = 23.863) | neck edge 24.808 = half neckline + 0.945 | expected +0.945 at L (Q2) |
 | T7 | Collar neck edge vs band top edge | 21.546 on 23.428 (1.882 short) | expected −1.882 at L (Q2) |
 | T8 | Every outline closed, counter-clockwise, no self-intersection, no zero-length edge | — | build-plan geometry rule |
@@ -199,13 +199,13 @@ Answered on 2026-10-10. The source is named for each answer.
 2. **Collar band edges.** **Answer (owner):** the 24.81 edge is the neck edge (neckline + 0.95). The collar's 21.55 edge sits on the 23.43 top edge.
 3. **FRT step at CF neck.** **Answer (owner):** the top of the grown-on 3.5 cm placket. **Allowances, measured from the PDS** (`edges.edge_allowances` on FRT): 1.0 cm on `FE_top:CF_top`, and 0.0 cm on `CF_top:CF_neck`, where the cut line lies on the sew line. The roles `placket_top` and `placket_cf_step` are added to `finishing.json`, with evidence, in T130.
 4. **Curve-fit tolerance.** **Answer (owner):** 0.1 cm.
-5. **Sleeve front and back.** *Open.* Which of `a` / `b` is the front? The crown notch splits the cap 28.45 / 28.76, while the body armhole is 23.67 front and 29.61 back. Should the crown notch align with the shoulder seam (`SP`), or is the sleeve deliberately rotated? `reference/` does not say (PDS, and tech pack pp. 1–6, checked).
+5. **Sleeve front and back.** `reference/` does not say (PDS, and tech pack pp. 1–6, checked). **Answer (owner):** the narrow-underarm side (0.8, cap half 28.759) is the front, and its points are named `*_front`. The crown notch stays exactly where the PDS puts it (a cap-centre notch, 28.759 / 28.449). It is not moved to match `SP`.
 6. **Notches.** **Settled from `reference/`:** the PDS has exactly two notches (YK shoulder, 1.475 cm from HPS, and the sleeve crown). The block reproduces those and adds none.
-7. **Grain lines.** *Open.* The PDS has none, and tech pack pp. 1–6 give none. Should the block draw grain parallel to CF/CB (x)?
-8. **Allowance role names** from T128 (`finishing.json`). *Open.* The values are measured from the PDS. The role names (for example the felled pairs side_seam_front 0.8 / side_seam_back 1.7, and underarm_narrow / underarm_wide) are inferred, and `reference/` does not name them.
+7. **Grain lines.** The PDS has none, and tech pack pp. 1–6 give none. **Answer (owner):** draw grain parallel to CF/CB, along x (the fabric length).
+8. **Allowance role names** from T128 (`finishing.json`). The values are measured from the PDS. **Answer (owner):** all 14 shirt roles and values are confirmed as they stand, and their status in `finishing.json` is now `confirmed`.
 
 ## Review sign-off
 | Reviewer (pattern maker) | Date | Verdict (approved / changes) | Notes |
 |---|---|---|---|
 | Owner (on the pattern maker's behalf for Q1–Q4) | 2026-10-10 | partial: Q1–Q4 answered | Q6 from reference; Q5, Q7, Q8 open |
-| | | | |
+| Owner (Q5, Q7, Q8) | 2026-10-10 | **approved** | sleeve front = narrow-underarm side, crown notch as PDS; grain along CF/CB; finishing.json shirt roles confirmed |

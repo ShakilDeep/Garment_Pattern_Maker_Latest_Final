@@ -17,12 +17,15 @@ def test_the_seeded_values_are_the_client_pds_values():
     assert (linen.warp_pct, linen.weft_pct) == (5.0, 5.0) and "CL1086464" in linen.source
 
 
+REVIEW_STATUS = {"shirt": "confirmed", "pant": "needs_pattern_maker_review"}
+
+
 def test_every_allowance_names_its_source_and_review_status():
-    for family in finishing().families.values():
+    # Shirt roles were confirmed in the T129 review (docs/drafting/shirt.md Q8); pant roles still await review.
+    for family_id, family in finishing().families.items():
         assert family.corner_source and family.allowances
         for item in family.allowances.values():
-            # No value is approved yet: every role awaits a pattern maker's confirmation (doc 126).
-            assert item.source and item.status == "needs_pattern_maker_review"
+            assert item.source and item.status == REVIEW_STATUS[family_id], item.role
             assert item.evidence, item.role
 
 
