@@ -1,4 +1,5 @@
 import {useState} from 'react';
+import {download} from './api';
 import {draftBlock, stylePiece} from './styleApi';
 import {LAYERS, type Layer, type StylePiece, type StyleSummary} from './styleTypes';
 
@@ -26,11 +27,24 @@ export function useStyleViewer(blockId: string) {
       setBusy(false);
     }
   };
+  // Base DXF-AAMA + .RUL and the all-sizes DXF in one zip; saved through saveBlobAsFile (api.download).
+  const exportAama = async () => {
+    if (!style) return;
+    setBusy(true);
+    setError('');
+    try {
+      await download(`/styles/${style.id}/export/aama?unit=mm`, `${blockId}_graded_aama.zip`);
+    } catch (e) {
+      setError((e as Error).message);
+    } finally {
+      setBusy(false);
+    }
+  };
   const toggle = (layer: Layer) => setShown((current) => {
     const next = new Set(current);
     if (next.has(layer)) next.delete(layer); else next.add(layer);
     return next;
   });
 
-  return {style, pieces, selected, select: setSelected, shown, toggle, busy, error, draft};
+  return {style, pieces, selected, select: setSelected, shown, toggle, busy, error, draft, exportAama};
 }

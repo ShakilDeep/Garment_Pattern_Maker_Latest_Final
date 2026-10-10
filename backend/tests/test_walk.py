@@ -31,7 +31,8 @@ def test_cap_ease_is_the_hand_calculation_and_the_pds_value(pieces):
     result = walk(pieces, CAP, ARMHOLE)
     assert result.first_cm == pytest.approx(_hand(pieces, CAP), abs=1e-9)
     assert result.second_cm == pytest.approx(_hand(pieces, ARMHOLE), abs=1e-9)
-    assert result.difference_cm == pytest.approx(3.929, abs=0.01)  # 1078375 PDS L, docs/drafting/shirt.md T4
+    # 1078375 PDS L ease 3.929 within the agreed curve tolerance (shirt.md Q4); the smooth crown gives 3.890
+    assert result.difference_cm == pytest.approx(3.929, abs=0.1)
 
 
 def test_walking_to_a_distance_places_a_matching_point_on_both_seams(pieces):

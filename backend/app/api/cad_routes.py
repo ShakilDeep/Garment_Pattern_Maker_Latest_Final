@@ -3,9 +3,9 @@
 Piece ids are unique only within a style, so pieces are addressed as /styles/{style_id}/pieces/{piece_id}.
 """
 
-from typing import Annotated
+from typing import Annotated, Literal
 
-from fastapi import APIRouter, Query
+from fastapi import APIRouter, Query, Response
 
 from app.api.models.cad_measure import BlockStyleCreate, MeasureBody, MeasureView, WalkBody, WalkView
 from app.api.models.cad_piece import PieceView, piece_view
@@ -20,6 +20,7 @@ from app.application.cad.measure_query import measure
 from app.application.cad.piece_detail import piece_detail
 from app.application.cad.style_service import StyleService
 from app.application.cad.walk import walk
+from app.application.grading.aama_export import graded_aama
 from app.ports.style_store import StyleRecord
 
 SizeLabel = Annotated[str, Query(min_length=1, max_length=64)]
@@ -53,6 +54,14 @@ def cad_routes(styles: StyleService):
     @routes.post("/{style_id}/measure", response_model=MeasureView)
     def measure_piece(style_id: str, body: MeasureBody):
         return MeasureView.of(measure(styles.get(style_id).style, body.size, body.piece_id, body.request()))
+
+    @routes.get("/{style_id}/export/aama", response_class=Response,
+                responses={200: {"content": {"application/zip": {}}, "description": "DXF-AAMA + RUL zip"}})
+    def export_aama(style_id: str, unit: Literal["mm", "inch"] = "mm"):
+        """Base DXF-AAMA + .RUL and the all-sizes DXF of a graded style, as one zip (T131)."""
+        content = graded_aama(styles.get(style_id).style, unit)
+        headers = {"Content-Disposition": f'attachment; filename="{style_id}_aama.zip"'}
+        return Response(content, media_type="application/zip", headers=headers)
 
     @routes.post("/{style_id}/walk", response_model=WalkView)
     def walk_seams(style_id: str, body: WalkBody):

@@ -42,4 +42,5 @@ SLEEVE = PieceRecipe(
     ("cubic", "cubic", "cubic", "cubic", "line", "line", "line"),
     ("underarm_wide", "sleeve_cap", "sleeve_cap", "underarm_narrow", "underarm_narrow", "sleeve_hem", "underarm_wide"),
     (NotchRecipe("crown_notch", "cap_crown", "UA_front"),),
+    smooth=("cap_crown",),  # the PDS cap is one curve; the crown notch only marks a point on it
 )

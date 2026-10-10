@@ -9,7 +9,7 @@ from app.domain.blocks.sketch.named_edges import path_length
 from app.domain.geom.polyline_ops import area, length
 from app.domain.pattern.piece import Piece
 from app.domain.reference import GeomInfo
-from app.infrastructure.pds.shirt_derive import NamedPiece
+from app.infrastructure.pds.shirt_named import NamedPiece
 from app.infrastructure.piece_validity import check_cut_geometry
 
 SIZE_CM = 1.5  # build plan M3: width and length within 1.5 cm of the PDS piece

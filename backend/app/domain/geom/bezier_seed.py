@@ -77,11 +77,13 @@ def _closest(ctrl: Control, q: Point2D, t: float) -> float:
     return min(max(t - (gap.x * slope.x + gap.y * slope.y) / curvature, 0.0), 1.0)
 
 
-def tangent_fit(points: Sequence[Point2D]) -> tuple[Control, list[float]]:
-    """Handles along the run's end directions, lengths by least squares, parameters refined by Newton steps."""
+def tangent_fit(points: Sequence[Point2D], ends: tuple[Vector2D, Vector2D] | None = None
+                ) -> tuple[Control, list[float]]:
+    """Handles along the given end directions (by default the run's first and last steps), lengths by least
+    squares, parameters refined by Newton steps."""
     a, d = points[0], points[-1]
-    ends = (unit(Vector2D.between(a, next(p for p in points[1:] if p != a))),
-            unit(Vector2D.between(d, next(p for p in reversed(points[:-1]) if p != d))))
+    ends = ends or (unit(Vector2D.between(a, next(p for p in points[1:] if p != a))),
+                    unit(Vector2D.between(d, next(p for p in reversed(points[:-1]) if p != d))))
     params = chord_params(points)
     ctrl = _tangent_lengths(points, params, ends)
     for _ in range(TANGENT_ROUNDS):

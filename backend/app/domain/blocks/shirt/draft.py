@@ -10,7 +10,9 @@ from app.domain.blocks.shirt.shape import PieceShape, chord_handles
 from app.domain.blocks.sketch.sketch import PieceSketch, PieceSpec
 from app.domain.geom.primitives import Point2D
 from app.domain.pattern.cutting import CutQuantity
+from app.domain.pattern.ids import PointId
 from app.domain.pattern.piece import Piece
+from app.domain.pattern.smooth import smooth_at
 
 GRAIN_SPAN = 0.5  # share of the piece length the grain line covers
 
@@ -52,4 +54,7 @@ def draft_recipe(recipe: PieceRecipe, measures: Mapping[str, float], shape: Piec
         sketch.fold(*recipe.fold)
     for notch in recipe.notches:
         sketch.notch(notch.name, notch.start, notch.end, shape.notches[notch.name])
-    return sketch.build(PieceSpec(recipe.id, recipe.name, CutQuantity(*recipe.cut)))
+    piece = sketch.build(PieceSpec(recipe.id, recipe.name, CutQuantity(*recipe.cut)))
+    for name in recipe.smooth:
+        piece = smooth_at(piece, PointId(name))
+    return piece

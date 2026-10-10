@@ -1,10 +1,12 @@
 import {afterEach, beforeEach, expect, it, vi} from 'vitest';
-import {cleanup, fireEvent, render, screen} from '@testing-library/react';
+import {cleanup, fireEvent, render, screen, waitFor} from '@testing-library/react';
 import BlockViewer from './BlockViewer';
 import * as styleApi from './styleApi';
+import * as api from './api';
 import {summary, yoke} from './blockViewerFixture';
 
 vi.mock('./styleApi');
+vi.mock('./api');
 afterEach(cleanup);
 beforeEach(() => vi.resetAllMocks());
 
@@ -42,4 +44,15 @@ it('shows the backend error when drafting fails', async () => {
   render(<BlockViewer />);
   fireEvent.click(screen.getByRole('button', {name: 'Draft 1078375 block'}));
   expect((await screen.findByRole('alert')).textContent).toBe('Drafting block is not installed: shirt_1078375');
+});
+
+it('downloads the graded DXF-AAMA zip and shows a failed download', async () => {
+  await drafted();
+  vi.mocked(api.download).mockResolvedValue(undefined);
+  fireEvent.click(screen.getByRole('button', {name: 'Download graded DXF-AAMA + RUL'}));
+  expect(api.download).toHaveBeenCalledWith('/styles/style-1/export/aama?unit=mm', 'shirt_1078375_graded_aama.zip');
+  vi.mocked(api.download).mockRejectedValue(new Error('Grade rules need every size drafted; missing S'));
+  await waitFor(() => expect((screen.getByRole('button', {name: 'Download graded DXF-AAMA + RUL'}) as HTMLButtonElement).disabled).toBe(false));
+  fireEvent.click(screen.getByRole('button', {name: 'Download graded DXF-AAMA + RUL'}));
+  expect((await screen.findByRole('alert')).textContent).toBe('Grade rules need every size drafted; missing S');
 });

@@ -36,6 +36,7 @@ class PieceRecipe:
     kinds: tuple[EdgeKind, ...]
     roles: tuple[str, ...]  # finishing role of each edge; "fold" for the fold edge
     notches: tuple[NotchRecipe, ...] = ()
+    smooth: tuple[str, ...] = ()  # points where the PDS line runs on as one curve (tangent-continuous)
 
     def __post_init__(self) -> None:
         if not len(self.points) == len(self.kinds) == len(self.roles):

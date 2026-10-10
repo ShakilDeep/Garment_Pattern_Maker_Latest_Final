@@ -26,8 +26,12 @@ test('the 1078375 block is drafted, its layers toggle, and measure and walk show
   await tool.getByRole('button', {name: 'Measure'}).click();
   await expect(tool.getByLabel('Measurement result')).toHaveText(/^28\.4\d cm$/);
 
+  const saved = page.waitForEvent('download');
+  await viewer.getByRole('button', {name: 'Download graded DXF-AAMA + RUL'}).click();
+  expect((await saved).suggestedFilename()).toBe('shirt_1078375_graded_aama.zip');
+
   await viewer.getByRole('button', {name: 'Walk sleeve cap'}).click();
-  await expect(viewer.getByRole('region', {name: 'Sleeve cap walk'})).toContainText('3.93 cm');
+  await expect(viewer.getByRole('region', {name: 'Sleeve cap walk'})).toContainText('3.95 cm');  // the backend's L cap ease (PDS 3.929)
 
   const results = await new AxeBuilder({page}).include('[aria-label="Block viewer (1078375)"]')
     .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa']).analyze();

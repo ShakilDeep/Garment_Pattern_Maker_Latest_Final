@@ -21,7 +21,10 @@ export default function BlockViewer() {
       </header>
       {v.error && <p role="alert">{v.error}</p>}
       {v.style && <>
-        <LayerToggles shown={v.shown} toggle={v.toggle} />
+        <div className="block-viewer-actions">
+          <LayerToggles shown={v.shown} toggle={v.toggle} />
+          <button type="button" disabled={v.busy} onClick={() => void v.exportAama()}>Download graded DXF-AAMA + RUL</button>
+        </div>
         <div className="style-pieces">
           {v.pieces.map((p) =>
             <StylePieceSvg key={p.id} piece={p} shown={v.shown} selected={p.id === v.selected} select={v.select} />)}

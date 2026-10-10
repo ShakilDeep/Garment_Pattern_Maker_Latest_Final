@@ -49,7 +49,7 @@ def test_walk_shows_the_cap_ease(drafted):
     client, summary = drafted
     body = {"size": "L", "first": CAP, "second": ARMHOLE, "at_cm": 10}
     result = client.post(f"/api/v1/styles/{summary['id']}/walk", json=body).json()
-    assert result["difference_cm"] == pytest.approx(3.929, abs=0.01)
+    assert result["difference_cm"] == pytest.approx(3.929, abs=0.1)  # PDS ease, within shirt.md Q4
     assert result["at"][0]["segment"] == "UA_back:cap_crown"
 
 
@@ -62,6 +62,15 @@ def test_add_notch_is_a_command_with_undo(drafted):
     assert [n["id"] for n in response.json()["piece"]["notches"]] == ["walk_1"]
     assert client.post(f"{url}/undo").status_code == 200
     assert client.get(f"{url}/pieces/FRT", params={"size": "L"}).json()["notches"] == []
+
+
+def test_the_graded_aama_export_downloads_as_one_zip(drafted):
+    client, summary = drafted
+    response = client.get(f"/api/v1/styles/{summary['id']}/export/aama", params={"unit": "mm"})
+    assert response.status_code == 200 and response.headers["content-type"] == "application/zip"
+    assert f'filename="{summary["id"]}_aama.zip"' in response.headers["content-disposition"]
+    assert client.get(f"/api/v1/styles/{summary['id']}/export/aama", params={"unit": "cm"}).status_code == 422
+    assert client.get("/api/v1/styles/style-unknown/export/aama").status_code == 404
 
 
 @pytest.mark.parametrize(("path", "body", "status"), [

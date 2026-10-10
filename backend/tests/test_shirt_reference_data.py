@@ -37,3 +37,16 @@ def test_a_pds_without_a_named_point_is_refused(pds_styles):
     broken = type(style)(**{**style.__dict__, "pieces": tuple(p for p in style.pieces if p.name != "CLR")})
     with pytest.raises(ValueError, match="PDS has no piece CLR"):
         derive(broken)
+
+
+def test_every_curve_follows_its_pds_run_within_the_agreed_tolerance(pds_styles):
+    from app.domain.geom.bezier_fit import fit_cubic
+    from app.domain.geom.primitives import Point2D
+    from app.infrastructure.pds.shirt_named import named_pieces, smooth_ends
+
+    for piece in named_pieces(pds_styles["1078375"]).values():
+        for (start, end), kind in zip(piece.recipe.edges(), piece.recipe.kinds, strict=True):
+            if kind == "cubic":
+                samples = [Point2D(*point) for point in piece.run(start, end)]
+                fit = fit_cubic(samples, smooth_ends(piece, start, end, samples))
+                assert fit.max_deviation <= 0.1, (piece.recipe.id, start, end)  # docs/drafting/shirt.md Q4

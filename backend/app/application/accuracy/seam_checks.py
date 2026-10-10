@@ -12,7 +12,7 @@ from app.domain.blocks.shirt.seams import AS_PDS, TRUED, seam_sum
 from app.domain.blocks.sketch.named_edges import path_length
 from app.domain.geom.polyline_ops import length
 from app.domain.pattern.piece import Piece
-from app.infrastructure.pds.shirt_derive import NamedPiece
+from app.infrastructure.pds.shirt_named import NamedPiece
 
 TOLERANCE_CM = 0.1
 

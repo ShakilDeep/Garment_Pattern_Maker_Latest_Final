@@ -66,6 +66,9 @@ def _piece_block(block, piece: InterchangePiece, style_name: str, scale: float) 
     _texts(block, lines, AamaLayer.CUT, (low[0], low[1] - TEXT_LINE_CM), scale)
     _texts(block, list(piece.annotations), AamaLayer.ANNOTATION,
            (low[0], low[1] - TEXT_LINE_CM * (len(lines) + 1)), scale)
+    for point, rule in piece.grade_points:  # ASTM D6673: "# <ID>" at the grade point, on layer 5
+        block.add_text(f"# {rule}", height=TEXT_HEIGHT_CM * scale,
+                       dxfattribs={"layer": AamaLayer.GRADE_REFERENCE.dxf}).set_placement(at(point))
 
 
 def _texts(layout, lines: list[str], layer: AamaLayer, start: Point, scale: float) -> None:

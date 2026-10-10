@@ -50,6 +50,13 @@ def snap(ring: list[Point], name: str, locator: Point) -> int:
     return index
 
 
+def travel(ring: list[Point], index: int) -> Point:
+    """The sew line's direction of travel through vertex ``index`` (unit; from the samples either side)."""
+    (ax, ay), (bx, by) = ring[index - 1], ring[(index + 1) % len(ring)]
+    length = hypot(bx - ax, by - ay)
+    return (bx - ax) / length, (by - ay) / length
+
+
 def run(ring: list[Point], start: int, end: int) -> list[Point]:
     """The sew line from vertex ``start`` forward (counter-clockwise) to vertex ``end``."""
     return ring[start:end + 1] if start < end else ring[start:] + ring[:end + 1]

@@ -4,54 +4,21 @@ The measurements follow ``shirt.measures.DEFINITIONS`` on the named sew-line ver
 what the measurement formulas leave over: each point's offset, each curve's best cubic (``fit_cubic``) as
 chord fractions, and each notch's parameter on its edge. ``scripts/derive_shirt_1078375.py`` writes them.
 """
-from dataclasses import dataclass
 from math import hypot
 
-from app.domain.blocks.shirt.measures import DEFINITIONS, RECIPES
-from app.domain.blocks.shirt.recipe import NotchRecipe, PieceRecipe, evaluate
+from app.domain.blocks.shirt.measures import DEFINITIONS
+from app.domain.blocks.shirt.recipe import NotchRecipe, evaluate
 from app.domain.blocks.shirt.shape import chord_fractions
 from app.domain.geom.bezier_fit import fit_cubic
 from app.domain.geom.primitives import Point2D
 from app.domain.interchange import Point
 from app.domain.pattern.point import quantize
 from app.domain.reference import ReferenceStyle
-from app.infrastructure.pds.named_points import ccw_ring, foot, run, snap, with_foot
-from app.infrastructure.pds.shirt_locators import LOCATORS
+from app.infrastructure.pds.named_points import foot
+from app.infrastructure.pds.shirt_named import NamedPiece, named_pieces, smooth_ends
 
 STYLE = "1078375"
 NOTE = "Derived from the 1078375 PDS sew line, base size L, by scripts/derive_shirt_1078375.py. Do not edit."
-
-
-@dataclass(frozen=True)
-class NamedPiece:
-    recipe: PieceRecipe
-    ring: list[Point]
-    index: dict[str, int]
-    notch_bases: list[Point]
-
-    def at(self, name: str) -> Point:
-        return self.ring[self.index[name]]
-
-    def run(self, start: str, end: str) -> list[Point]:
-        return run(self.ring, self.index[start], self.index[end])
-
-
-def named_pieces(style: ReferenceStyle) -> dict[str, NamedPiece]:
-    by_name = {piece.name: piece for piece in style.pieces}
-    named = {}
-    for recipe in RECIPES:
-        if recipe.name not in by_name:
-            raise ValueError(f"PDS has no piece {recipe.name}")
-        ring, bases = ccw_ring(by_name[recipe.name]), [n[0] for n in by_name[recipe.name].outline.notches]
-        locators = dict(LOCATORS[recipe.id])
-        for name in [name for name, at in locators.items() if at is None]:
-            if not bases:
-                raise ValueError(f"PDS piece {recipe.name} has no notch to place {name} at")
-            ring = with_foot(ring, bases[0])
-            locators[name] = foot(ring, bases[0])[1]
-        index = {name: snap(ring, name, at) for name, at in locators.items() if at is not None}
-        named[recipe.id] = NamedPiece(recipe, ring, index, bases)
-    return named
 
 
 def _notch_t(piece: NamedPiece, notch: NotchRecipe, base: Point) -> float:
@@ -71,7 +38,7 @@ def _shape(piece: NamedPiece, measures: dict[str, float]) -> dict:
     for (start, end), kind in zip(recipe.edges(), recipe.kinds, strict=True):
         if kind == "cubic":
             samples = [Point2D(*point) for point in piece.run(start, end)]
-            fit = fit_cubic(samples)
+            fit = fit_cubic(samples, smooth_ends(piece, start, end, samples))
             fractions = chord_fractions(samples[0], samples[-1], (fit.start_handle, fit.end_handle))
             handles[f"{start}:{end}"] = [quantize(value) for value in fractions]
     notches = {n.name: _notch_t(piece, n, base) for n, base in zip(recipe.notches, piece.notch_bases, strict=True)}

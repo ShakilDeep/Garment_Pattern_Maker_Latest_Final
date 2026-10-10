@@ -9,6 +9,7 @@ Point = tuple[float, float]
 Ring = tuple[Point, ...]
 Segment = tuple[Point, Point]
 Notch = tuple[Point, ...]  # one point: a point notch; two points: a slit from the cut line inward
+GradePoint = tuple[Point, int]  # a cut-line point and its grade rule number (AAMA text "# n", layer 5)
 
 
 @dataclass(frozen=True)
@@ -23,6 +24,7 @@ class InterchangePiece:
     grain: Segment | None = None
     category: str | None = None
     annotations: tuple[str, ...] = ()
+    grade_points: tuple[GradePoint, ...] = ()
 
 
 @dataclass(frozen=True)

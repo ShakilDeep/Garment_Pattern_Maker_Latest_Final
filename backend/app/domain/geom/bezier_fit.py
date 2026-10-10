@@ -1,11 +1,9 @@
 """Fit one cubic Bézier to a sampled run with its end points fixed, to read curve shapes off Optitex outlines.
 
-Start: Schneider's least squares (Graphics Gems) for the two inner control points at chord-length
-parameters. Then Levenberg-Marquardt over the control points and every sample's parameter together, the
-parameters eliminated per sample (Schur complement). Damping is needed: sliding a handle along its tangent
-is almost undone by reparameterizing, so plain Gauss-Newton steps are near-singular. This converges where
-alternating "solve, then reparameterize" crawls. A fit whose handle points backwards (a loop) is replaced
-by the tangent-constrained fit. Handles are offsets from their own end point; ``max_deviation`` is in cm.
+Schneider's least-squares start (Graphics Gems), then Levenberg-Marquardt over the control points and every
+sample's parameter together (parameters eliminated per sample, Schur complement; damped, since sliding a
+handle along its tangent is almost undone by reparameterizing). A looping fit (a backwards handle) falls back
+to the tangent-constrained fit, which is also used when the caller fixes the end directions (``ends``).
 """
 from collections.abc import Sequence
 from dataclasses import dataclass
@@ -16,8 +14,7 @@ from app.domain.geom.bezier_seed import chord_params, schneider_start, tangent_f
 from app.domain.geom.primitives import Point2D, Vector2D
 from app.domain.tolerances import COORDINATE
 
-ITERATIONS = 400
-DAMPING = 1e-3  # starting Levenberg-Marquardt damping, relative to the squared chord
+ITERATIONS, DAMPING = 400, 1e-3  # rounds; starting Levenberg-Marquardt damping, relative to the squared chord
 GROW, SHRINK, GIVE_UP = 4.0, 0.3, 1e12
 Step = tuple[list[float], list[float]]
 
@@ -77,9 +74,7 @@ def _inward(ctrl: Control) -> bool:
     return start.x * chord.x + start.y * chord.y > 0 and end.x * chord.x + end.y * chord.y < 0
 
 
-def fit_cubic(points: Sequence[Point2D]) -> CubicFit:
-    if len(points) < 2 or hypot(points[-1].x - points[0].x, points[-1].y - points[0].y) <= COORDINATE:
-        raise ValueError("A curve fit needs two distinct end points")
+def _free_fit(points: Sequence[Point2D]) -> tuple[Control, list[float]]:
     params = chord_params(points)
     ctrl = schneider_start(points, params)
     cost = _cost(ctrl, points, params)
@@ -93,7 +88,13 @@ def fit_cubic(points: Sequence[Point2D]) -> CubicFit:
             ctrl, params, cost, damping = trial, moved, trial_cost, damping * SHRINK
         else:
             damping *= GROW
-    if not _inward(ctrl):
-        ctrl, params = tangent_fit(points)
+    return (ctrl, params) if _inward(ctrl) else tangent_fit(points)
+
+
+def fit_cubic(points: Sequence[Point2D], ends: tuple[Vector2D, Vector2D] | None = None) -> CubicFit:
+    """Best cubic through ``points``; ``ends`` fixes the handle directions (start, and back from the end)."""
+    if len(points) < 2 or hypot(points[-1].x - points[0].x, points[-1].y - points[0].y) <= COORDINATE:
+        raise ValueError("A curve fit needs two distinct end points")
+    ctrl, params = tangent_fit(points, ends) if ends is not None else _free_fit(points)
     deviation = max(_gaps(ctrl, points, params))
     return CubicFit(Vector2D.between(ctrl[0], ctrl[1]), Vector2D.between(ctrl[3], ctrl[2]), deviation)

@@ -27,7 +27,7 @@ def _positions(style: Style, size: str) -> dict[Key, Point2D]:
     return {(piece.id, point.id): point.position for piece in style.view(size) for point in piece.points}
 
 
-def _move(sizes: Mapping[str, dict[Key, Point2D]], key: Key, at: Point2D) -> tuple[tuple[float, float], ...]:
+def _move(sizes: Mapping[str, Mapping[Key, Point2D]], key: Key, at: Point2D) -> tuple[tuple[float, float], ...]:
     row = []
     for size, positions in sizes.items():
         if key not in positions:
@@ -37,17 +37,23 @@ def _move(sizes: Mapping[str, dict[Key, Point2D]], key: Key, at: Point2D) -> tup
     return tuple(row)
 
 
-def grade_rules(style: Style) -> StyleRules:
+def rules_from_positions(name: str, sizes: Mapping[str, Mapping[Key, Point2D]], base_size: str) -> StyleRules:
+    """Grade rules for any per-size positions of the same keys (named points, cut corners...)."""
+    numbers: dict[tuple[tuple[float, float], ...], int] = {}
+    by_point = {key: numbers.setdefault(_move(sizes, key, at), len(numbers) + 1)
+                for key, at in sizes[base_size].items()}
+    return StyleRules(GradeRuleTable(name, tuple(sizes), base_size, tuple(numbers)), by_point)
+
+
+def require_graded(style: Style) -> None:
     missing = [size for size in style.sizes if not style.has_geometry(size)]
     if missing:
         raise ValueError(f"Grade rules need every size drafted; missing {', '.join(missing)}")
-    sizes = {size: _positions(style, size) for size in style.sizes}
-    numbers: dict[tuple[tuple[float, float], ...], int] = {}
-    by_point = {}
-    for key, at in sizes[style.base_size].items():
-        by_point[key] = numbers.setdefault(_move(sizes, key, at), len(numbers) + 1)
-    table = GradeRuleTable(style.name, style.sizes, style.base_size, tuple(numbers))
-    return StyleRules(table, by_point)
+
+
+def grade_rules(style: Style) -> StyleRules:
+    require_graded(style)
+    return rules_from_positions(style.name, {size: _positions(style, size) for size in style.sizes}, style.base_size)
 
 
 def _ruled(piece: Piece, rules: StyleRules) -> Piece:

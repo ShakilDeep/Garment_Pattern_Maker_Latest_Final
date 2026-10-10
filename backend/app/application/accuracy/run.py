@@ -7,7 +7,7 @@ from app.application.accuracy.seam_checks import seam_checks
 from app.domain.pattern.edges import orientation, stitch_ring
 from app.domain.pattern.piece import Piece
 from app.domain.reference import ReferenceStyle
-from app.infrastructure.pds.shirt_derive import named_pieces
+from app.infrastructure.pds.shirt_named import named_pieces
 from app.infrastructure.piece_validity import check_stitch_outline
 
 NOTCHES = {"shoulder_notch", "crown_notch"}  # docs/drafting/shirt.md Q6: exactly the two PDS notches
