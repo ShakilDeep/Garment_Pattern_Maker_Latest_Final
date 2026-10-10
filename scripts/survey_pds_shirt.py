@@ -20,7 +20,7 @@ from app.infrastructure.aama.corners import split_vertices
 from app.infrastructure.pds import read_pds
 
 PDS = ROOT / "fixtures" / "reference_patterns" / "1078375.PDS"
-TOLERANCE_CM = 0.05  # proposed in docs/drafting/shirt.md (build plan DXF round-trip); pattern maker to confirm
+TOLERANCE_CM = 0.05  # split report trigger only; the agreed fit tolerance is 0.1 (shirt.md Q4)
 STRAIGHT_CM = 0.005  # a run whose samples all lie this close to its chord is a straight line
 
 Point = tuple[float, float]
