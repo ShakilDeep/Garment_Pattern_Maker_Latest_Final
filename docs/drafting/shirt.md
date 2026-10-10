@@ -1,0 +1,209 @@
+# Drafting: men's regular short-sleeve shirt (1078375)
+
+**Status: AWAITING PATTERN-MAKER REVIEW.** No `ShirtBlock` geometry is written until a pattern maker signs off at the end of this file (build plan M3, task T129 → T130).
+
+This file lists every point, line and curve of the shirt block. It also gives the measurement each one comes from and the truing checks that become tests. Every number comes from the client's Optitex file `1078375- Men Regular SS Shirt.PDS` (tracked copy `fixtures/reference_patterns/1078375.PDS`, sha256 `3bb708…`), base size **L**. The output of `python scripts/survey_pds_shirt.py` reproduces them. Nothing here is a textbook default. Where the PDS disagrees with the build plan's generic drafting rules, the PDS value is used and the conflict is listed under "Questions for the pattern maker".
+
+## Source and conventions
+
+- **Style:**
+  - Optitex 21.4, sizes S M L XL XXL 3XL, base L, SUM_AREA L 1.4262 m².
+  - Seven pieces. The PDS gives no grain lines. Every piece nests at 180° rotation, and FRT, back YK, CLR and Sleeve are marked "Up/Down".
+- **Tech pack `1078375.pdf`:**
+  - placket 3.5 cm
+  - 2 cm hems on sleeve and body
+  - topstitch 0.2 cm on collar and yoke
+  - topstitch 0.5 cm on shoulder, armhole, side and placket
+  - collar code CL28
+  - **No measurement chart.** Every "source measurement" below is read from the PDS L pattern, not from a spec.
+- **Geometry:**
+  - The **sew line** is in cm with y up, as the PDS marker view places it (piece positions are arbitrary marker positions).
+  - Cut lines are the sew line plus the per-edge allowances in `backend/app/domain/data/finishing.json`. The allowances are not repeated here.
+- **Drafting order:**
+  - The PDS draws its sew rings clockwise; the V6 model drafts counter-clockwise. Points below are listed in **drafting (counter-clockwise) order**, and the PDS handles are swapped to match.
+  - Edge ids are `start:end`.
+  - Handles are offsets from their own end point (`domain/pattern/segment.CubicBezier`).
+  - "Fit" is the largest distance from a PDS sample to the fitted cubic (`domain/geom/bezier_fit.py`).
+- **Names:** letters and digits joined by single `_` (`domain/blocks/sketch/naming.py`). CF and CB are centre front and back, HPS is the high point shoulder, SP the shoulder point, and UA the underarm.
+
+## Pieces
+
+### FRT (front) — cut 2 (mirrored pair), not on fold
+| Point | PDS L (x, y) | Defined by |
+|---|---|---|
+| `FE_top` | (74.54, −36.39) | top of the front edge (placket edge) |
+| `CF_top` | (74.54, −33.19) | CF line at the height of `FE_top` |
+| `CF_neck` | (72.33, −33.19) | neckline meets CF |
+| `HPS` | (78.90, −24.57) | neckline meets shoulder |
+| `SP` | (72.51, −8.30) | shoulder meets armhole |
+| `UA` | (52.92, −1.83) | armhole meets side seam |
+| `side_hem` | (6.12, −2.38) | side seam meets hem |
+| `FE_hem` | (4.87, −36.38) | hem meets front edge |
+
+| Edge | Kind | PDS length | Handles (start / end) | Fit | Allowance role |
+|---|---|---|---|---|---|
+| `FE_top:CF_top` | line | 3.200 | — | — | not measured (open Q3) |
+| `CF_top:CF_neck` | line | 2.210 | — | — | not measured (open Q3) |
+| `CF_neck:HPS` | cubic | 12.016 | (−0.226, +4.828) / (−5.191, −1.640) | 0.006 | neckline |
+| `HPS:SP` | line | 17.480 | — | — | shoulder |
+| `SP:UA` | cubic | 23.670 | (−18.733, −3.821) / (+0.373, −2.638) | 0.018 | armhole_body |
+| `UA:side_hem` | cubic | 46.804 | (−15.597, −0.361) / (+15.601, +0.091) | 0.000 | side_seam_front |
+| `side_hem:FE_hem` | cubic | 34.041 | (−1.084, −13.019) / (−0.222, +13.997) | 0.002 | hem |
+| `FE_hem:FE_top` | line | 69.670 | — | — | front_edge |
+
+There are no notches on FRT in the PDS.
+
+### back — cut 1 on fold
+| Point | PDS L (x, y) | Defined by |
+|---|---|---|
+| `CB_yoke` | (68.01, −80.66) | CB fold meets yoke seam |
+| `yoke_armhole` | (66.94, −56.61) | yoke seam meets armhole |
+| `UA` | (52.62, −50.90) | armhole meets side seam |
+| `side_hem` | (5.82, −51.46) | side seam meets hem |
+| `CB_hem` | (4.52, −80.66) | hem meets CB fold |
+
+| Edge | Kind | PDS length | Handles (start / end) | Fit | Allowance role |
+|---|---|---|---|---|---|
+| `CB_yoke:yoke_armhole` | cubic | 24.081 | (−0.021, +9.592) / (+0.696, −9.195) | 0.000 | yoke_seam |
+| `yoke_armhole:UA` | cubic | 16.858 | (−5.844, +0.068) / (+1.427, −6.223) | 0.009 | armhole_body |
+| `UA:side_hem` | cubic | 46.804 | (−15.597, −0.390) / (+15.600, +0.107) | 0.000 | side_seam_back |
+| `side_hem:CB_hem` | cubic | 29.240 | (−0.936, −11.693) / (−0.054, +11.564) | 0.000 | hem |
+| `CB_hem:CB_yoke` | line, **fold** | 63.490 | — | — | none (fold) |
+
+### back YK (yoke) — cut 2 on fold (outer + inner)
+| Point | PDS L (x, y) | Defined by |
+|---|---|---|
+| `CB_neck` | (85.08, −80.66) | CB fold meets neckline |
+| `HPS` | (90.31, −71.48) | neckline meets shoulder |
+| `SP` | (85.60, −54.70) | shoulder meets armhole |
+| `yoke_armhole` | (73.03, −56.66) | armhole meets yoke seam |
+| `CB_yoke` | (73.04, −80.66) | yoke seam meets CB fold |
+
+| Edge | Kind | PDS length | Handles (start / end) | Fit | Allowance role |
+|---|---|---|---|---|---|
+| `CB_neck:HPS` | cubic | 11.847 | (+0.127, +6.092) / (−5.093, −1.596) | 0.004 | neckline |
+| `HPS:SP` | line | 17.428 | — | — | shoulder |
+| `SP:yoke_armhole` | cubic | 12.751 | (+1.402, −0.424) / (+1.826, −0.067) | 0.000 (5 samples only) | armhole_body |
+| `yoke_armhole:CB_yoke` | line | 24.000 | — | — | yoke_seam |
+| `CB_yoke:CB_neck` | line, **fold** | 12.040 | — | — | none (fold) |
+
+Notch `shoulder_notch` on `HPS:SP` sits 1.475 cm from `HPS` (t = 0.08463). It is a 0.696 cm slit from the sew line.
+
+### CLR (collar) — cut 2 on fold
+| Point | PDS L (x, y) | Defined by |
+|---|---|---|
+| `CB_collar_neck` | (126.20, −72.99) | CB fold, edge sewn to the band |
+| `collar_neck_end` | (147.58, −75.22) | front end of the band edge |
+| `collar_point` | (148.90, −69.36) | collar point |
+| `CB_collar_outer` | (126.20, −68.20) | CB fold, outer (fall) edge |
+
+| Edge | Kind | PDS length | Handles (start / end) | Fit | Allowance role |
+|---|---|---|---|---|---|
+| `CB_collar_neck:collar_neck_end` | cubic | 21.546 | (+8.539, −0.017) / (−8.846, +1.844) | 0.005 | collar |
+| `collar_neck_end:collar_point` | line | 6.007 | — | — | collar |
+| `collar_point:CB_collar_outer` | cubic | 22.742 | (−4.504, +0.428) / (+11.843, +0.048) | 0.000 | collar |
+| `CB_collar_outer:CB_collar_neck` | line, **fold** | 4.790 | — | — | none (fold) |
+
+### BND TOP and BND IN (collar band) — each cut 1 on fold
+The two pieces have the same shape: every length is within 0.01 cm, and the survey prints both. The PDS does not say which long edge is sewn to the neckline, so the points carry neutral names (`L` = the 24.81 edge, `S` = the 23.43 edge) until the review (open Q2).
+
+| Point | BND TOP PDS L (x, y) | Defined by |
+|---|---|---|
+| `CB_S` | (127.11, −96.71) | CB fold, S edge |
+| `end_S` | (150.34, −99.03) | S edge meets the rounded band end |
+| `end_L` | (151.49, −96.88) | rounded band end meets the L edge |
+| `CB_L` | (127.11, −93.40) | CB fold, L edge |
+
+| Edge | Kind | PDS length (TOP / IN) | Handles (start / end), TOP | Fit | Allowance role |
+|---|---|---|---|---|---|
+| `CB_S:end_S` | cubic | 23.428 / 23.438 | (+16.176, +0.211) / (−0.581, −0.929) | 0.006 | collar_band |
+| `end_S:end_L` | cubic | 2.502 / 2.502 | (+0.776, +0.458) / (−0.168, −0.804) | 0.000 | collar_band |
+| `end_L:CB_L` | cubic | 24.808 / 24.818 | (−7.673, +3.037) / (+11.508, −0.019) | 0.003 | collar_band |
+| `CB_L:CB_S` | line, **fold** | 3.310 / 3.310 | — | — | none (fold) |
+
+### Sleeve — cut 2 (mirrored pair)
+The PDS does not mark which half of the sleeve is the front, so the two sides are `a` and `b` (open Q5).
+
+| Point | PDS L (x, y) | Defined by |
+|---|---|---|
+| `hem_fold_a` | (117.20, −43.70) | underarm seam meets the hem fold line |
+| `UA_a` | (125.19, −46.37) | underarm meets cap |
+| `cap_crown` | (141.67, −24.44) | crown, at the PDS crown notch |
+| `UA_b` | (125.19, −2.51) | cap meets underarm |
+| `hem_fold_b` | (117.20, −5.19) | underarm seam meets the hem fold line |
+| `hem_b` | (115.20, −4.53) | hem turn-up edge |
+| `hem_a` | (115.20, −44.36) | hem turn-up edge |
+
+| Edge | Kind | PDS length | Handles (start / end) | Fit | Allowance role |
+|---|---|---|---|---|---|
+| `hem_fold_a:UA_a` | cubic | 8.430 | (+2.705, −0.754) / (−2.588, +1.100) | 0.000 | underarm_wide |
+| `UA_a:cap_crown` | cubic | 28.449 | (+3.541, +10.218) / (−0.650, −12.896) | 0.036 | sleeve_cap |
+| `cap_crown:UA_b` | cubic | 28.759 | (+0.235, +13.735) / (+3.362, −9.953) | 0.038 | sleeve_cap |
+| `UA_b:hem_fold_b` | cubic | 8.433 | (−2.586, −1.108) / (+2.705, +0.756) | 0.000 | underarm_narrow |
+| `hem_fold_b:hem_b` | line | 2.106 | — | — | (turn-up corner) |
+| `hem_b:hem_a` | line | 39.830 | — | — | sleeve_hem |
+| `hem_a:hem_fold_a` | line | 2.106 | — | — | (turn-up corner) |
+
+A single cubic cannot follow the cap: it misses by 1.591 cm. Split at the crown notch, each half fits within 0.04 cm, so `cap_crown` is a named point. Notch `crown_notch` sits on the cap 28.759 cm from `UA_b` and 28.449 cm from `UA_a`, 0.019 cm off the sampled sew line.
+
+The 2.0 cm between `hem_*` (x 115.20) and `hem_fold_*` (x 117.20) matches the tech pack's 2 cm sleeve hem. The PDS draws the turn-up inside the sew line, with mitred corners that mirror the underarm seam.
+
+## Source measurements (PDS L sew line; no client chart exists)
+Every value here is **PDS-derived**. When the client sends the 1078375 measurement chart, it replaces these through Missing Information. Until then, they are the block's inputs for size L. Lengths run along x (the PDS marker's length direction) and widths along y.
+
+| Measurement | Value (cm) | From |
+|---|---|---|
+| Front length, HPS to hem at front edge | 74.03 | x(`HPS`) − x(`FE_hem`) |
+| Front length, HPS to side hem | 72.78 | x(`HPS`) − x(`side_hem`) |
+| CB length, neck to hem | 75.53 | back fold 63.49 + yoke fold 12.04 |
+| Yoke depth at CB | 12.04 | yoke fold |
+| Half chest at underarm, front (CF to UA) | 31.36 | y(`UA`) − y(`CF_neck`) |
+| Half chest at underarm, back (CB to UA) | 29.76 | y(`UA`) − y(CB fold) |
+| Chest circumference at sew line | 122.24 | 2 × (31.36 + 29.76) |
+| Front hem width, CF to side | 30.81 | y(`side_hem`) − y(CF) |
+| Back hem width, CB to side | 29.20 | y(`side_hem`) − y(CB) |
+| Front edge extension beyond CF | 3.20 | `FE_top:CF_top` |
+| Front armhole depth, SP to UA | 19.59 | x(`SP`) − x(`UA`) |
+| Front shoulder length | 17.480 | `HPS:SP` |
+| Back (yoke) shoulder length | 17.428 | `HPS:SP` on YK |
+| Across back at shoulder, SP to SP | 51.92 | 2 × (y(`SP`) − y(CB)) on YK |
+| Front neck width / drop | 8.62 / 6.57 | `HPS` to `CF_neck` |
+| Back neck width / drop | 9.18 / 5.23 | `HPS` to `CB_neck` on YK |
+| Sleeve length, crown to turn-up edge | 26.47 | x(`cap_crown`) − x(`hem_*`) (the cap's highest x is 141.70: 26.50) |
+| Sleeve length, crown to hem fold | 24.47 | x(`cap_crown`) − x(`hem_fold_*`) |
+| Sleeve cap height | 16.48 | x(`cap_crown`) − x(`UA_*`) |
+| Bicep (UA to UA) | 43.86 | `UA_a` to `UA_b` |
+| Sleeve width at hem fold / turn-up edge | 38.51 / 39.83 | `hem_fold_*`, `hem_*` |
+| Collar width at CB | 4.79 | CLR fold |
+| Band height at CB | 3.31 | BND fold |
+
+## Truing checks (become accuracy-suite tests in T130, in every size)
+| # | Check | PDS L | Result vs build-plan rule |
+|---|---|---|---|
+| T1 | Front side seam = back side seam | 46.804 = 46.804 | equal |
+| T2 | FRT shoulder = YK shoulder | 17.480 vs 17.428 (0.052) | within 0.1 |
+| T3 | Back yoke seam = YK yoke seam | 24.081 vs 24.000 (0.081) | within 0.1 |
+| T4 | Sleeve cap − body armhole (ease) | 57.208 − (23.670 + 16.858 + 12.751 = 53.279) = **3.929** | **conflicts** with "cap = armhole + 0 to 1 cm" (Q1) |
+| T5 | Cap halves at crown vs front / back armhole | 28.449 and 28.759 vs 23.670 and 29.609 | crown notch is not at the shoulder seam (Q5) |
+| T6 | Band neck edge vs half neckline (FRT 12.016 + YK 11.847 = 23.863) | L edge 24.808 (+0.945) or S edge 23.428 (−0.435) | depends on Q2 |
+| T7 | Collar band edge vs band top edge | 21.546 vs the other band edge | depends on Q2 |
+| T8 | Every outline closed, counter-clockwise, no self-intersection, no zero-length edge | — | build-plan geometry rule |
+| T9 | Each curve within the fit tolerance of the PDS | largest fit 0.038 (cap) | proposed 0.05 (Q4) |
+| T10 | Piece bbox and area vs PDS per size | e.g. FRT L 78.888 × 37.0748, 0.2588 m² | build plan: 1.5 cm / 3 %; PDS outline test: 0.1 cm / 0.5 % |
+| T11 | Sum of piece areas × quantity = SUM_AREA per size | L 1.4262 m² | grading (T131) |
+| T12 | Notch pairs: YK `shoulder_notch` ↔ FRT; sleeve `crown_notch` ↔ body | PDS has no partner notches on FRT or body | Q6 |
+
+## Questions for the pattern maker
+1. **Sleeve cap ease 3.93 cm.** The build plan says a shirt cap carries 0 to 1 cm of ease, but this PDS has 3.93. Is the ease intended (eased in), or is part of the cap length taken up some other way? The block will copy the PDS unless you say otherwise.
+2. **Collar band edges.** Which band edge is sewn to the neckline? The 24.81 edge would be the neckline plus 0.95; the 23.43 edge would be the neckline minus 0.43. Which edge does the collar's 21.55 edge sit on?
+3. **FRT step at CF neck.** The sew line rises 2.21 cm up the CF line above `CF_neck`, then runs 3.20 cm out to the front edge. Is this the grown-on placket top (3.5 cm placket)? Which allowance and role does it take?
+4. **Curve-fit tolerance.** We propose 0.05 cm, the build plan's DXF round-trip tolerance, for how closely each drafted curve must follow the PDS curve at L. Confirm or set another value.
+5. **Sleeve front and back.** Which of `a` / `b` is the front? The crown notch splits the cap 28.45 / 28.76, but the body armhole is 23.67 front and 29.61 back. Should the crown notch align with the shoulder seam (`SP`), or is the sleeve deliberately rotated?
+6. **Notches.** The PDS has only two notches: YK shoulder, 1.475 cm from HPS, and the sleeve crown. Should the block add matching notches on FRT and on the armhole? Which ones?
+7. **Grain lines.** There are none in the PDS. Should the block assume grain parallel to CF/CB (x), as the build plan says?
+8. **Allowance role names** from T128 (`finishing.json`): please confirm them, especially the felled pairs side_seam_front 0.8 / side_seam_back 1.7 and underarm_narrow / underarm_wide.
+
+## Review sign-off
+| Reviewer (pattern maker) | Date | Verdict (approved / changes) | Notes |
+|---|---|---|---|
+| | | | |

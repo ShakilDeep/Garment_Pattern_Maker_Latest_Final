@@ -1,7 +1,7 @@
 """Registry of installed drafting blocks, one per garment family version (replaces the single demo profile)."""
 from functools import cache
 
-from app.domain.blocks.base import Block
+from app.domain.blocks.base import Block, NamedBlock
 from app.domain.blocks.demo_shirt import DemoShirtBlock
 
 
@@ -12,6 +12,8 @@ class BlockRegistry:
     def register(self, block: Block) -> Block:
         if block.id in self._blocks:
             raise ValueError(f"Block {block.id} is already registered")
+        if block.calibration == "client_approved" and not isinstance(block, NamedBlock):
+            raise ValueError(f"Client block {block.id} must draft named points (a NamedBlock)")
         self._blocks[block.id] = block
         return block
 

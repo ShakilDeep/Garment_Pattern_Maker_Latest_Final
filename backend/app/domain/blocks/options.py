@@ -1,10 +1,10 @@
 """Validate a style's requested option values against the block's declared options; fill the defaults."""
 from collections.abc import Mapping
 
-from app.domain.blocks.base import Block
+from app.domain.blocks.base import BlockInfo
 
 
-def resolve_choices(block: Block, requested: Mapping[str, str]) -> dict[str, str]:
+def resolve_choices(block: BlockInfo, requested: Mapping[str, str]) -> dict[str, str]:
     declared = {option.id: option for option in block.options}
     unknown = [key for key in requested if key not in declared]
     if unknown:
