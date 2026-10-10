@@ -28,7 +28,8 @@ export default function App() {
         <button className="primary" onClick={() => c.setDialog('projects')}>Create or open a demo project</button></div> : <>
         {showPreview && <Measurements project={c.project} size={c.size} setSize={c.setSize} save={c.save}
           upload={c.upload} open={() => c.setDialog('measurements')} busy={c.busy}
-          onDirtyChange={c.setDraftDirty} clearSources={c.clearSources} confirmMapping={c.confirmMapping} />}
+          onDirtyChange={c.setDraftDirty} clearSources={c.clearSources} confirmMapping={c.confirmMapping}
+          confirmStyle={c.confirmStyle} />}
         <div className="main-content">
           <WorkspaceBoundary key={`${c.project.id}:${c.page}`} recover={() => c.go('Measurements')}>
             {c.page === 'Project Dashboard' && <ProjectDashboard project={c.project} requirements={c.requirements}

@@ -2,6 +2,7 @@ import {lifecycleMutations} from './mutations/lifecycle';
 import {mappingMutations} from './mutations/mapping';
 import {measurementMutations} from './mutations/measurement';
 import {patternMutations} from './mutations/pattern';
+import {styleMutations} from './mutations/style';
 import type {MutationContext} from './mutations/context';
 import {nestAndExport} from './nestAndExport';
 
@@ -13,6 +14,7 @@ export function projectMutations(ctx: MutationContext) {
     ...measurementMutations(ctx),
     ...mappingMutations(ctx),
     ...patternMutations(ctx),
+    ...styleMutations(ctx),
     ...nestAndExport({project, size, refresh, run}),
   };
 }

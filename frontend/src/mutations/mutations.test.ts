@@ -2,6 +2,7 @@ import {describe, expect, it, vi} from 'vitest';
 import {projectMutations} from '../projectMutations';
 import {lifecycleMutations} from './lifecycle';
 import {mappingMutations} from './mapping';
+import {styleMutations} from './style';
 import {MAX_UPLOAD_BYTES, measurementMutations} from './measurement';
 import {patternMutations} from './pattern';
 import type {MutationContext} from './context';
@@ -22,8 +23,8 @@ describe('project mutations composition', () => {
     expect(Object.keys(measurementMutations(ctx)).sort()).toEqual(['clearSources', 'resolve', 'save', 'upload']);
     expect(Object.keys(patternMutations(ctx)).sort()).toEqual(['clearPattern', 'generate', 'grade']);
     expect(Object.keys(projectMutations(ctx)).sort()).toEqual([
-      'archive', 'clearPattern', 'clearSources', 'confirmMapping', 'create', 'exportFile', 'generate', 'grade', 'nest',
-      'remove', 'rename', 'resolve', 'restore', 'save', 'upload',
+      'archive', 'clearPattern', 'clearSources', 'confirmMapping', 'confirmStyle', 'create', 'exportFile', 'generate',
+      'grade', 'nest', 'remove', 'rename', 'resolve', 'restore', 'save', 'upload',
     ]);
   });
 
@@ -32,6 +33,7 @@ describe('project mutations composition', () => {
     await patternMutations(ctx).grade();
     expect(await measurementMutations(ctx).save({half_chest: 60})).toBe(false);
     expect(await mappingMutations(ctx).confirmMapping(3, {not_used: true})).toBe(false);
+    expect(await styleMutations(ctx).confirmStyle({garment: 'shirt', fit: 'regular', options: {}})).toBe(false);
     expect(ctx.run).not.toHaveBeenCalled();
   });
 

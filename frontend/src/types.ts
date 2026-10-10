@@ -1,3 +1,4 @@
+import type {StoredStyleChoices, StyleDetection} from './styleDetectTypes';
 export const sizes = ['S','M','L','XL','XXL','3XL'];
 export type Cell = {value:number|null;raw:string|number|null;formula:string|null;cell:string;issue:string|null;override:boolean};
 export type Measurement = {key:string;code:string;label:string;mapping_status?:string;unit:string;tolerance:number|string|null;source:string;sheet:string;row:number;values:Record<string,Cell>};
@@ -7,7 +8,7 @@ export type Issue = {code:string;severity:'PASS'|'WARNING'|'ERROR';message:strin
 export type Pattern = {id:string;size:string;profile:string;pieces:Piece[];validation:Issue[];assumptions:string[];input_hash:string;stale:boolean;seam_allowance:number};
 export type Marker = {placements:{name:string;points:Point[];x:number;y:number;width:number;height:number}[];width:number;length:number;utilization:number;waste:number;quantity:number;size:string;strategy:string;gap:number};
 export type Chart = {sizes:string[];base_size:string|null;unit_hint:string|null;meta?:Record<string,string>;issues?:string[]};
-export type Project = {id:string;name:string;state:string;archived?:boolean;updated_at?:string;measurements:Measurement[];resolutions:Record<string,string>;pattern:Pattern|null;grades:Pattern[];marker:Marker|null;previous_marker:Marker|null;documents:{id:string;filename:string;sha256:string;bytes:number}[];chart?:Chart|null;techpack:{style:string;garment:string;fit:string;fabric:string;colorways:string[];pages:{page:number;text:string}[]}|null;audit:{event:string;at:string}[];undo:Measurement[][];redo:Measurement[][]};
+export type Project = {id:string;name:string;state:string;archived?:boolean;updated_at?:string;measurements:Measurement[];resolutions:Record<string,string>;pattern:Pattern|null;grades:Pattern[];marker:Marker|null;previous_marker:Marker|null;documents:{id:string;filename:string;sha256:string;bytes:number}[];chart?:Chart|null;techpack:{style:string;garment:string;fit:string;fabric:string;colorways:string[];pages:{page:number;text:string}[]}|null;audit:{event:string;at:string}[];undo:Measurement[][];redo:Measurement[][];style_detection?:StyleDetection|null;style_choices?:StoredStyleChoices|null};
 export type Requirement = {key:string;name:string;status:string;blocking:boolean;why:string;options:string[];resolved:boolean;value:string|null;source:string;accepted_units?:string[];fallback_policy?:string};
 export type Requirements = {ready:boolean;items:Requirement[];blockers:Requirement[]};
 export const sizeLabels: Record<string,string> = {S:'S (Small)',M:'M (Medium)',L:'L (Large)',XL:'XL (Extra Large)',XXL:'XXL', '3XL':'3XL'};
