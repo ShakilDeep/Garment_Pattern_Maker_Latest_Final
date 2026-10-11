@@ -36,7 +36,26 @@ DEMO_V1 = DraftingProfile(
     back_neck_drop_cm=2.0,
 )
 
-PROFILES = {DEMO_V1.id: DEMO_V1}
+SHIRT_V2 = DraftingProfile(
+    id="shirt_v2",
+    version="2.0.0",
+    garment_family="mens_regular_long_sleeve_shirt",
+    calibration="demo",
+    required_measurements=tuple(REQUIRED),
+    optional_measurements=DEMO_V1.optional_measurements + ("waist_position_hps", "hem_curve", "back_neck_drop"),
+    validators=DEMO_V1.validators,
+    seam_policy=DEMO_V1.seam_policy,
+    assumptions=tuple(a for a in ASSUMPTIONS if not a.startswith(("Curves use", "Body widths"))) + (
+        ("Curves are cubic Béziers shaped like the client's Optitex 1078375 sew lines (neckline, armholes, hems, "
+         "yoke, sleeve cap, collar, band); their end points come from this chart."),
+        "Front/back split of chest, waist and hem follows the 1078375 block (front about 51 %), not half and half.",
+        "Collar and band are the 1078375 PDS shapes rescaled to the drafted neckline and the chart's widths.",
+        "Notches are the two the PDS has: yoke shoulder and sleeve crown, plus the source sleeve placket/pleat marks.",
+    ),
+    back_neck_drop_cm=2.0,
+)
+
+PROFILES = {DEMO_V1.id: DEMO_V1, SHIRT_V2.id: SHIRT_V2}
 
 
 def get_profile(profile_id):

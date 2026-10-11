@@ -22,7 +22,8 @@ def values():
 def test_the_demo_shirt_is_installed_as_demo_v1():
     block = installed().get("demo_v1")
     assert (block.id, block.family, block.calibration) == ("demo_v1", "shirt", "demo")
-    assert demo_block() is block and installed().ids("shirt") == ("demo_v1", "shirt_1078375")
+    assert installed().ids("shirt") == ("demo_v1", "shirt_1078375", "shirt_v2")
+    assert demo_block() is installed().get("shirt_v2")  # a new project drafts with the Optitex-shaped curves
     assert installed().ids("pant") == ()
     assert "half_chest" in block.required and all(option.fixed for option in block.options)
 

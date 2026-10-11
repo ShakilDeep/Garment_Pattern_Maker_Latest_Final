@@ -4,11 +4,13 @@ from functools import cache
 from app.domain.blocks.base import Block, DictBlock, NamedBlock
 from app.domain.blocks.demo_shirt import DemoShirtBlock
 from app.domain.blocks.shirt.block import ShirtBlock
+from app.domain.blocks.shirt_v2 import ShirtV2Block
 
 
 class BlockRegistry:
-    def __init__(self) -> None:
+    def __init__(self, fallback: str | None = None) -> None:
         self._blocks: dict[str, Block] = {}
+        self._fallback = fallback  # the block a project drafts with before the user picks one
 
     def register(self, block: Block) -> Block:
         if block.id in self._blocks:
@@ -32,7 +34,10 @@ class BlockRegistry:
         return tuple(key for key, block in self._blocks.items() if isinstance(block, DictBlock))
 
     def demo(self) -> Block:
-        """The block a project falls back to before the user picks one (the demo shirt today)."""
+        """The block a project falls back to before the user picks one: the named fallback when installed,
+        else the first demo-calibration block."""
+        if self._fallback in self._blocks:
+            return self._blocks[self._fallback]
         found = next((block for block in self._blocks.values() if block.calibration == "demo"), None)
         if found is None:
             raise ValueError("No demo-calibration block is installed")
@@ -41,9 +46,10 @@ class BlockRegistry:
 
 @cache
 def installed() -> BlockRegistry:
-    registry = BlockRegistry()
+    registry = BlockRegistry(fallback="shirt_v2")  # Optitex-shaped curves; demo_v1 stays selectable
     registry.register(DemoShirtBlock())
     registry.register(ShirtBlock())
+    registry.register(ShirtV2Block())
     return registry
 
 

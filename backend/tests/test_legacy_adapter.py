@@ -65,7 +65,7 @@ def test_v5_cut_data_maps_without_inventing_rules(rows):
 def test_v5_goldens_and_validation_hold_through_the_adapter(rows, golden, size):
     values = values_for(rows, size)
     pattern = draft(values, size)
-    rebuilt = pattern_with_pieces(pattern, draft_pieces(values, size))
+    rebuilt = pattern_with_pieces(pattern, draft_pieces(values, size, "demo_v1"))
     for piece in rebuilt["pieces"]:
         metrics = golden["sizes"][size]["pieces"][piece["id"]]
         for key in ("width", "height", "area", "perimeter"):

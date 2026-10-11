@@ -22,7 +22,7 @@ def ready(tmp_path_factory):
 
 def test_the_profile_requirement_offers_only_blocks_a_v5_project_can_draft(ready):
     item = next(i for i in requirements(ready, "L")["items"] if i["key"] == "profile")
-    assert item["options"] == list(installed().project_ids()) == ["demo_v1"]
+    assert item["options"] == list(installed().project_ids()) == ["demo_v1", "shirt_v2"]
 
 
 def test_a_named_v6_block_cannot_be_a_project_profile(ready):
