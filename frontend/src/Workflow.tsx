@@ -26,7 +26,7 @@ export default function Workflow({page,project:p,requirements:r,resolve,generate
   {r?.items.filter(i=>!i.key.startsWith('calibration:')).map(i=><article className={`requirement ${i.status==='AVAILABLE'?'resolved':''}`} key={i.key}>
    <div>{i.status==='AVAILABLE'?<CheckCircle2 size={20}/>:<AlertTriangle size={20}/>}<strong>{i.name}</strong>
    <span className="badge">{i.status.replaceAll('_',' ')}</span></div><p>{i.why}</p>
-   {i.options.length>0&&<div className="actions">{i.options.map(v=><button disabled={busy||i.value===v} key={v} onClick={()=>resolve(i.key,v)} className={i.value===v?'accepted':''}>{i.value===v?'Confirmed: ':''}{({cm:'Values are in cm',inch:'Values are in inches',demo_v1:'Use demo drafting profile',confirmed:'I reviewed the measurements',workbook:'Use workbook (3 cm)',techpack:'Use tech pack (3.5 cm)'} as Record<string,string>)[v]||v}</button>)}</div>}
+   {i.options.length>0&&<div className="actions">{i.options.map(v=><button disabled={busy||i.value===v} key={v} onClick={()=>resolve(i.key,v)} className={i.value===v?'accepted':''}>{i.value===v?'Confirmed: ':''}{({cm:'Values are in cm',inch:'Values are in inches',demo_v1:'Use demo drafting profile',shirt_1078375:'Use client 1078375 block',accepted:'Use the block reference values (From block)',confirmed:'I reviewed the measurements',workbook:'Use workbook (3 cm)',techpack:'Use tech pack (3.5 cm)'} as Record<string,string>)[v]||v}</button>)}</div>}
    {i.key.startsWith('measurement:')&&<button onClick={()=>open('measurements')}>Enter missing measurement</button>}
   </article>)}
   <button className="primary" disabled={busy||!r?.ready} onClick={generate}>Generate {size} Pattern <ArrowRight size={17}/></button>

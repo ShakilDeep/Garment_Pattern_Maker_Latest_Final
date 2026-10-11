@@ -31,11 +31,11 @@ def pieces():
     return {str(p.id): p for p in draft_named(installed().get("shirt_1078375"), reference_measurements(), "L", {})}
 
 
-def test_the_block_is_an_installed_client_named_block_not_offered_to_v5_projects():
+def test_the_block_is_an_installed_client_named_block_offered_to_projects():  # T142
     block = installed().get("shirt_1078375")
     assert isinstance(block, NamedBlock) and (block.family, block.calibration) == ("shirt", "client_approved")
     assert all(option.fixed for option in block.options)
-    assert "shirt_1078375" not in installed().project_ids() and "demo_v1" in installed().project_ids()
+    assert {"shirt_1078375", "demo_v1"} <= set(installed().project_ids())
 
 
 def test_seven_pieces_with_the_pds_names_and_cuts(pieces):

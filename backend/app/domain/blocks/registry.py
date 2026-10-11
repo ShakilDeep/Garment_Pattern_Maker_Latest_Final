@@ -1,7 +1,7 @@
 """Registry of installed drafting blocks, one per garment family version (replaces the single demo profile)."""
 from functools import cache
 
-from app.domain.blocks.base import Block, DictBlock, NamedBlock
+from app.domain.blocks.base import Block, NamedBlock
 from app.domain.blocks.demo_shirt import DemoShirtBlock
 from app.domain.blocks.shirt.block import ShirtBlock
 from app.domain.blocks.shirt_v2 import ShirtV2Block
@@ -30,8 +30,9 @@ class BlockRegistry:
         return tuple(key for key, block in self._blocks.items() if family is None or block.family == family)
 
     def project_ids(self) -> tuple[str, ...]:
-        """Blocks a V5 project can draft with: they draft the V5 dict its grading, markers and exports read."""
-        return tuple(key for key, block in self._blocks.items() if isinstance(block, DictBlock))
+        """Blocks a project can draft with: every installed block, as the drafting engine gives each the
+        V5 dict its views read (T141) and the chart or reference values it needs (T142)."""
+        return tuple(self._blocks)
 
     def demo(self) -> Block:
         """The block a project falls back to before the user picks one: the named fallback when installed,

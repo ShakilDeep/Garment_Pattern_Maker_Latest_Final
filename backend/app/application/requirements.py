@@ -1,9 +1,9 @@
 from app.application.calibration import calibration_requirements
 from app.application.chart_requirements import chart_items
+from app.application.measurement_requirements import measurement_items
 from app.application.requirement_resolve import resolve
 from app.application.source_readiness import source_blockers
 from app.domain.blocks.registry import installed
-from app.domain.catalog import REQUIRED
 
 __all__ = ["requirements", "resolve"]
 
@@ -80,16 +80,7 @@ def requirements(project, size="L"):
         if "fabric" in answers and answers["fabric"] == "not_applicable":
             items[-1]["status"] = "AVAILABLE"
             items[-1]["resolved"] = True
-    for key in REQUIRED:
-        value = rows.get(key, {}).get("values", {}).get(size, {}).get("value")
-        if value is None or value <= 0:
-            add(
-                "measurement:" + key,
-                key.replace("_", " ").title(),
-                "MISSING",
-                f"Enter a positive {size} value in cm in the measurement editor.",
-                [],
-            )
+    measurement_items(project, size, add)
     items.extend(calibration_requirements(project))
     items.extend(source_blockers(project))
     items.extend(chart_items(project))

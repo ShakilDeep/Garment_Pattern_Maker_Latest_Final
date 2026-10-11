@@ -1,21 +1,19 @@
 """T141c: a named-block project keeps every graded size in its stored style, which the Optitex export reads.
 
-ShirtBlock becomes selectable from a chart in T142; until then this test supplies the block's own
-PDS-derived graded measurements in place of the chart lookup. Everything else is the real path.
+The project chooses the client block and accepts its reference values (T142), so every input is From block.
 """
 import io
 import zipfile
 
 import pytest
 
-from app.application import pattern_workflow
 from app.application.cad.style_from_block import style_from_block
 from app.application.cad.style_service import StyleService
 from app.application.errors import NotReady
 from app.application.grading.aama_export import graded_aama
 from app.application.project_style import project_style
+from app.application.requirement_resolve import resolve
 from app.application.service import Service
-from app.domain.blocks.registry import installed
 from app.infrastructure.repository import Repository
 from app.infrastructure.style_repository import StyleRepository
 
@@ -25,13 +23,13 @@ EXPORT_FILES = {"base.dxf", "grade_rules.rul", "all_sizes.dxf"}
 
 
 @pytest.fixture
-def named(tmp_path, monkeypatch):
-    block = installed().get(BLOCK)
-    monkeypatch.setattr(pattern_workflow, "requirements", lambda p, size: {"ready": True, "blockers": []})
-    monkeypatch.setattr(pattern_workflow, "drafting_values", lambda p, size: dict(block.graded_measurements(size)))
+def named(tmp_path):
     service = Service(Repository(f"sqlite:///{tmp_path}/named.db"))
     project = service.create("Named shirt", True)
-    project["resolutions"] = {"units": "cm", "review": "confirmed", "profile": BLOCK, "placket": "workbook"}
+    answers = {"units": "cm", "review": "confirmed", "placket": "workbook", "profile": BLOCK,
+               "block_reference": "accepted"}
+    for key, value in answers.items():
+        resolve(project, key, value)
     service.generate(project, "L")
     return service, service.repo.get(project["id"])
 

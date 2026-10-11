@@ -1,0 +1,5 @@
+{
+  "block": "shirt_1078375",
+  "note": "Each entry says which chart POM gives one block input (a 1078375 sew-line measurement, see docs/drafting/shirt.md). Add {\"input\", \"pom\", \"status\": \"proposed\", \"evidence\"}; only entries a pattern maker sets to \"confirmed\", with evidence, are used. Until then every input comes from the PDS reference once the user accepts it (From block). No entry may be guessed.",
+  "entries": []
+}

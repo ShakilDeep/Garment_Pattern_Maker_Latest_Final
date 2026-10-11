@@ -1,9 +1,10 @@
 """Pattern generate/grade/nest commands."""
 from uuid import uuid4
 
+from app.application.block_inputs import draft_values
 from app.application.drafting_engine import Draft, draft
 from app.application.errors import NotReady
-from app.application.pattern_inputs import drafting_values, snapshot_inputs
+from app.application.pattern_inputs import snapshot_inputs
 from app.application.pattern_validation import validate_draft
 from app.application.project_style import keep_named_drafts
 from app.application.requirements import requirements
@@ -19,12 +20,12 @@ def build_draft(p, size, allowance=0) -> Draft:
     check = requirements(p, size)
     if not check["ready"]:
         raise NotReady("Resolve required inputs: " + ", ".join(i["name"] for i in check["blockers"]))
-    values = drafting_values(p, size)
-    if p["resolutions"].get("placket") == "techpack":
-        values["front_placket_width"] = p["techpack"]["placket_cm"]
     block = installed().get(p["resolutions"].get("profile", demo_block().id))
+    values, sources = draft_values(p, block, size)
     result = draft(block, values, size, p.get("style_options", {}))
     pattern = result.pattern
+    if sources is not None:
+        pattern["input_sources"] = dict(sources)  # the From-block list the accuracy report reads
     pattern["id"] = str(uuid4())
     pattern["sources"] = p["documents"]
     pattern["resolutions"] = dict(p["resolutions"])

@@ -1,8 +1,10 @@
 """Command: persist an explicit requirement resolution with provenance."""
 from datetime import UTC, datetime
 
+from app.application.block_inputs import ACCEPTED, REFERENCE_KEY
 from app.application.calibration import CALIBRATION
 from app.application.unit_conversion import apply_workbook_unit
+from app.domain.blocks.base import NamedBlock
 from app.domain.blocks.registry import installed
 
 
@@ -14,6 +16,9 @@ def resolve(project, key, value, note='', actor='local user', source_id=None, re
         "placket": ["workbook", "techpack"],
         "base_size": list((project.get("chart") or {}).get("sizes", [])),
     }
+    profile = project["resolutions"].get("profile")
+    if profile in installed().ids() and isinstance(installed().get(profile), NamedBlock):
+        allowed[REFERENCE_KEY] = [ACCEPTED]
     if key.startswith('calibration:') and key.removeprefix('calibration:') in CALIBRATION:
         if resolution_type != 'source' or source_id is None or not note.strip() or not actor.strip():
             raise ValueError('Calibration review requires source evidence, a reviewer and a review note')
