@@ -10,6 +10,7 @@ from app.application.cad.legacy_snapshot import LegacySnapshotter
 from app.application.service import NotReady
 from app.application.state import transition
 from app.infrastructure.geometry_adapter import validate
+from app.infrastructure.v5_view.pattern_view import V6_SOURCE
 
 SNAPSHOT_KEYS = ('pattern', 'measurements', 'resolutions')
 BUS = CommandBus(legacy_registry(), LegacySnapshotter())
@@ -27,6 +28,8 @@ def execute(service, project, command, value=None, piece_id=None):
     p = deepcopy(project)
     if not p.get('pattern') or p['pattern'].get('stale'):
         raise NotReady('Generate a current pattern before editing')
+    if p['pattern'].get('geometry_source') == V6_SOURCE:
+        raise ValueError('This pattern is drafted as named V6 pieces; edit it with the Pattern Studio CAD tools')
     old_pattern = deepcopy(p['pattern'])
     state, history = _edited({k: p[k] for k in SNAPSHOT_KEYS}, load_history(p), command, value, piece_id)
     p.update(state)
