@@ -1,5 +1,6 @@
 """Facade: read an Optitex .PDS file's XML section into a ``ReferenceStyle`` (read-only; PDS is never written)."""
 from app.domain.reference import PieceOutline, ReferencePiece, ReferenceStyle
+from app.infrastructure.pds.binary_integrity import check_binary_integrity
 from app.infrastructure.pds.metadata import piece_fields, piece_geometry, size_table, text
 from app.infrastructure.pds.outline_geometry import bounds_cm
 from app.infrastructure.pds.svg_outlines import piece_outlines
@@ -21,6 +22,7 @@ def _check_order(piece: ReferencePiece, base_size: str) -> None:
 
 
 def read_pds(data: bytes) -> ReferenceStyle:
+    check_binary_integrity(data)
     style = style_element(data)
     sizes, base_size, totals = size_table(style)
     elements = style.findall("PIECE")
