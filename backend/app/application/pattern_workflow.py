@@ -5,6 +5,7 @@ from app.application.drafting_engine import Draft, draft
 from app.application.errors import NotReady
 from app.application.pattern_inputs import drafting_values, snapshot_inputs
 from app.application.pattern_validation import validate_draft
+from app.application.project_style import keep_named_drafts
 from app.application.requirements import requirements
 from app.application.state import ALLOWED, transition
 from app.domain.blocks.registry import demo_block, installed
@@ -57,8 +58,10 @@ def clear(service, p):
 
 def generate(service, p, size, allowance=0):
     service._ensure_active(p)
-    pattern = build(p, size, allowance)
+    result = build_draft(p, size, allowance)
+    pattern = result.pattern
     pattern["inputs"] = snapshot_inputs(p)
+    keep_named_drafts(p, {size: result}, size)
     if p.get("state") == "NEEDS_INPUT":
         transition(p, "MEASUREMENTS_READY", "requirements_satisfied")
     if p["pattern"]:
