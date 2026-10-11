@@ -11,8 +11,8 @@ from app.application.cad.bus import CommandBus
 from app.application.cad.guard import Guard, default_guard
 from app.application.cad.style_commands import style_registry
 from app.application.cad.style_from_block import style_from_block
-from app.application.cad.style_from_project import style_from_project
 from app.application.cad.style_snapshot import StyleSnapshotter
+from app.application.project_style import editable_style
 from app.domain.pattern.ids import PieceId
 from app.domain.pattern.style import Style
 from app.ports.style_store import StyleRecord, StyleStore
@@ -26,7 +26,7 @@ class StyleService:
         self.bus: CommandBus[Style] = CommandBus(style_registry(), StyleSnapshotter())
 
     def create_from_project(self, project_id: str) -> StyleRecord:
-        style = style_from_project(self.projects.get(project_id))
+        style = editable_style(self.projects.get(project_id))
         self.guard.check(None, style)
         return self.store.add(style, project_id)
 

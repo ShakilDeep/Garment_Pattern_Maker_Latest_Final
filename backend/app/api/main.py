@@ -10,6 +10,7 @@ from app.api.error_handlers import install_error_handlers
 from app.api.middleware import install_request_log
 from app.api.routes import router
 from app.application.service import Service
+from app.domain.blocks.registry import demo_block
 from app.infrastructure.repository import Repository
 from app.ports.ai_provider import AIProvider
 from app.ports.pom_suggester import PomSuggester
@@ -43,7 +44,7 @@ def create_app(
 
         with repository.engine.connect() as connection:
             connection.execute(text("SELECT 1"))
-        return {"status": "ok", "profile": "demo_v1", "database": "ok"}
+        return {"status": "ok", "profile": demo_block().id, "database": "ok"}
 
     dist = Path(__file__).resolve().parents[3] / "frontend" / "dist"
     if dist.exists():

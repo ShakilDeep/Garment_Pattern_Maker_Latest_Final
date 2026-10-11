@@ -28,6 +28,9 @@ class Project(ProjectSummary):
     audit: list[Record] = Field(default_factory=list)
     # The CAD undo history (P1-06) stays on the server: it can be megabytes and the UI only sends undo/redo.
     command_history: Record | None = Field(default=None, exclude=True)
+    # The project's stored V6 style (T141) also stays on the server: CAD and the Optitex export read it.
+    style: str | None = Field(default=None, exclude=True)
+    style_key: list | None = Field(default=None, exclude=True)
 
 
 class Deleted(OpenModel):

@@ -8,17 +8,14 @@ through a project instead.
 from collections.abc import Mapping
 from dataclasses import replace
 from typing import Protocol, runtime_checkable
-from uuid import uuid4
 
 from app.application.block_pieces import draft_block_pieces
+from app.application.cad.style_ids import new_style_id
 from app.domain.blocks.base import NamedBlock
 from app.domain.blocks.registry import installed
-from app.domain.pattern.ids import StyleId
 from app.domain.pattern.seam import SeamAllowance
 from app.domain.pattern.size_pieces import SizePieces
 from app.domain.pattern.style import Style
-
-STYLE_ID_HEX = 12
 
 
 @runtime_checkable
@@ -50,6 +47,6 @@ def style_from_block(block_id: str) -> Style:
     sizes, base = block.graded_sizes(), block.reference_size
     geometry = {size: SizePieces.from_pieces(draft_block_pieces(block, block.graded_measurements(size), size, {}))
                 for size in sizes}
-    style_id = StyleId(f"style-{uuid4().hex[:STYLE_ID_HEX]}")
+    style_id = new_style_id()
     style = Style(style_id, f"{block.id} {sizes[0]}-{sizes[-1]}", sizes, base, geometry)
     return replace(style, allowances={pid: block.seam_allowance(pid) for pid in style.piece_ids})

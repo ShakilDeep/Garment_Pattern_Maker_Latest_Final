@@ -1,12 +1,12 @@
 """Pattern generate/grade/nest commands."""
 from uuid import uuid4
 
+from app.application.drafting_engine import draft
 from app.application.errors import NotReady
 from app.application.pattern_inputs import drafting_values, snapshot_inputs
 from app.application.requirements import requirements
 from app.application.state import ALLOWED, transition
 from app.domain.blocks.registry import demo_block, installed
-from app.domain.blocks.run import draft_pattern
 from app.infrastructure.geometry_adapter import apply_allowance, validate
 from app.infrastructure.marker import marker_batch
 
@@ -19,7 +19,7 @@ def build(p, size, allowance=0):
     if p["resolutions"].get("placket") == "techpack":
         values["front_placket_width"] = p["techpack"]["placket_cm"]
     block = installed().get(p["resolutions"].get("profile", demo_block().id))
-    pattern = draft_pattern(block, values, size, p.get("style_options", {}))
+    pattern = draft(block, values, size, p.get("style_options", {})).pattern
     pattern["id"] = str(uuid4())
     pattern["sources"] = p["documents"]
     pattern["resolutions"] = dict(p["resolutions"])

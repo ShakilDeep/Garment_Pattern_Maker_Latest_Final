@@ -11,6 +11,7 @@ from app.application.pattern_workflow import generate as generate_pattern
 from app.application.pattern_workflow import nest as nest_marker
 from app.application.project_sizes import require_sizes
 from app.application.source_import import clear_sources, import_source
+from app.application.style_sync import style_synced
 from app.application.versioned_grading import grade as grade_sizes
 
 ROOT = Path(__file__).resolve().parents[3]
@@ -33,7 +34,7 @@ def demo_source_path(filename: str) -> Path:
 
 class Service:
     def __init__(self, repository):
-        self.repo = repository
+        self.repo = style_synced(repository)
 
     def create(self, name, demo=False):
         p = {

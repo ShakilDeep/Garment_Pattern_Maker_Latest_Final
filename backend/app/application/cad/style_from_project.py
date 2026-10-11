@@ -9,20 +9,17 @@ is not changed, and V5-only piece fields (seams, marks, cut points, ...) are not
 """
 
 from dataclasses import replace
-from uuid import uuid4
 
+from app.application.cad.style_ids import new_style_id
 from app.application.errors import NotReady
 from app.application.project_sizes import project_sizes
-from app.domain.pattern.ids import StyleId
 from app.domain.pattern.seam import SeamAllowance
 from app.domain.pattern.size_pieces import SizePieces
 from app.domain.pattern.style import Style
 from app.infrastructure.legacy_pattern_adapter import piece_from_v5
 
-STYLE_ID_HEX = 12
 
-
-def _current_patterns(project: dict) -> dict[str, dict]:
+def current_patterns(project: dict) -> dict[str, dict]:
     pattern = project.get("pattern")
     if project.get("archived") or project.get("state") == "ARCHIVED":
         raise NotReady("Project is archived; restore it before creating a style")
@@ -36,7 +33,7 @@ def _current_patterns(project: dict) -> dict[str, dict]:
 
 
 def style_from_project(project: dict) -> Style:
-    patterns = _current_patterns(project)
+    patterns = current_patterns(project)
     base = project["pattern"]
     geometry = {
         size: SizePieces.from_pieces(legacy.piece for legacy in map(piece_from_v5, patterns[size]["pieces"]))
@@ -44,6 +41,5 @@ def style_from_project(project: dict) -> Style:
         if size in patterns
     }
     allowance = SeamAllowance(base.get("seam_allowance", 0))
-    style_id = StyleId(f"style-{uuid4().hex[:STYLE_ID_HEX]}")
-    style = Style(style_id, project["name"], project_sizes(project), base["size"], geometry)
+    style = Style(new_style_id(), project["name"], project_sizes(project), base["size"], geometry)
     return replace(style, allowances={piece: allowance for piece in style.piece_ids})
