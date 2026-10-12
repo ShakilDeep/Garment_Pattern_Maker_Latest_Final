@@ -9,6 +9,7 @@ from pathlib import Path
 from types import MappingProxyType
 
 from app.domain.finishing_model import Allowance, Evidence, FamilyFinishing, Finishing, Shrinkage
+from app.domain.pattern.corners import CornerStyle
 
 FINISHING_FILE = Path(__file__).with_name("data") / "finishing.json"
 MAX_SHRINK_PCT = 50.0
@@ -32,6 +33,9 @@ def _family(family_id: str, raw: dict) -> FamilyFinishing:
         allowances[item.role] = item
     if raw["notch"]["depth_cm"] <= 0:
         raise ValueError(f"Finishing family {family_id} notch depth must be positive")
+    corner = raw["corner"]["value"]
+    if corner not in {style.value for style in CornerStyle}:
+        raise ValueError(f"Finishing family {family_id} corner {corner!r} is not a corner style")
     return FamilyFinishing(raw["source_pds"], float(raw["fold_edge_cm"]), raw["corner"]["value"],
                            raw["corner"]["source"], float(raw["notch"]["depth_cm"]), MappingProxyType(allowances))
 

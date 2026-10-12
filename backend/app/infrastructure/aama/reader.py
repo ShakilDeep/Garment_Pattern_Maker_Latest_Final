@@ -58,6 +58,7 @@ def _piece(block, scale: float) -> InterchangePiece:
     notch_layer = f'[layer=="{AamaLayer.NOTCH.dxf}"]'
     notches = tuple((cm(p.dxf.location),) for p in block.query("POINT" + notch_layer)) + tuple(
         (cm(line.dxf.start), cm(line.dxf.end)) for line in block.query("LINE" + notch_layer))
+    drills = tuple(cm(p.dxf.location) for p in block.query(f'POINT[layer=="{AamaLayer.DRILL.dxf}"]'))
     annotations = tuple(t.dxf.text for t in block.query(f'TEXT[layer=="{AamaLayer.ANNOTATION.dxf}"]'))
     grade_points = tuple((cm(t.dxf.insert), int(t.dxf.text.lstrip("#").strip()))
                          for t in block.query(f'TEXT[layer=="{AamaLayer.GRADE_REFERENCE.dxf}"]')
@@ -66,4 +67,4 @@ def _piece(block, scale: float) -> InterchangePiece:
         name=name, size=text.get("Size", ""), quantity=int(text.get("Quantity", "1")), cut=cut[0],
         sew=rings(AamaLayer.SEW), mirror=segment(AamaLayer.MIRROR), notches=notches,
         grain=segment(AamaLayer.GRAIN), category=text.get("Category"), annotations=annotations,
-        grade_points=grade_points)
+        grade_points=grade_points, drills=drills)

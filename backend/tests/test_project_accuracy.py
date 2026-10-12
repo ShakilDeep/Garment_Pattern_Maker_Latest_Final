@@ -46,6 +46,13 @@ def test_every_check_names_where_its_limit_comes_from(report):
     assert checks["L FRT gap"]["piece"] == "FRT" and checks["L FRT HPS:SP"]["edge"] == "HPS:SP"
 
 
+def test_allowances_and_notch_pairs_are_checked(report):
+    checks = by_name(report)
+    for size in SUM_AREA:
+        assert checks[f"{size} FRT side_hem:FE_hem allowance"]["passed"]
+    assert not checks["L shoulder_notch pair"]["gate"] and not checks["L crown_notch pair"]["gate"]
+
+
 def test_the_from_block_list_names_every_input_in_every_size(report):
     inputs = installed().get("shirt_1078375").required
     assert [item["input"] for item in report["from_block"]] == sorted(inputs)

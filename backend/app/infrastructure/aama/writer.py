@@ -58,6 +58,8 @@ def _piece_block(block, piece: InterchangePiece, style_name: str, scale: float) 
     for layer, segment in ((AamaLayer.MIRROR, piece.mirror), (AamaLayer.GRAIN, piece.grain)):
         if segment is not None:
             block.add_line(at(segment[0]), at(segment[1]), dxfattribs=attrs(layer))
+    for drill in piece.drills:
+        block.add_point(at(drill), dxfattribs=attrs(AamaLayer.DRILL))
     for ring in piece.sew:
         block.add_polyline2d([at(p) for p in ring], close=True, dxfattribs=attrs(AamaLayer.SEW))
     lines = [f"Piece Name: {piece.name}", f"Size: {piece.size}", f"Quantity: {piece.quantity}",

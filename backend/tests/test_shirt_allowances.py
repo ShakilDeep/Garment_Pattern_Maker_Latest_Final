@@ -5,6 +5,8 @@ from app.domain.blocks.registry import installed
 from app.domain.blocks.run import draft_named
 from app.domain.blocks.shirt.allowances import seam_allowance
 from app.domain.blocks.shirt.reference import reference_measurements
+from app.domain.finishing import finishing
+from app.domain.pattern.corners import CornerStyle
 from app.domain.pattern.ids import SegmentId
 
 WIDTHS = {
@@ -31,6 +33,14 @@ def test_every_edge_has_an_explicit_width_and_the_fold_has_none(pieces):
 @pytest.mark.parametrize(("key", "width"), WIDTHS.items(), ids=[f"{p}-{e}" for p, e in WIDTHS])
 def test_widths_are_the_finishing_values(key, width):
     assert seam_allowance(key[0]).width_of(SegmentId(key[1])) == width
+
+
+def test_every_corner_takes_the_finishing_corner_style(pieces):
+    style = CornerStyle(finishing().families["shirt"].corner)
+    for piece in pieces:
+        corners = dict(seam_allowance(str(piece.id)).corner_styles)
+        assert set(corners) == {segment.start for segment in piece.outline}, piece.id
+        assert set(corners.values()) == {style}
 
 
 def test_an_unknown_piece_is_a_key_error():

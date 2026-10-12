@@ -4,6 +4,7 @@ import copy
 import pytest
 
 from app.domain.finishing import FINISHING_FILE, allowance, finishing, parse_finishing
+from app.domain.pattern.notch_position import NOTCH_SLIT_CM
 
 
 def test_the_seeded_values_are_the_client_pds_values():
@@ -15,6 +16,10 @@ def test_the_seeded_values_are_the_client_pds_values():
     assert settings.families["shirt"].notch_depth_cm == 0.7 and settings.families["pant"].fold_edge_cm == 0
     linen = settings.fabrics["linen_cl1086464"]
     assert (linen.warp_pct, linen.weft_pct) == (5.0, 5.0) and "CL1086464" in linen.source
+
+
+def test_the_notch_slit_depth_is_the_finishing_value_for_every_family():
+    assert {family.notch_depth_cm for family in finishing().families.values()} == {NOTCH_SLIT_CM}
 
 
 REVIEW_STATUS = {"shirt": "confirmed", "pant": "needs_pattern_maker_review"}
@@ -48,6 +53,7 @@ def _raw():
     (lambda d: d["families"]["shirt"]["allowances"].append(copy.deepcopy(d["families"]["shirt"]["allowances"][0])),
      "shirt lists allowance hem twice"),
     (lambda d: d["families"]["shirt"]["notch"].update(depth_cm=0), "shirt notch depth must be positive"),
+    (lambda d: d["families"]["shirt"]["corner"].update(value="round"), "shirt corner 'round' is not a corner style"),
     (lambda d: d["fabrics"]["linen_cl1086464"].update(warp_pct=60), "linen_cl1086464 shrinkage must be 0-50 %"),
     (lambda d: d["fabrics"]["linen_cl1086464"].pop("weft_pct"), "linen_cl1086464 needs warp_pct and weft_pct"),
 ])

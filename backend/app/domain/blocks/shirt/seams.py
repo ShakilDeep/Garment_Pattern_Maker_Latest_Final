@@ -29,3 +29,9 @@ RELATIONS: Mapping[str, tuple[Term, ...]] = {**TRUED, **AS_PDS}
 def seam_sum(terms: tuple[Term, ...], measure: Callable[[str, tuple[str, ...]], float]) -> float:
     """The relation's value with each named path measured by ``measure(piece id, path)``."""
     return sum(sign * measure(piece, path) for sign, piece, path in terms)
+
+# Notches the client PDS leaves without a partner on the joining seam; none is added (docs/drafting/shirt.md Q6).
+PDS_UNPAIRED: Mapping[str, str] = {
+    "shoulder_notch": "1078375 PDS: no partner notch on the FRT shoulder (docs/drafting/shirt.md Q6)",
+    "crown_notch": "1078375 PDS: cap-centre notch with no armhole partner (docs/drafting/shirt.md Q5, Q6)",
+}

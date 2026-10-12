@@ -3,7 +3,8 @@
 The cut line is the validated seam-allowance outline (``check_cut_geometry``) and the sew line the stitch
 outline, curves sampled. A piece cut on the fold carries its drawn half and its fold edge as the mirror line,
 as the interchange model expects. Notches are the 0.7 cm slits from the sew line, as the client PDS draws
-them; grade points (a cut-line point and its rule number) are passed in by the caller.
+them; labels are layer-15 annotations and drill holes layer-13 points; grade points (a cut-line point and its
+rule number) are passed in by the caller.
 """
 from app.domain.geom.primitives import Point2D
 from app.domain.interchange import GradePoint, InterchangePiece, Point
@@ -33,5 +34,7 @@ def piece_to_interchange(piece: Piece, size: str, allowance: SeamAllowance,
         mirror=mirror,
         notches=tuple(tuple(_xy(end) for end in notch_mark(piece, notch)) for notch in piece.notches),
         grain=grain,
+        annotations=tuple(label.text for label in piece.labels),
         grade_points=grade_points,
+        drills=tuple(_xy(drill.position) for drill in piece.drills),
     )

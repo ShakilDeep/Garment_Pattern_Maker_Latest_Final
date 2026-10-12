@@ -25,6 +25,7 @@ class InterchangePiece:
     category: str | None = None
     annotations: tuple[str, ...] = ()
     grade_points: tuple[GradePoint, ...] = ()
+    drills: tuple[Point, ...] = ()  # drill-hole centres
 
 
 @dataclass(frozen=True)
