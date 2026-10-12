@@ -8,7 +8,7 @@ from hashlib import sha256
 from app.domain.collar_targets import apply_collar_targets
 from app.domain.geometry import length, make_piece, unfold
 from app.domain.shirt_set import sleeve_and_placket
-from app.domain.shirt_v2.body import back_half, front_half, underarm, yoke_half
+from app.domain.shirt_v2.body import FRONT_NECK_INSET, back_half, front_half, underarm, yoke_half
 from app.domain.shirt_v2.curves import simplify
 from app.domain.shirt_v2.neck import band, collar, unfold_x
 from app.domain.shirt_v2.sleeve import sleeve_outline
@@ -45,11 +45,13 @@ def pieces(m: dict, back_neck_drop: float) -> list[dict]:
     attachment = 2 * half_neck
     return [
         _piece("Front", simplify(front["points"]),
-               seams={"armhole": length(front["armhole"]), "neckline": length(front["neckline"])}),
+               seams={"armhole": length(front["armhole"]), "neckline": length(front["neckline"]),
+                      "shoulder": front["shoulder"]}),
         _piece("Back", simplify(unfold(back["points"])), quantity=1, fold=True, seams={
             "yoke": 2 * back["yoke"], "armhole": length(back["armhole"]) + length(yoke["armhole"])}),
         _piece("Yoke", simplify(unfold(yoke["points"])), [[x, y], [-x, y]], fold=True,
-               seams={"yoke": 2 * yoke["yoke"], "neckline": 2 * length(yoke["neckline"])}),
+               seams={"yoke": 2 * yoke["yoke"], "neckline": 2 * length(yoke["neckline"]),
+                      "shoulder": yoke["shoulder"]}),  # one side: each front shoulder sews to one
         sleeve,
         apply_collar_targets(_along(_piece("Collar", simplify(collar_whole), seams={"attachment": attachment})),
                              m, attachment),
@@ -64,7 +66,7 @@ def draft_v2(m: dict, size: str, profile) -> dict:
     if missing:
         raise ValueError("Missing positive measurements: " + ", ".join(missing))
     neck, shoulder, chest = m["neck_width"] / 2, m["shoulder_point_to_point"] / 2, m["half_chest"] / 2
-    if not 0 < neck < shoulder < chest or not m["shoulder_slope"] < m["yoke_depth_cb"] < \
+    if not FRONT_NECK_INSET < neck < shoulder < chest or not m["shoulder_slope"] < m["yoke_depth_cb"] < \
             underarm(m) < min(m["front_length_hps"], m["back_length_hps"]):
         raise ValueError("Neck, shoulder, chest, yoke and armhole dimensions are incompatible")
     inputs = json.dumps({"measurements": m, "size": size, "profile": PROFILE}, sort_keys=True)

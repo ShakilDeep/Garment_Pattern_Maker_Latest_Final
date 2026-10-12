@@ -5,7 +5,7 @@ rows never reach drafting, and grading does not use the base size yet. Neither i
 """
 
 
-def _item(key, name, status, why, options, project):
+def requirement_item(key, name, status, why, options, project):
     answers = project.get("resolutions", {})
     return {
         "key": key, "name": name, "status": status, "blocking": False, "why": why, "options": options,
@@ -20,7 +20,7 @@ def chart_items(project) -> list[dict]:
     if not chart:
         return []
     items = [
-        _item(f"mapping:{row['row']}", row["original_label"], "MISSING",
+        requirement_item(f"mapping:{row['row']}", row["original_label"], "MISSING",
               f"Row {row['row']} '{row['original_label']}' has no canonical measurement. "
               "Confirm a mapping or mark it not used.", [], project)
         for row in project.get("measurements", [])
@@ -29,7 +29,7 @@ def chart_items(project) -> list[dict]:
     if chart.get("base_size") is None:
         sizes = list(chart.get("sizes", []))
         status = "AVAILABLE" if "base_size" in project.get("resolutions", {}) else "AMBIGUOUS"
-        items.append(_item("base_size", "Base size", status,
+        items.append(requirement_item("base_size", "Base size", status,
                            "The workbook does not show which size is the base. Choose the base size.", sizes,
                            project))
     return items

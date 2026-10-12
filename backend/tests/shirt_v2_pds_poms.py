@@ -2,7 +2,8 @@
 
 The PDS has no chart, so each value is derived from its sew-line measurements (``measurements_1078375_L``).
 Its front hangs from the front's own (forward-shoulder) HPS and its yoke from the yoke's, which one shirt_v2
-chart cannot hold at once, so there is a chart per frame: ``front`` for FRT, ``back`` for back and back YK.
+chart cannot hold at once, so there is a chart per frame: ``front`` for FRT, ``back`` for back and back YK. Both
+give the yoke's neck width: shirt_v2 sets the front neck inside it by the PDS inset (T147).
 """
 from math import hypot
 
@@ -35,7 +36,7 @@ def _common(neck_half: float, shoulder_half: float, slope: float, underarm: floa
 
 def front() -> dict:
     underarm = R["front_shoulder_drop"] + R["front_armhole_depth"]
-    chart = _common(R["front_neck_width"], R["front_neck_width"] + R["front_shoulder_width"],
+    chart = _common(R["back_neck_width"], R["front_neck_width"] + R["front_shoulder_width"],
                     R["front_shoulder_drop"], underarm, R["front_length"])
     yoke = R["yoke_depth_cb"] + R["back_neck_rise"]
     return {**chart, "front_length_hps": R["front_length"], "back_length_hps": R["front_length"] + 5,

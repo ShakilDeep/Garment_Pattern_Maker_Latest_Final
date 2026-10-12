@@ -18,6 +18,9 @@ def seam_checks(pattern):
         ("Sleeve cap / armhole", pieces["Sleeve"]["seams"]["cap"],
          pieces["Front"]["seams"]["armhole"] + pieces["Back"]["seams"]["armhole"], SLEEVE_EASE_CM),
     ]
+    if "shoulder" in pieces["Front"]["seams"] and "shoulder" in pieces["Yoke"]["seams"]:  # shirt_v2 (T147, Q13)
+        checks.append(("Shoulder seam", pieces["Front"]["seams"]["shoulder"], pieces["Yoke"]["seams"]["shoulder"],
+                       LENGTH_CM))
     for name, actual, expected, tolerance in checks:
         results.append({
             "code": "SEAM_CHECK", "name": name,

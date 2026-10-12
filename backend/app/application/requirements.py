@@ -3,6 +3,7 @@ from app.application.chart_requirements import chart_items
 from app.application.measurement_requirements import measurement_items
 from app.application.requirement_resolve import resolve
 from app.application.source_readiness import source_blockers
+from app.application.style_requirements import style_items
 from app.domain.blocks.registry import installed
 
 __all__ = ["requirements", "resolve"]
@@ -84,6 +85,7 @@ def requirements(project, size="L"):
     items.extend(calibration_requirements(project))
     items.extend(source_blockers(project))
     items.extend(chart_items(project))
+    items.extend(style_items(project, answers.get("profile", installed().demo().id)))
     return {
         "ready": not any(i["blocking"] and i["status"] != "AVAILABLE" for i in items),
         "items": items,

@@ -41,8 +41,8 @@ SHIRT_V2 = DraftingProfile(
     version="2.0.0",
     garment_family="mens_regular_long_sleeve_shirt",
     calibration="demo",
-    required_measurements=tuple(REQUIRED),
-    optional_measurements=DEMO_V1.optional_measurements + ("waist_position_hps", "hem_curve", "back_neck_drop"),
+    required_measurements=(*REQUIRED, "waist_position_hps"),  # the waist level is never a default share (T147)
+    optional_measurements=DEMO_V1.optional_measurements + ("hem_curve", "back_neck_drop"),
     validators=DEMO_V1.validators,
     seam_policy=DEMO_V1.seam_policy,
     assumptions=tuple(a for a in ASSUMPTIONS if not a.startswith(("Curves use", "Body widths"))) + (
@@ -51,6 +51,8 @@ SHIRT_V2 = DraftingProfile(
         "Front/back split of chest, waist and hem follows the 1078375 block (front about 51 %), not half and half.",
         "Collar and band are the 1078375 PDS shapes rescaled to the drafted neckline and the chart's widths.",
         "Notches are the two the PDS has: yoke shoulder and sleeve crown, plus the source sleeve placket/pleat marks.",
+        ("The chart's neck width is the yoke's; the front neck sits 0.56 cm inside it, as on the 1078375 PDS. "
+         "How the shoulder seam moves with it is open (Q13), so unequal shoulder seams are reported."),
     ),
     back_neck_drop_cm=2.0,
 )

@@ -3,8 +3,10 @@
 Points come from the measurement chart exactly as demo_v1 reads it; every curve between them takes its shape
 from the matching 1078375 PDS sew-line curve (``curves.py``). Front/back widths split the half-body
 measurements in the 1078375 block's own front/back proportion instead of half and half.
+The chart's neck width is the yoke's; the front neck sits inside it by the PDS amount (forward shoulder, T147;
+how the shoulder seam moves is still open, Q13).
 """
-from math import sqrt
+from math import dist, sqrt
 
 from app.domain.back_yoke import back_shoulder_half
 from app.domain.blocks.shirt.reference import reference_measurements
@@ -19,6 +21,7 @@ PLACKET_RISE = REF["placket_rise"]  # grown-on placket top above the CF neck poi
 SHOULDER_NOTCH = shape()["back_YK"].notches["shoulder_notch"]
 YOKE_INSET = REF["across_back_half"] - REF["yoke_seam_width"]  # yoke seam ends this far inside the SP (cm)
 YOKE_DROP = REF["back_yoke_drop"]  # the back yoke seam drops this far toward the armhole (1078375 PDS, T147)
+FRONT_NECK_INSET = REF["back_neck_width"] - REF["front_neck_width"]  # front HPS inside the yoke HPS (PDS, T147)
 
 
 def widths(m: dict, front_share: float, hem_share: float) -> tuple[tuple[float, float, float], ...]:
@@ -40,14 +43,13 @@ def underarm(m: dict) -> float:
 
 
 def _side(m: dict, length: float, top: Pt, side: tuple[float, float, float]) -> list[Pt]:
-    """Armhole bottom → waist → side hem, straight lines as on the PDS side seams."""
-    waist_y = m.get("waist_position_hps") or length * 0.62
+    """Armhole bottom → waist (the chart's level) → side hem, straight lines as on the PDS side seams."""
     rise = m.get("hem_curve", HEM_RISE)
-    return [top, [side[1], waist_y], [side[2], length - rise]]
+    return [top, [side[1], m["waist_position_hps"]], [side[2], length - rise]]
 
 
 def front_half(m: dict) -> dict:
-    neck, drop, ext = m["neck_width"] / 2, m["front_neck_drop"], m["front_placket_width"]
+    neck, drop, ext = m["neck_width"] / 2 - FRONT_NECK_INSET, m["front_neck_drop"], m["front_placket_width"]
     shoulder, slope, depth, length = m["shoulder_point_to_point"] / 2, m["shoulder_slope"], underarm(m), \
         m["front_length_hps"]
     front, _ = widths(m, CHEST_FRONT, HEM_FRONT)
@@ -56,7 +58,7 @@ def front_half(m: dict) -> dict:
     side = _side(m, length, armhole[-1], front)
     hem = square_end(side[-1], [-ext, length])
     points = [[-ext, drop - PLACKET_RISE], [0, drop - PLACKET_RISE], *neckline, *armhole, *side[1:], *hem[1:]]
-    return {"points": points, "armhole": armhole, "neckline": neckline}
+    return {"points": points, "armhole": armhole, "neckline": neckline, "shoulder": dist(neckline[-1], armhole[0])}
 
 
 def back_half(m: dict) -> dict:
@@ -76,4 +78,4 @@ def yoke_half(m: dict, back_neck_drop: float) -> dict:
     armhole = cubic([back_sh, slope], [back_sh - YOKE_INSET, yoke], fractions("back_YK", "SP:yoke_armhole"))
     notch = lerp([neck, 0], [back_sh, slope], SHOULDER_NOTCH)
     return {"points": [*neckline, *armhole, [0, yoke]], "neckline": neckline, "armhole": armhole, "notch": notch,
-            "yoke": back_sh - YOKE_INSET}
+            "yoke": back_sh - YOKE_INSET, "shoulder": dist(neckline[-1], armhole[0])}

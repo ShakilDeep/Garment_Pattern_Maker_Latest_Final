@@ -27,23 +27,31 @@
 | Front | 4.83 cm | 0.25 cm | −0.2 % | 0.5 cm |
 | Back | 3.81 cm | 0.22 cm | −0.2 % | 0.3 cm (T147) |
 | Yoke | 2.89 cm | 0.06 cm | −0.1 % | 0.2 cm |
-| Collar | 1.72 cm | 0.47 cm | +2.0 % | 0.6 cm |
-| Band | 1.91 cm | 0.45 cm | +2.4 % | 0.6 cm |
+| Collar | 1.72 cm | 0.02 cm | +0.0 % | 0.2 cm (T147) |
+| Band | 1.91 cm | 0.12 cm | +0.2 % | 0.2 cm (T147) |
 | Sleeve cap | 3.14 cm | 0.11 cm | +0.1 % | 0.2 cm |
 
-Front, back and yoke areas are held to the spec's 0.5 % target (T147); collar and band keep 3 % until the forward-shoulder method is settled (see Open). `tests/test_shirt_v2_draft.py` checks the Book2 chart at every size. No size has a validation error or a flat vertex, and the cap ease against its whole armhole lies between 0 and the client block's L ease (3.948 cm; PDS 3.929).
+Front, back, yoke, collar and band areas are held to the spec's 0.5 % target (T147). `tests/test_shirt_v2_draft.py` checks the Book2 chart at every size. No size has a validation error or a flat vertex, and the cap ease against its whole armhole lies between 0 and the client block's L ease (3.948 cm; PDS 3.929).
 
 ## Yoke drop (T147, 2026-10-12)
 
 The back yoke seam drops **1.07 cm** from CB to the armhole, as on the client PDS (`back_yoke_drop` = CB_yoke.x − yoke_armhole.x on the PDS sew line, where x runs along the body length; it is y, downward, in the shirt_v2 frame; `domain/data/measurements_1078375_L.json`); the yoke piece's own seam stays flat, as on the PDS. Back gap 0.87 → 0.22 cm, area +0.5 → −0.2 %. The armhole is about 0.95 cm shorter, so the Book2 cap ease moves from +1.4…−1.0 to **+2.3 cm (S) … 0.0 (3XL)**, L +1.9. The generic ±2 cm band no longer applies (owner 2026-10-12; the client's own ease is 3.93 cm at L, shirt.md Q1); the shirt_v2 test now requires 0 ≤ ease ≤ the client block's L ease. The V5 seam check still shows its generic 2 cm band as a WARNING (unchanged).
 
-## Open (T147, blocked)
+## Forward shoulder (T147, 2026-10-13)
 
-- **Forward shoulder:** the client PDS front hangs from a lower HPS than the yoke (front neck width 8.62 vs back 9.18), and the Book2 chart gives 3.5 cm at the neck and 4 cm at the armhole, but no source gives the drafting method. shirt_v2 holds one neck width, so the accuracy test uses one chart per frame, and the collar/band, scaled from the back frame's neckline, come out **+2.0 % / +2.4 %** in area. Needs the pattern maker's method.
-- **Cap ease target:** client question Q2 (per fabric; should the cap height follow the armhole).
-- **Sleeve variants:** shirt_v2 drafts the Book2 long sleeve; no chart gives short-sleeve POMs (the client's short sleeve is the 1078375 block, which already matches its PDS).
-- **Pocket:** no reference file has a pocket for either shirt.
-- **Waist level default:** when a chart has no waist position, `body._side` places the waist at 0.62 × body length. That is an assumption, not a source value, to confirm or replace.
+Owner decision: the chart's neck width is the yoke's, and the front neck sits **0.56 cm** inside it, as on the client PDS (`FRONT_NECK_INSET` = back_neck_width 9.18 − front_neck_width 8.62, `domain/data/measurements_1078375_L.json`). The band, scaled to the front + yoke neckline, now lands on the PDS: collar 0.47 → 0.02 cm (+2.0 → +0.0 %), band 0.45 → 0.12 cm (+2.4 → +0.2 %). Front, back and yoke are unchanged.
+
+Only the neck moves; how the shoulder seam moves with it is still open (Q13). The front shoulder seam is therefore 0.54 cm longer than before. On Book2 L the front/yoke shoulder seams are **17.78 / 16.76 cm** (before: 17.24 / 16.76; PDS: 17.48 / 17.43). The V5 seam check reports "Shoulder seam" as a WARNING; it is not gated.
+
+## Missing Information instead of defaults (T147)
+
+- **Waist level:** shirt_v2 requires `waist_position_hps` (Book2 row 10185). A chart without it gets a Missing Information item; the old 0.62 × body length default is gone.
+- **Sleeve variants and pocket:** a confirmed style with a short sleeve or any pocket on shirt_v2 is a blocking `style:sleeve` / `style:pockets` item (`application/style_requirements.py`). No source gives either, so nothing is drafted and nothing can answer it but a source or a style the block drafts.
+
+## Open
+
+- **Shoulder seam method:** Q13 (pattern maker). See above.
+- **Cap ease target:** client question Q2 (per fabric; should the cap height follow the armhole). The owner keeps 0 ≤ ease ≤ 3.948 until then.
 
 ## Open questions for the pattern maker
 

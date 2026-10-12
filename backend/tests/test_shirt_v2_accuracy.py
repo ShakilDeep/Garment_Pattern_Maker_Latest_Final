@@ -9,14 +9,15 @@ from app.domain.blocks.registry import installed
 from app.domain.blocks.run import draft_pattern
 
 AREA = 0.03  # build plan accuracy suite: areas within 3 % of the client's Optitex pattern
-TARGET_AREA = 0.005  # spec §7: 0.5 % after package 03 (T147); collar and band wait for the forward-shoulder method
-# (piece, chart, PDS piece, Hausdorff limit in cm, area share); the back has the PDS's 1.07 cm yoke-seam drop
+TARGET_AREA = 0.005  # spec §7: 0.5 % after package 03 (T147)
+# (piece, chart, PDS piece, Hausdorff limit in cm, area share); the back has the PDS's 1.07 cm yoke-seam drop,
+# the front neck the PDS's 0.56 cm inset, so the collar and band land on the PDS too (T147)
 LIMITS = [
     ("Front", "front", "FRT", 0.5, TARGET_AREA),
     ("Back", "back", "back", 0.3, TARGET_AREA),
     ("Yoke", "back", "back YK", 0.2, TARGET_AREA),
-    ("Collar", "back", "CLR", 0.6, AREA),
-    ("Collar Stand", "back", "BND TOP", 0.6, AREA),
+    ("Collar", "back", "CLR", 0.2, TARGET_AREA),
+    ("Collar Stand", "back", "BND TOP", 0.2, TARGET_AREA),
 ]
 
 

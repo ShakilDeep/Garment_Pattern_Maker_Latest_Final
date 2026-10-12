@@ -10,7 +10,6 @@ from collections.abc import Callable
 from app.application.block_inputs import ACCEPTED, FROM_BLOCK, REFERENCE_KEY, block_inputs
 from app.domain.blocks.base import BlockInfo, NamedBlock
 from app.domain.blocks.registry import demo_block, installed
-from app.domain.catalog import REQUIRED
 
 Add = Callable[..., None]  # requirements()' item builder: add(key, name, status, why, options)
 
@@ -31,9 +30,9 @@ def block_items(project: dict, block: BlockInfo, size: str, add: Add) -> None:
             f"No chart value or reference value exists for {name} at size {size}. Enter it in cm.", [])
 
 
-def _catalog_items(project: dict, size: str, add: Add) -> None:
+def _catalog_items(project: dict, block: BlockInfo, size: str, add: Add) -> None:
     rows = {row["key"]: row for row in project["measurements"]}
-    for key in REQUIRED:
+    for key in block.required:
         value = rows.get(key, {}).get("values", {}).get(size, {}).get("value")
         if value is None or value <= 0:
             add("measurement:" + key, key.replace("_", " ").title(), "MISSING",
@@ -45,4 +44,4 @@ def measurement_items(project: dict, size: str, add: Add) -> None:
     if isinstance(block, NamedBlock):
         block_items(project, block, size, add)
     else:
-        _catalog_items(project, size, add)
+        _catalog_items(project, block, size, add)
