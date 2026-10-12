@@ -16,6 +16,7 @@ from app.api.models.cad_style import (
     StyleSummary,
     style_summary,
 )
+from app.application.accuracy.export_gate import require_accurate
 from app.application.cad.measure_query import measure
 from app.application.cad.piece_detail import piece_detail
 from app.application.cad.style_service import StyleService
@@ -59,7 +60,10 @@ def cad_routes(styles: StyleService):
                 responses={200: {"content": {"application/zip": {}}, "description": "DXF-AAMA + RUL zip"}})
     def export_aama(style_id: str, unit: Literal["mm", "inch"] = "mm"):
         """Base DXF-AAMA + .RUL and the all-sizes DXF of a graded style, as one zip (T131)."""
-        content = graded_aama(styles.get(style_id).style, unit)
+        record = styles.get(style_id)
+        if record.project_id is not None:  # the style as edited, checked against its project's reference
+            require_accurate(styles.projects.get(record.project_id), record.style)
+        content = graded_aama(record.style, unit)
         headers = {"Content-Disposition": f'attachment; filename="{style_id}_aama.zip"'}
         return Response(content, media_type="application/zip", headers=headers)
 

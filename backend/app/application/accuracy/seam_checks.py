@@ -7,7 +7,7 @@ plan's generic 0-1 cm and 0.3 cm rules, which the client's own pattern does not 
 from collections.abc import Mapping
 from itertools import pairwise
 
-from app.application.accuracy.model import Check, near
+from app.application.accuracy.model import Check, Source, near
 from app.domain.blocks.shirt.seams import AS_PDS, TRUED, seam_sum
 from app.domain.blocks.sketch.named_edges import path_length
 from app.domain.geom.polyline_ops import length
@@ -15,6 +15,10 @@ from app.domain.pattern.piece import Piece
 from app.infrastructure.pds.shirt_named import NamedPiece
 
 TOLERANCE_CM = 0.1
+TRUED_SOURCE = Source("setting", "build plan: seams that sew together are equal")
+# Owner decisions: the PDS cap ease 3.929 ± 0.1 (inside spec §7's 3.9 ± 0.5) and the PDS band/collar sums
+# replace "collar = neckline within 0.3 cm", which the client pattern does not follow.
+PDS_SOURCE = Source("pds", "1078375 PDS, docs/drafting/shirt.md Q1/Q2")
 
 
 def _pds_path(named: Mapping[str, NamedPiece], piece: str, path: tuple[str, ...]) -> float:
@@ -25,9 +29,9 @@ def seam_checks(pieces: Mapping[str, Piece], named: Mapping[str, NamedPiece]) ->
     def drafted(piece: str, path: tuple[str, ...]) -> float:
         return path_length(pieces[piece], path)
 
-    checks = [near(name, seam_sum(terms, drafted), 0.0, TOLERANCE_CM, "build plan: seams that sew together are equal")
+    checks = [near(name, seam_sum(terms, drafted), 0.0, TOLERANCE_CM, TRUED_SOURCE)
               for name, terms in TRUED.items()]
     for name, terms in AS_PDS.items():
         target = seam_sum(terms, lambda piece, path: _pds_path(named, piece, path))
-        checks.append(near(name, seam_sum(terms, drafted), target, TOLERANCE_CM, "1078375 PDS, shirt.md Q1/Q2"))
+        checks.append(near(name, seam_sum(terms, drafted), target, TOLERANCE_CM, PDS_SOURCE))
     return checks

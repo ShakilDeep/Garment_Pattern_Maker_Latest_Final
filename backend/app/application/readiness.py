@@ -1,4 +1,5 @@
 """Operation-specific prerequisites shared by API clients and review screens."""
+from app.application.accuracy.export_gate import accuracy_blocker
 from app.application.project_sizes import project_sizes, require_sizes
 from app.application.requirements import requirements
 from app.application.source_readiness import source_blockers
@@ -30,6 +31,9 @@ def check_operation(project, target_operation, size='L', width=None, quantities=
                 v['severity'] == 'ERROR' for v in (p or {}).get('validation', [])))
             need('pattern:' + selected_size, valid,
                  f'Generate a current {selected_size} pattern and resolve geometry errors.', 'Generated patterns')
+        if target_operation == 'export':
+            need('accuracy', not accuracy_blocker(project),
+                 'Resolve the accuracy errors in GET /accuracy before export.', 'Accuracy report')
         if target_operation == 'marker':
             need('width', width is not None and 20 < width <= 500,
                  'Enter fabric width greater than 20 and at most 500 cm.', 'Fabric specification')

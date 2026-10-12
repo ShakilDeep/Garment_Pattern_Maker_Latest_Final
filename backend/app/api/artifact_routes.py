@@ -7,6 +7,7 @@ from fastapi.responses import Response
 from app.api.import_contract import check_import_contract
 from app.api.models.project import GeometryImport
 from app.api.schemas import DxfUnit, ExportCreate, JsonImport, Size
+from app.application.accuracy.export_gate import GEOMETRY_KINDS, require_accurate
 from app.application.geometry_import import persist_import
 from app.application.project_sizes import require_sizes
 from app.application.state import transition
@@ -27,6 +28,8 @@ def artifact_routes(service):
 
     def response(project, kind, size=None, unit='cm'):
         require_sizes(project, [size] if size else [])
+        if kind in GEOMETRY_KINDS:  # refused before the artifact exists, never inside the state update below
+            require_accurate(project)
         data, mime = export_artifact(project, kind, size=size, unit=unit)
         export_size = size or (project.get('pattern') or {}).get('size') or (project.get('marker') or {}).get('size') or 'M'
         extension = {'marker-svg': 'svg', 'marker-pdf': 'pdf', 'dxf-aama': 'dxf'}.get(kind, kind)

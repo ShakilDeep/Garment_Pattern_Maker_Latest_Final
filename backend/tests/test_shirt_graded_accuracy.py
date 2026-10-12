@@ -44,8 +44,10 @@ def test_pieces_seams_and_outlines_are_checked_in_every_size(report):
     names = {check.name for check in report.checks}
     for size in SUM_AREA:
         assert {f"{size} FRT length", f"{size} Sleeve width", f"{size} back YK cut area"} <= names
-        assert {f"{size} side seams", f"{size} sleeve cap ease", f"{size} outlines valid"} <= names
-    assert "areas grow size to size" in names
+        assert f"{size} outlines valid" in names
+        if size != "L":  # L's own seams are checked against the PDS (run.base_checks), not against itself
+            assert {f"{size} side seams", f"{size} sleeve cap ease"} <= names
+    assert "areas grow size to size" in names and "L side seams" not in names
 
 
 def test_a_size_drafted_from_the_wrong_measurements_fails(style, pds_styles):

@@ -1,5 +1,6 @@
 from fastapi import APIRouter
 
+from app.api.accuracy_routes import accuracy_routes
 from app.api.assistant_routes import assistant_routes
 from app.api.cad_routes import cad_routes
 from app.api.lifecycle_routes import lifecycle_routes
@@ -27,6 +28,7 @@ def router(service, ai_provider=None, pom_suggester=None, style_detector=None):
         measurement_routes(service),
         requirement_routes(service),
         pattern_routes(service),
+        accuracy_routes(service),
         review_routes(service),
         lifecycle_routes(service),
         mapping_routes(MappingService(service, pom_suggester or get_pom_suggester())),

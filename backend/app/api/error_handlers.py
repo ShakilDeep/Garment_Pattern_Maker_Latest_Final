@@ -34,7 +34,7 @@ def install_error_handlers(app: FastAPI) -> None:
     async def not_ready(request, exc):
         text = str(exc)
         code = exc.code or ('MEASUREMENT_MISSING' if 'measurement' in text.lower() else 'REQUIREMENTS_NOT_READY')
-        return error(request, 409, code, text)
+        return error(request, 409, code, text, getattr(exc, 'details', None))
 
     @app.exception_handler(StyleConflict)
     async def style_conflict(request, exc):

@@ -15,6 +15,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 COPY backend/ ./backend/
 COPY fixtures/demo_sources ./fixtures/demo_sources
+# Client PDS references the accuracy report checks against (T143); read-only, never written
+COPY fixtures/reference_patterns/*.PDS ./fixtures/reference_patterns/
 COPY --from=frontend /src/frontend/dist ./frontend/dist
 RUN python -m pip install --no-cache-dir -e "./backend"
 ENV DATABASE_URL=sqlite:///garment.db
