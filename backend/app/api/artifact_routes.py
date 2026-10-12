@@ -9,6 +9,7 @@ from app.api.models.project import GeometryImport
 from app.api.schemas import DxfUnit, ExportCreate, JsonImport, Size
 from app.application.accuracy.export_gate import GEOMETRY_KINDS, require_accurate
 from app.application.geometry_import import persist_import
+from app.application.grading.project_aama import AAMA_GRADED, ZIP, project_graded_aama
 from app.application.project_sizes import require_sizes
 from app.application.state import transition
 from app.infrastructure.exports import export_artifact
@@ -18,7 +19,7 @@ from app.infrastructure.repository import now
 # Artifact bytes: SVG, PDF, DXF, or the JSON geometry document that /exports/import accepts back.
 EXPORT_RESPONSES: dict[int | str, dict] = {200: {
     "model": GeometryImport, "description": "Exported artifact",
-    "content": {"image/svg+xml": {}, "application/pdf": {}, "application/dxf": {}},
+    "content": {"image/svg+xml": {}, "application/pdf": {}, "application/dxf": {}, "application/zip": {}},
 }}
 
 
@@ -30,12 +31,17 @@ def artifact_routes(service):
         require_sizes(project, [size] if size else [])
         if kind in GEOMETRY_KINDS:  # refused before the artifact exists, never inside the state update below
             require_accurate(project)
-        data, mime = export_artifact(project, kind, size=size, unit=unit)
         export_size = size or (project.get('pattern') or {}).get('size') or (project.get('marker') or {}).get('size') or 'M'
-        extension = {'marker-svg': 'svg', 'marker-pdf': 'pdf', 'dxf-aama': 'dxf'}.get(kind, kind)
-        suffix = '_aama' if kind == 'dxf-aama' else ''
+        if kind == AAMA_GRADED:  # every size of the project's style for Optitex (T146)
+            data, filename = project_graded_aama(project, unit)
+            mime, unit = ZIP, 'inch' if unit == 'inch' else 'mm'
+        else:
+            data, mime = export_artifact(project, kind, size=size, unit=unit)
+            extension = {'marker-svg': 'svg', 'marker-pdf': 'pdf', 'dxf-aama': 'dxf'}.get(kind, kind)
+            suffix = '_aama' if kind == 'dxf-aama' else ''
+            filename = f'1078983_shirt_{export_size}_demo{suffix}.{extension}'
         metadata = {'id': str(uuid4()), 'kind': kind, 'size': export_size,
-                    **({'unit': unit} if kind in ('dxf', 'dxf-aama') else {}),
+                    **({'unit': unit} if kind in ('dxf', 'dxf-aama', AAMA_GRADED) else {}),
                     'sha256': sha256(data).hexdigest(), 'at': now()}
         project.setdefault('export_records', []).append(metadata)
         # Best-effort state update — never block returning the artifact bytes.
@@ -44,8 +50,7 @@ def artifact_routes(service):
             repo.save(project, 'export_created', metadata, artifact=(metadata, data))
         except ValueError:
             repo.save(project, 'export_created', metadata, artifact=(metadata, data))
-        return Response(data, media_type=mime, headers={
-            'Content-Disposition': f'attachment; filename="1078983_shirt_{export_size}_demo{suffix}.{extension}"'})
+        return Response(data, media_type=mime, headers={'Content-Disposition': f'attachment; filename="{filename}"'})
 
     @routes.post('/projects/{pid}/exports', response_class=Response, responses=EXPORT_RESPONSES)
     def create(pid: str, body: ExportCreate):

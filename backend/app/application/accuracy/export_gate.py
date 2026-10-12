@@ -8,7 +8,7 @@ from app.application.errors import NotReady
 from app.application.project_style import STYLE
 from app.domain.pattern.style import Style
 
-GEOMETRY_KINDS = frozenset({"svg", "pdf", "dxf", "dxf-aama"})
+GEOMETRY_KINDS = frozenset({"svg", "pdf", "dxf", "dxf-aama", "aama-graded"})
 SHOWN_ERRORS = 20  # details list the first failed checks; the report has them all
 
 

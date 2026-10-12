@@ -29,6 +29,12 @@ export function nestAndExport(ctx: NestCtx) {
       const label = markerExport
         ? (project.marker?.size || project.pattern?.size || size)
         : size;
+      if (kind === 'aama-graded') { // every size as one zip for Optitex (T146): no size parameter
+        const name = `${project.resolutions?.profile ?? 'pattern'}_graded_aama.zip`;
+        const query = unit ? `?unit=${encodeURIComponent(unit)}` : '';
+        await run(() => download(`/projects/${project.id}/exports/aama-graded${query}`, name), 'Download ready.');
+        return;
+      }
       const path = kind === 'calibration'
         ? `/projects/${project.id}/calibration-request`
         : markerExport

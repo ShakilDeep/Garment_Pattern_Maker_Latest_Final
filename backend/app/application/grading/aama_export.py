@@ -48,16 +48,27 @@ def _all_sizes(style: Style) -> InterchangeStyle:
     return InterchangeStyle(style.name, style.base_size, pieces)
 
 
-def graded_aama(style: Style, unit: str) -> bytes:
+Files = dict[str, bytes | str]
+
+
+def graded_files(style: Style, unit: str) -> Files:
+    """base.dxf, grade_rules.rul and all_sizes.dxf of a graded style, by file name."""
     unit_scale(unit)  # refuse an unknown unit before any drafting work
     rules = corner_rules(style)
-    files: dict[str, bytes | str] = {
+    return {
         "base.dxf": write_aama(_base(style, rules), unit),
         "grade_rules.rul": write_rul(rules.table, unit),
         "all_sizes.dxf": write_aama(_all_sizes(style), unit),
     }
+
+
+def zipped(files: Files) -> bytes:
     buffer = io.BytesIO()
     with zipfile.ZipFile(buffer, "w", zipfile.ZIP_DEFLATED) as archive:
         for name, content in files.items():
             archive.writestr(name, content)
     return buffer.getvalue()
+
+
+def graded_aama(style: Style, unit: str) -> bytes:
+    return zipped(graded_files(style, unit))

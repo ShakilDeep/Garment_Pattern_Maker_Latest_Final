@@ -44,7 +44,7 @@ def test_the_report_lists_the_errors(broken):
     assert {"S SUM_AREA", "areas grow size to size"} <= failed
 
 
-@pytest.mark.parametrize("kind", ["dxf-aama", "svg", "pdf", "dxf"])
+@pytest.mark.parametrize("kind", ["dxf-aama", "svg", "pdf", "dxf", "aama-graded"])
 def test_geometry_exports_are_refused_with_the_failed_checks(broken, kind):
     client, url, _ = broken
     response = client.get(f"{url}/exports/{kind}")

@@ -4,7 +4,8 @@ const units = [['cm', 'Centimetres (cm)'], ['mm', 'Millimetres (mm)'], ['inch', 
 
 type Props = {disabled: boolean; download: (kind: string, unit: string) => void};
 
-/** AutoCAD DXF at 1:1 in the chosen unit, and DXF-AAMA/ASTM (R12) for Optitex: metric files are mm. */
+/** AutoCAD DXF at 1:1 in the chosen unit, and DXF-AAMA/ASTM (R12) for Optitex: metric files are mm. The all-sizes
+ * download is one zip: base DXF-AAMA + .RUL grade rules + every size drawn + a README (T146). */
 export default function DxfExport({disabled, download}: Props) {
   const [unit, setUnit] = useState('cm');
   return <div className="actions dxf-export">
@@ -15,6 +16,9 @@ export default function DxfExport({disabled, download}: Props) {
     <button disabled={disabled} onClick={() => download('dxf-aama', unit === 'inch' ? 'inch' : 'mm')}>
       Download DXF-AAMA (Optitex)
     </button>
-    <small>DXF-AAMA metric files are in mm. Optitex import is not yet confirmed.</small>
+    <button disabled={disabled} onClick={() => download('aama-graded', unit === 'inch' ? 'inch' : 'mm')}>
+      Download DXF-AAMA + .RUL, all sizes (Optitex)
+    </button>
+    <small>DXF-AAMA metric files are in mm. Optitex import not yet verified.</small>
   </div>;
 }

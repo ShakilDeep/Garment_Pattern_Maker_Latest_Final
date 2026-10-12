@@ -2,7 +2,8 @@
 is within that POM's chart tolerance in every drafted size.
 
 Which inputs came from the chart is what each pattern recorded (`input_sources`, `chart:<pom>`, T142). A chart
-row without a tolerance fails: the limit is missing information and is never guessed.
+row without a tolerance fails: the limit is missing information and is never guessed. The chart's tolerance
+column stays in the chart's own unit, so it is converted to cm as the row's values were (T146).
 """
 from collections.abc import Iterator, Mapping
 from dataclasses import replace
@@ -13,6 +14,7 @@ from app.domain.pattern.ids import PointId
 from app.domain.pattern.piece import Piece
 from app.domain.pattern.style import Style
 from app.domain.tolerances import COORDINATE
+from app.domain.units import to_cm
 
 CHART = "chart:"
 NO_TOLERANCE = "chart gives no tolerance"
@@ -40,6 +42,11 @@ def _check(name: str, value: float, row: dict, target_and_tolerance: tuple[float
     return Check(name, value, f"{target:.3f} ± {tolerance} cm", passed, source)
 
 
+def _tolerance_cm(row: dict, fact: Mapping) -> float | None:
+    tolerance = fact.get("tolerance")
+    return None if tolerance is None else to_cm(tolerance, row.get("source_unit", "cm"))
+
+
 def chart_checks(project: dict, style: Style, definitions: Mapping[str, Definition]) -> list[Check]:
     rows = {row["key"]: row for row in project.get("measurements", [])}
     facts = {fact["ref"]: fact for fact in (project.get("chart") or {}).get("rows", [])}
@@ -49,7 +56,7 @@ def chart_checks(project: dict, style: Style, definitions: Mapping[str, Definiti
             continue
         definition, row = definitions[name], rows[pom]
         piece = next(p for p in style.view(size) if str(p.id) == definition.piece)
-        limit = (row["values"][size]["value"], facts.get(str(row["row"]), {}).get("tolerance"))
+        limit = (row["values"][size]["value"], _tolerance_cm(row, facts.get(str(row["row"]), {})))
         check = at_size(_check(f"{name} (chart {pom})", measured(definition, piece), row, limit), size)
         checks.append(replace(check, piece=piece.name, edge=f"{definition.start}:{definition.end}"))
     return checks

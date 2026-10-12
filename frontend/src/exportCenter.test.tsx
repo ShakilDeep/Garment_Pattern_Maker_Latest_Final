@@ -33,6 +33,12 @@ describe('export center',()=>{
   fireEvent.click(screen.getByRole('button',{name:'Download DXF-AAMA (Optitex)'}));
   expect(download.mock.calls).toEqual([['dxf-aama','mm'],['dxf-aama','inch']]);
  });
+ it('downloads every size for Optitex as one zip and says the import is not yet verified',()=>{
+  const download = show('Export');
+  fireEvent.click(screen.getByRole('button',{name:'Download DXF-AAMA + .RUL, all sizes (Optitex)'}));
+  expect(download).toHaveBeenCalledWith('aama-graded','mm');
+  expect(screen.getByText('DXF-AAMA metric files are in mm. Optitex import not yet verified.')).toBeTruthy();
+ });
  it('blocks the DXF download while the pattern is stale',()=>{
   show('Export', project(true));
   expect((screen.getByRole('button',{name:'Download DXF (AutoCAD)'}) as HTMLButtonElement).disabled).toBe(true);
