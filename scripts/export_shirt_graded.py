@@ -1,8 +1,9 @@
 """Write the M4 Optitex-gate files for the graded 1078375 shirt (build plan M4, T131).
 
 Usage: python scripts/export_shirt_graded.py --out DIR [--unit mm|inch]
-Writes base.dxf (base size L with grade points), grade_rules.rul and all_sizes.dxf. Give them to a person
-with Optitex (File > Import > DXF AAMA/ASTM, with the .RUL) to confirm all six sizes grade and nest.
+Writes base.dxf (base size L with grade points), grade_rules.rul and all_sizes.dxf of the block's own style.
+For the manual Optitex check use scripts/optitex_kit.py instead: it exports through a project, as the app
+does (accuracy gate, README), and adds the tester's record form. The Optitex import menu path is unverified.
 Nothing is written into the repository unless DIR points there.
 """
 import argparse
