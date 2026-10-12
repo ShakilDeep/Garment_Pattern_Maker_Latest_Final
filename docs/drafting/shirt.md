@@ -2,7 +2,7 @@
 
 **Status: REVIEWED (2026-10-10).** Every question is answered: Q6 from `reference/`, and the rest by the owner where the reference holds no answer. The `ShirtBlock` (T130) is drafted from this file.
 
-This file lists every point, line and curve of the shirt block. It also gives the measurement each one comes from and the truing checks that become tests. Every number comes from the client's Optitex file `1078375- Men Regular SS Shirt.PDS` (tracked copy `fixtures/reference_patterns/1078375.PDS`, sha256 `3bb708…`), base size **L**. The output of `python scripts/survey_pds_shirt.py` reproduces them. Nothing here is a textbook default. Where the PDS disagrees with the build plan's generic drafting rules, the PDS value is used and the conflict is listed under "Questions for the pattern maker".
+This file lists every point, line and curve of the shirt block. It also gives the measurement each one comes from and the truing checks that become tests. Every number comes from the client's Optitex file `1078375- Men Regular SS Shirt.PDS` (tracked copy `fixtures/reference_patterns/1078375.PDS`, sha256 `3bb708…`), base size **L**. The output of `python scripts/survey_pds.py --style 1078375` reproduces them. Nothing here is a textbook default. Where the PDS disagrees with the build plan's generic drafting rules, the PDS value is used and the conflict is listed under "Questions for the pattern maker".
 
 ## Source and conventions
 
@@ -223,3 +223,9 @@ Answered on 2026-10-10. The source is named for each answer.
 |---|---|---|---|
 | Owner (on the pattern maker's behalf for Q1–Q4) | 2026-10-10 | partial: Q1–Q4 answered | Q6 from reference; Q5, Q7, Q8 open |
 | Owner (Q5, Q7, Q8) | 2026-10-10 | **approved** | sleeve front = narrow-underarm side, crown notch as PDS; grain along CF/CB; finishing.json shirt roles confirmed |
+
+## PDS scan findings (2026-10-11)
+
+Read directly from the XML section of the client PDS files (`reference/`, copies in `fixtures/reference_patterns/`).
+
+The PDS XML records the two shirt notches (back YK and Sleeve, one each) as Optitex `T_NOTCH` with a cut `LENGTH` of 1.2 cm. The SVG draws them as 0.70 cm slits from the sew line, which the block reproduces. Which notch type to export is client question Q12 (`markdown/MASTER.md` START HERE §7).
