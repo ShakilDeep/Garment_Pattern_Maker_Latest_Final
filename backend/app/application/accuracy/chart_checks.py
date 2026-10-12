@@ -18,12 +18,12 @@ CHART = "chart:"
 NO_TOLERANCE = "chart gives no tolerance"
 
 
-def _measured(definition: Definition, piece: Piece) -> float:
+def measured(definition: Definition, piece: Piece) -> float:
     start, end = piece.point(PointId(definition.start)).position, piece.point(PointId(definition.end)).position
     return end.x - start.x if definition.axis == "x" else end.y - start.y
 
 
-def _chart_inputs(project: dict) -> Iterator[tuple[str, str, str]]:
+def chart_inputs(project: dict) -> Iterator[tuple[str, str, str]]:
     """(size, input, POM) for every input a drafted size took from the chart."""
     for pattern in (project.get("pattern"), *project.get("grades", [])):
         for name, source in ((pattern or {}).get("input_sources") or {}).items():
@@ -44,12 +44,12 @@ def chart_checks(project: dict, style: Style, definitions: Mapping[str, Definiti
     rows = {row["key"]: row for row in project.get("measurements", [])}
     facts = {fact["ref"]: fact for fact in (project.get("chart") or {}).get("rows", [])}
     checks = []
-    for size, name, pom in _chart_inputs(project):
+    for size, name, pom in chart_inputs(project):
         if not style.has_geometry(size):
             continue
         definition, row = definitions[name], rows[pom]
         piece = next(p for p in style.view(size) if str(p.id) == definition.piece)
         limit = (row["values"][size]["value"], facts.get(str(row["row"]), {}).get("tolerance"))
-        check = at_size(_check(f"{name} (chart {pom})", _measured(definition, piece), row, limit), size)
+        check = at_size(_check(f"{name} (chart {pom})", measured(definition, piece), row, limit), size)
         checks.append(replace(check, piece=piece.name, edge=f"{definition.start}:{definition.end}"))
     return checks

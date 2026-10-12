@@ -1,12 +1,13 @@
 """A project's accuracy report (T143): its stored style checked against its block's client reference.
 
 The PDS checks take about a second for six sizes, so they are cached by content: the key is the style's
-canonical JSON, and any edit, regrade or regeneration gives a new key. Chart checks read the project's
-chart and run each time.
+canonical JSON, and any edit, regrade or regeneration gives a new key. Chart and grade-step checks read the
+project's chart and run each time.
 """
 from functools import lru_cache
 
 from app.application.accuracy.chart_checks import chart_checks
+from app.application.accuracy.grade_steps import grade_step_checks
 from app.application.accuracy.model import Check
 from app.application.accuracy.report_json import report_json
 from app.application.accuracy.suites import SUITES, profile_of
@@ -54,5 +55,7 @@ def accuracy_report(project: dict, style: Style | None = None) -> dict:
     if reference is None:
         return report_json(project, checked, None, ())
     profile = profile_of(project)
-    checks = (*_pds_checks(profile, text), *chart_checks(project, checked, SUITES[profile].definitions))
+    definitions = SUITES[profile].definitions
+    checks = (*_pds_checks(profile, text), *chart_checks(project, checked, definitions),
+              *grade_step_checks(project, checked, definitions))
     return report_json(project, checked, reference.name, checks)

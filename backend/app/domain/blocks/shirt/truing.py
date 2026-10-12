@@ -3,9 +3,11 @@
 In TRUED order, each relation (``seams.py``) is solved for its measurement with a secant (``numeric``), so
 seams that sew together stay equal in every size, the band stays half neckline + 0.945 and the cap ease
 stays 3.929 (docs/grading/shirt.md). The round repeats until every relation holds. A measurement in a
-SHARED pair moves its partner the opposite way, so the pair's PDS step is kept.
+SHARED pair moves its partner the opposite way, so the pair's PDS step is kept. ``locked`` measurements (chart
+values, T145) are never moved: a relation solved with one, or with its partner, is left unheld.
 """
 from collections.abc import Mapping
+from collections.abc import Set as AbstractSet
 
 from app.domain.blocks.shirt.block import ShirtBlock
 from app.domain.blocks.shirt.grading import PARTNER, TRUED
@@ -30,13 +32,15 @@ def _set(measures: dict[str, float], name: str, value: float) -> dict[str, float
     return moved
 
 
-def _gaps(measures: Mapping[str, float], targets: Mapping[str, float]) -> dict[str, float]:
+def held(locked: AbstractSet[str] = frozenset()) -> tuple[str, ...]:
+    """The relations truing can hold: neither their measurement nor its SHARED partner is locked."""
+    return tuple(relation for relation, name in TRUED.items()
+                 if name not in locked and PARTNER.get(name) not in locked)
+
+
+def _holds(measures: Mapping[str, float], targets: Mapping[str, float], relations: tuple[str, ...]) -> bool:
     values = relation_values(measures)
-    return {relation: values[relation] - targets[relation] for relation in TRUED}
-
-
-def _holds(measures: Mapping[str, float], targets: Mapping[str, float]) -> bool:
-    return max(abs(gap) for gap in _gaps(measures, targets).values()) <= 2 * TOLERANCE
+    return all(abs(values[relation] - targets[relation]) <= 2 * TOLERANCE for relation in relations)
 
 
 def _solve(measures: dict[str, float], relation: str, targets: Mapping[str, float]) -> dict[str, float]:
@@ -48,14 +52,15 @@ def _solve(measures: dict[str, float], relation: str, targets: Mapping[str, floa
     return _set(measures, name, solve_1d(gap, measures[name]))
 
 
-def true_seams(measures: Mapping[str, float], targets: Mapping[str, float]) -> dict[str, float]:
-    """The measurements with every TRUED relation at its target (rounds of one solve per relation)."""
-    trued = dict(measures)
+def true_seams(measures: Mapping[str, float], targets: Mapping[str, float],
+               locked: AbstractSet[str] = frozenset()) -> dict[str, float]:
+    """The measurements with every relation in ``held(locked)`` at its target (rounds of one solve each)."""
+    trued, relations = dict(measures), held(locked)
     for _ in range(ROUNDS):
-        if _holds(trued, targets):
+        if _holds(trued, targets, relations):
             return trued
-        for relation in TRUED:
+        for relation in relations:
             trued = _solve(trued, relation, targets)
-    if _holds(trued, targets):
+    if _holds(trued, targets, relations):
         return trued
     raise ValueError("The graded size could not be trued: its relations work against each other")

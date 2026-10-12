@@ -86,6 +86,17 @@
 6. **Sleeve area per size** (owner, 2026-10-10): with the ease held at its L value (3.948; PDS 3.929), the graded Sleeve's cut area runs −1.7 % (S), −0.8 % (M), +1.8 % (XL), +3.6 % (XXL) and +5.4 % (3XL) of the PDS sleeve. The build plan's M4 gate (SUM_AREA per size within 3 %) passes in every size. Per-piece checks are gated at L and reported in the other sizes. Before the crown was made smooth, the Sleeve ran −3.1 % to +9.0 %; letting the ease float instead would keep the sleeve within about 3 %. The pattern maker should choose between these two.
 7. **When the client sends the 1078375 chart,** it replaces this table through Missing Information.
 
+## Chart-driven grading (T145, owner decisions 2026-10-12)
+A size that takes inputs from confirmed chart-map entries (`domain/data/chart_maps/shirt_1078375.json`; none are confirmed yet, Q6) is graded by `domain/blocks/shirt/chart_grade.py`:
+1. The size starts from this table (PDS grading), and the chart values replace their measurements. **A chart value is never moved.**
+2. **Follows:** a follower takes its leader's chart change (e.g. `front_hem_width` with `half_chest_front`).
+3. **Pairs:** the other half of a shared pair absorbs the change, so the piece keeps its PDS step (unless it is a chart value too).
+4. **Seams:** the relations are trued again. A relation solved with a chart value, or with its pair partner, is left unheld; the accuracy report shows it as an error that blocks export until a pattern maker decides.
+5. Each input records its source: `chart:<pom>`, `follows:<leader>`, `balances:<input>`, `trued:<relation>` or `from_block`.
+6. **Check:** each chart input's drafted step between sizes equals the chart step within 0.1 cm (spec §7), and the total area grows with size.
+
+The pant rule "a 2 cm waist dart opened on the back adds 2 cm at the hem" belongs to the pant block (T133).
+
 ## Sign-off
 | Reviewer (pattern maker) | Date | Verdict | Notes |
 |---|---|---|---|
