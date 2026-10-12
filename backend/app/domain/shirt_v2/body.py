@@ -18,6 +18,7 @@ HEM_RISE = shape()["FRT"].offsets["side_hem"][0]  # the side hem sits this far a
 PLACKET_RISE = REF["placket_rise"]  # grown-on placket top above the CF neck point (cm)
 SHOULDER_NOTCH = shape()["back_YK"].notches["shoulder_notch"]
 YOKE_INSET = REF["across_back_half"] - REF["yoke_seam_width"]  # yoke seam ends this far inside the SP (cm)
+YOKE_DROP = REF["back_yoke_drop"]  # the back yoke seam drops this far toward the armhole (1078375 PDS, T147)
 
 
 def widths(m: dict, front_share: float, hem_share: float) -> tuple[tuple[float, float, float], ...]:
@@ -62,7 +63,7 @@ def back_half(m: dict) -> dict:
     yoke, depth, length = m["yoke_depth_cb"], underarm(m), m["back_length_hps"]
     back_sh = back_shoulder_half(m["shoulder_point_to_point"] / 2, m)
     _, back = widths(m, CHEST_FRONT, HEM_FRONT)
-    armhole = cubic([back_sh - YOKE_INSET, yoke], [back[0], depth], fractions("back", "yoke_armhole:UA"))
+    armhole = cubic([back_sh - YOKE_INSET, yoke + YOKE_DROP], [back[0], depth], fractions("back", "yoke_armhole:UA"))
     side = _side(m, length, armhole[-1], back)
     hem = square_end(side[-1], [0, length])
     return {"points": [[0, yoke], *armhole, *side[1:], *hem[1:]], "armhole": armhole, "yoke": back_sh - YOKE_INSET}

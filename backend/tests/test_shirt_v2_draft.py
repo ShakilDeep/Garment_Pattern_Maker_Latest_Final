@@ -7,11 +7,13 @@ from shapely.geometry import Point, Polygon
 from app.application.requirement_resolve import resolve
 from app.domain.blocks.registry import installed
 from app.domain.blocks.run import draft_pattern
+from app.domain.blocks.shirt.reference import reference_measurements
+from app.domain.blocks.shirt.truing import relation_values
 from app.domain.catalog import SIZES
-from app.domain.tolerances import SLEEVE_EASE_CM
 from app.infrastructure.parsers import parse_xlsx
 from app.infrastructure.validation import validate
 
+PDS_CAP_EASE = relation_values(reference_measurements())["sleeve cap ease"]  # the client block at L (3.948)
 
 @pytest.fixture(scope="module")
 def patterns():
@@ -43,11 +45,12 @@ def test_every_size_validates_without_errors_or_flat_vertices(patterns, size):
 
 @pytest.mark.parametrize("size", SIZES)
 def test_the_sleeve_cap_fits_the_whole_armhole(patterns, size):
-    """demo_v1's cap is about 20 cm longer than its armhole; here the two agree within the 2 cm seam check
-    (the chart grades the cap slower than the armhole, so the ease runs from +1.4 cm at S to -1 cm at 3XL)."""
+    """demo_v1's cap is about 20 cm longer than its armhole. Here the cap ease lies between none and the client
+    PDS's own L ease (owner 2026-10-12, T147; the generic 2 cm band does not apply, docs/drafting/shirt.md Q1).
+    With the PDS yoke drop it runs +2.3 cm at S to 0 at 3XL; the target per fabric is client question Q2."""
     pieces = by_name(patterns[size])
     armhole = pieces["Front"]["seams"]["armhole"] + pieces["Back"]["seams"]["armhole"]
-    assert abs(pieces["Sleeve"]["seams"]["cap"] - armhole) <= SLEEVE_EASE_CM
+    assert 0 <= pieces["Sleeve"]["seams"]["cap"] - armhole <= PDS_CAP_EASE
 
 
 def test_the_notches_are_the_pds_ones_and_lie_on_the_outline(patterns):
