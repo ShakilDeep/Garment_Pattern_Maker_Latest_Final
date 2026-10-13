@@ -31,3 +31,8 @@ reference/
 
 # Client tech packs (T132): kept local, the repository is public (owner, 2026-10-11)
 fixtures/reference_patterns/*.pdf
+
+# Local-only docs and plans (owner, 2026-10-13)
+new_implement/
+/CLAUDE.md
+conda_env.md
