@@ -5,7 +5,7 @@ MARGIN = 5
 TOP = 12
 PIECE_GAP = 8
 ROW_GAP = 12
-# The Pattern Preview (frontend/src/PatternCanvas.tsx) draws these pieces twice; the DXF export matches it.
+# The SVG/DXF strip draws these pieces twice (as the former preview canvas did; test_dxf_preview_parity).
 PAIRED_IN_PREVIEW = frozenset({"Sleeve"})
 
 

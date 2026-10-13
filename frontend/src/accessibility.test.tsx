@@ -1,27 +1,22 @@
 import {afterEach, expect, it, vi} from 'vitest';
 import {cleanup, fireEvent, render, screen} from '@testing-library/react';
-import PatternCanvas from './PatternCanvas';
+import StylePieceSvg from './StylePieceSvg';
+import {yoke} from './blockViewerFixture';
+import {LAYERS} from './styleTypes';
 import ValidationCenter from './ValidationCenter';
 import type {Pattern, Project} from './types';
 
 afterEach(cleanup);
-const piece = {id:'front', name:'Front', width:30, height:70, quantity:2,
-  points:[[0,0],[30,0],[30,70],[0,70]], cut_points:[], grainline:[[15,10],[15,60]], notches:[]};
-const pattern = {id:'pattern', size:'L', seam_allowance:0, pieces:[piece], validation:[]} as unknown as Pattern;
+const pattern = {id:'pattern', size:'L', seam_allowance:0, pieces:[], validation:[]} as unknown as Pattern;
 
-it('announces selection, zoom and pan, without stealing arrow keys from inputs', () => {
-  render(<><input aria-label="Measurement"/><PatternCanvas pattern={pattern} selected="front" select={vi.fn()}/></>);
-  const status = screen.getByRole('status', {name:'Canvas status'});
-  expect(status.textContent).toContain('Front selected');
-  const front = screen.getByRole('button', {name:'Select Front'});
-  expect(front.getAttribute('aria-pressed')).toBe('true');
-  expect(screen.getByRole('table', {name:'Pattern pieces and construction quantities'})).toBeTruthy();
-  fireEvent.keyDown(front, {key:'ArrowRight'});
-  expect(status.textContent).toContain('Pan 20, 0');
-  fireEvent.keyDown(screen.getByLabelText('Measurement'), {key:'ArrowRight'});
-  expect(status.textContent).toContain('Pan 20, 0');
-  fireEvent.click(screen.getByRole('button', {name:'Zoom in'}));
-  expect(status.textContent).toContain('110%');
+it('pieces are buttons that report their selection and keep keyboard focus order', () => {
+  const select = vi.fn();
+  render(<StylePieceSvg piece={yoke} shown={new Set(LAYERS)} selected select={select}/>);
+  const card = screen.getByRole('button', {name:'Select back YK'});
+  expect(card.getAttribute('aria-pressed')).toBe('true');
+  expect(screen.getByRole('img', {name:'back YK pattern piece'})).toBeTruthy();
+  fireEvent.click(card);
+  expect(select).toHaveBeenCalledWith('back_YK');
 });
 
 it('announces validation counts after validation changes', () => {

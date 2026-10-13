@@ -32,7 +32,7 @@ def test_cut_outline_is_valid_for_every_corner_style(piece, style):
 
 @pytest.mark.parametrize("style", list(CornerStyle))
 def test_drafted_shirt_pieces_get_valid_cut_outlines(rows, style):
-    for legacy in draft_pieces(values_for(rows, "L"), "L"):
+    for legacy in draft_pieces(values_for(rows, "L"), "L", "shirt_v2"):
         piece = legacy.piece
         stitch = Polygon([(p.position.x, p.position.y) for p in piece.points])
         cut = Polygon([(p.x, p.y) for p in check_cut_geometry(piece, _every_corner(piece, style))])

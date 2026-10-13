@@ -47,7 +47,9 @@ class BlockRegistry:
 
 @cache
 def installed() -> BlockRegistry:
-    registry = BlockRegistry(fallback="shirt_v2")  # Optitex-shaped curves; demo_v1 stays selectable
+    # The client 1078375 block (owner, 2026-10-13): a project drafts the seven PDS pieces; shirt_v2 and demo_v1
+    # stay selectable.
+    registry = BlockRegistry(fallback="shirt_1078375")
     registry.register(DemoShirtBlock())
     registry.register(ShirtBlock())
     registry.register(ShirtV2Block())

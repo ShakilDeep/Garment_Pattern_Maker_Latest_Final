@@ -17,15 +17,14 @@ test('dialogs are named, trap keyboard focus and return focus', async ({page, re
   await expect(help).toBeFocused();
 });
 
-test('canvas selection is announced and has keyboard pan alternatives', async ({page, request}) => {
+test('pattern pieces are keyboard-selectable cards that report their selection', async ({page, request}) => {
   await openGeneratedDemo(page, request);
-  const front = page.getByRole('button', {name: 'Select Front', exact: true});
-  await front.focus();
+  await page.goto('/#' + encodeURIComponent('Pattern Studio'));
+  const card = page.getByRole('button', {name: 'Select back YK', exact: true});
+  await card.focus();
   await page.keyboard.press('Enter');
-  await expect(page.getByRole('status', {name: 'Canvas status'})).toContainText('Front selected');
-  await expect(front).toHaveAttribute('aria-pressed', 'true');
-  await page.keyboard.press('ArrowRight');
-  await expect(page.getByRole('status', {name: 'Canvas status'})).toContainText('Pan 20, 0');
+  await expect(card).toHaveAttribute('aria-pressed', 'true');
+  await expect(page.getByRole('region', {name: 'Measure back YK'})).toBeVisible();
 });
 
 test('all workflow screens pass automated WCAG A and AA checks', async ({page, request}, info) => {

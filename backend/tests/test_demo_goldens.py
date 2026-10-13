@@ -8,6 +8,7 @@ from shapely.geometry import Polygon
 
 from app.application.requirements import requirements
 from app.domain.back_yoke import back_shoulder_half
+from app.domain.blocks.registry import installed
 from app.domain.catalog import SIZES
 from app.domain.drafting import draft
 from app.infrastructure.parsers import parse_pdf
@@ -28,7 +29,8 @@ def test_golden_source_and_profile_are_explicit(golden):
     assert set(golden["sizes"]) == set(SIZES)
 
 
-def test_parser_and_requirement_goldens(golden, rows):
+def test_parser_and_requirement_goldens(golden, rows, monkeypatch):
+    monkeypatch.setattr(installed(), "_fallback", golden["profile"])  # the golden is the demo_v1 default's
     assert rows == golden["parsed_measurements"]
     data = (ROOT / "references/1078983(5).pdf").read_bytes()
     assert sha256(data).hexdigest() == golden["techpack_sha256"]

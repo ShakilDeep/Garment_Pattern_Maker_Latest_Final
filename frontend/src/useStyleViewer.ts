@@ -1,10 +1,17 @@
 import {useState} from 'react';
-import {download} from './api';
-import {draftBlock, stylePiece} from './styleApi';
+import {stylePiece} from './styleApi';
 import {LAYERS, type Layer, type StylePiece, type StyleSummary} from './styleTypes';
 
-// The block viewer's own state, kept out of useAppController: the drafted style, its pieces and the layers.
-export function useStyleViewer(blockId: string) {
+type Source = {
+  create: () => Promise<StyleSummary>;  // where the style comes from (a project's pattern)
+  size?: string;  // the size to show when the style has it graded; the base size otherwise
+};
+
+export const shownSize = (style: StyleSummary, size?: string) =>
+  size && (style.graded_sizes ?? style.sizes).includes(size) ? size : style.base_size;
+
+// A V6 style viewer's own state, kept out of useAppController: the style, its pieces and the layers.
+export function useStyleViewer({create, size}: Source) {
   const [style, setStyle] = useState<StyleSummary | null>(null);
   const [pieces, setPieces] = useState<StylePiece[]>([]);
   const [selected, setSelected] = useState('');
@@ -12,32 +19,22 @@ export function useStyleViewer(blockId: string) {
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');
 
-  const draft = async () => {
+  // `live` is false once the caller no longer wants this result (an effect cleaned up), so a late reply is dropped.
+  const draft = async (live: () => boolean = () => true) => {
     setBusy(true);
     setError('');
     try {
-      const summary = await draftBlock(blockId);
-      const drafted = await Promise.all(summary.piece_ids.map((id) => stylePiece(summary.id, id, summary.base_size)));
+      const summary = await create();
+      const at = shownSize(summary, size);
+      const drafted = await Promise.all(summary.piece_ids.map((id) => stylePiece(summary.id, id, at)));
+      if (!live()) return;
       setStyle(summary);
       setPieces(drafted);
-      setSelected(drafted[0]?.id ?? '');
+      setSelected((current) => drafted.some((p) => p.id === current) ? current : drafted[0]?.id ?? '');
     } catch (e) {
-      setError((e as Error).message);
+      if (live()) setError((e as Error).message);
     } finally {
-      setBusy(false);
-    }
-  };
-  // Base DXF-AAMA + .RUL and the all-sizes DXF in one zip; saved through saveBlobAsFile (api.download).
-  const exportAama = async () => {
-    if (!style) return;
-    setBusy(true);
-    setError('');
-    try {
-      await download(`/styles/${style.id}/export/aama?unit=mm`, `${blockId}_graded_aama.zip`);
-    } catch (e) {
-      setError((e as Error).message);
-    } finally {
-      setBusy(false);
+      if (live()) setBusy(false);
     }
   };
   const toggle = (layer: Layer) => setShown((current) => {
@@ -46,5 +43,5 @@ export function useStyleViewer(blockId: string) {
     return next;
   });
 
-  return {style, pieces, selected, select: setSelected, shown, toggle, busy, error, draft, exportAama};
+  return {style, pieces, selected, select: setSelected, shown, toggle, busy, error, draft};
 }

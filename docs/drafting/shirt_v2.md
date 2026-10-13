@@ -1,6 +1,6 @@
 # Drafting: shirt_v2 (measurement chart + Optitex 1078375 curve shapes)
 
-**Status: DEMO calibration (2026-10-11).** The default drafting profile for a V5 project since 2026-10-11; `demo_v1` stays selectable under "Drafting profile". Code: `backend/app/domain/shirt_v2/`, block `blocks/shirt_v2.py`.
+**Status: DEMO calibration (2026-10-11).** The default drafting profile for a V5 project from 2026-10-11 to 2026-10-13; since then a project drafts the client 1078375 block (`shirt_1078375`) by default, and shirt_v2 and `demo_v1` stay selectable under "Drafting profile". Code: `backend/app/domain/shirt_v2/`, block `blocks/shirt_v2.py`.
 
 ## Why
 

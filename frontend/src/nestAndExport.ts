@@ -1,4 +1,5 @@
 import {api, download} from './api';
+import {projectSizes} from './projectSizes';
 import type {Project} from './types';
 
 type NestCtx = {
@@ -32,7 +33,15 @@ export function nestAndExport(ctx: NestCtx) {
       if (kind === 'aama-graded') { // every size as one zip for Optitex (T146): no size parameter
         const name = `${project.resolutions?.profile ?? 'pattern'}_graded_aama.zip`;
         const query = unit ? `?unit=${encodeURIComponent(unit)}` : '';
-        await run(() => download(`/projects/${project.id}/exports/aama-graded${query}`, name), 'Download ready.');
+        const sizes = projectSizes(project);
+        const missing = sizes.some((s) => !drafted(project).has(s));  // Optitex needs every size: grade them first
+        await run(async () => {
+          if (missing) {
+            await api(`/projects/${project.id}/grade`, 'POST', {sizes});
+            await refresh(project.id);
+          }
+          await download(`/projects/${project.id}/exports/aama-graded${query}`, name);
+        }, missing ? `All ${sizes.length} sizes graded; download ready.` : 'Download ready.');
         return;
       }
       const path = kind === 'calibration'
@@ -46,6 +55,12 @@ export function nestAndExport(ctx: NestCtx) {
       await run(() => download(path, name), 'Download ready.');
     },
   };
+}
+
+/** The sizes the project has a current (not stale) pattern for: its base pattern and its grades. */
+function drafted(project: Project): Set<string> {
+  const current = [project.pattern, ...(project.grades ?? [])].filter((p) => p && !p.stale);
+  return new Set(current.map((p) => p!.size));
 }
 
 function dxfUnit(kind: string, unit?: string) {

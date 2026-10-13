@@ -23,7 +23,9 @@ export type StylePiece = {
   cut_outline: XY[] | null;
 };
 
-export type StyleSummary = {id: string; name: string; sizes: string[]; base_size: string; piece_ids: string[]};
+export type StyleSummary = {
+  id: string; name: string; sizes: string[]; base_size: string; piece_ids: string[]; graded_sizes?: string[];
+};
 
 export type MeasureKind = 'distance' | 'path' | 'angle' | 'area' | 'perimeter';
 export type MeasureBody = {

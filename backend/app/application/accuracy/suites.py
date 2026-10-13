@@ -9,7 +9,7 @@ from typing import NamedTuple
 from app.application.accuracy.allowance_checks import allowance_checks
 from app.application.accuracy.gap_checks import gap_checks
 from app.application.accuracy.graded import graded_report
-from app.application.accuracy.model import Check, at_size
+from app.application.accuracy.model import Check, Source, at_size
 from app.application.accuracy.notch_pairs import notch_pair_checks
 from app.application.accuracy.run import base_checks
 from app.domain.blocks.registry import demo_block
@@ -18,6 +18,8 @@ from app.domain.blocks.shirt.measures import DEFINITIONS, Definition
 from app.domain.blocks.shirt.seams import PDS_UNPAIRED, RELATIONS
 from app.domain.pattern.style import Style
 from app.domain.reference import ReferenceStyle
+
+PDS_BASE = Source("pds", "1078375 PDS: outlines exist at its base size only")
 
 
 class Suite(NamedTuple):
@@ -32,14 +34,23 @@ def _allowances(style: Style) -> list[Check]:
             for check in allowance_checks(style.view(size), style.allowances, seam_allowance)]
 
 
+def _at_pds_base(style: Style, reference: ReferenceStyle) -> list[Check]:
+    """The PDS outline exists at the PDS base size only, so that size is compared, whatever size the project's
+    pattern was generated at; until it is drafted the comparison cannot run, and that is an error."""
+    size = reference.base_size
+    if not style.has_geometry(size):
+        return [Check(f"PDS base size {size} drafted", 0, f"draft or grade {size} to compare it with the PDS", False,
+                      PDS_BASE)]
+    view = style.view(size)
+    at_outline = (*base_checks(view, reference), *gap_checks(view, reference),
+                  *notch_pair_checks(view, RELATIONS, PDS_UNPAIRED))
+    return [at_size(check, size) for check in at_outline]
+
+
 def shirt_checks(style: Style, reference: ReferenceStyle) -> list[Check]:
-    """Every drafted size (graded suite, allowances), and the base size against the PDS outline (edges, seams,
+    """Every drafted size (graded suite, allowances), and the PDS base size against the PDS outline (edges, seams,
     gaps) with its notch pairs."""
-    base = style.view(style.base_size)
-    at_outline = (*base_checks(base, reference), *gap_checks(base, reference),
-                  *notch_pair_checks(base, RELATIONS, PDS_UNPAIRED))
-    at_base = [at_size(check, style.base_size) for check in at_outline]
-    return [*graded_report(style, reference).checks, *_allowances(style), *at_base]
+    return [*graded_report(style, reference).checks, *_allowances(style), *_at_pds_base(style, reference)]
 
 
 SUITES: Mapping[str, Suite] = {"shirt_1078375": Suite(shirt_checks, DEFINITIONS)}

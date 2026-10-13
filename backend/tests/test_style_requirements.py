@@ -9,7 +9,9 @@ SHIRT = {"garment": "shirt", "fit": "regular"}
 @pytest.fixture
 def demo(client):  # noqa: F811
     pid = client.post("/api/v1/projects", json={"name": "Style", "demo": True}).json()["id"]
-    return f"/api/v1/projects/{pid}"
+    base = f"/api/v1/projects/{pid}"
+    assert client.post(base + "/requirements/profile/resolve", json={"value": "shirt_v2"}).status_code == 200
+    return base
 
 
 def _confirm(client, base, **options):  # noqa: F811

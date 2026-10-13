@@ -47,8 +47,9 @@ def requirements(project, size="L"):
         "profile",
         "Drafting profile",
         "AVAILABLE" if "profile" in answers else "DEMO_DEFAULT_AVAILABLE",
-        "No client base block was supplied. The default shirt_v2 draft shapes its curves on the client's 1078375 "
-        "Optitex pattern and needs production calibration; demo_v1 is the earlier draft.",
+        "The default is the client's 1078375 Optitex block: its seven pieces, drafted from the chart POMs "
+        "confirmed for it and otherwise from its PDS reference values once accepted. shirt_v2 and demo_v1 "
+        "draft the eight-piece long-sleeve shirt from the chart.",
         list(installed().project_ids()),
     )
     add(

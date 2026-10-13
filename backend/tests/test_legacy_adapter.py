@@ -54,7 +54,7 @@ def test_seam_allowance_cut_outline_survives_the_round_trip(rows, size):
 
 
 def test_v5_cut_data_maps_without_inventing_rules(rows):
-    by_name = {p.piece.name: p for p in draft_pieces(values_for(rows, "M"), "M")}
+    by_name = {p.piece.name: p for p in draft_pieces(values_for(rows, "M"), "M", "shirt_v2")}
     front, back = by_name["Front"], by_name["Back"]
     assert (front.piece.cut.single, front.piece.cut.mirrored_pairs, front.piece.cut.on_fold) == (2, 0, 0)
     assert back.piece.fold is None and back.extra_fields()["cut_on_fold"] is True

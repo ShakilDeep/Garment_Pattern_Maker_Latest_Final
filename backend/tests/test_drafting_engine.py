@@ -41,4 +41,4 @@ def test_an_unknown_style_option_is_refused(values):
 def test_health_reports_the_real_default_profile(tmp_path):
     with TestClient(create_app(f"sqlite:///{tmp_path}/health.db")) as client:
         body = client.get("/health").json()
-    assert body["profile"] == installed().demo().id == "shirt_v2"
+    assert body["profile"] == installed().demo().id == "shirt_1078375"

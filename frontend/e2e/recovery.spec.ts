@@ -29,7 +29,7 @@ test('mixed-size marker submits cut order and announces completion', async ({pag
   await page.getByRole('button', {name:'Optimize marker',exact:true}).click();
   expect((await submitted).postDataJSON().quantities).toEqual({S:2,L:1});
   await expect(page.getByRole('status', {name:'Marker status'})).toContainText('Marker complete');
-  await expect(page.getByRole('status', {name:'Marker status'})).toContainText('48 pieces');
+  await expect(page.getByRole('status', {name:'Marker status'})).toContainText('33 pieces');  // 11 cut pieces of the 1078375 block per size, S×2 + L×1
   const metrics = await new AxeBuilder({page}).include('.metrics').withTags(['wcag2a', 'wcag2aa']).analyze();
   expect(metrics.violations).toEqual([]);
 });

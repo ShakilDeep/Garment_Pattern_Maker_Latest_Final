@@ -7,7 +7,6 @@ import Preview from './Preview';
 import Workflow from './Workflow';
 import Dialogs from './Dialogs';
 import StudioControls from './StudioControls';
-import BlockViewer from './BlockViewer';
 import ProjectDashboard from './ProjectDashboard';
 import AICopilot, {type CopilotHandle} from './AICopilot';
 import WorkspaceBoundary from './WorkspaceBoundary';
@@ -44,10 +43,10 @@ export default function App() {
                 size={c.size} setSize={c.setSize} open={c.setDialog} go={c.go} />}
             {showPreview && <Preview project={c.project} pattern={pattern} size={c.size} page={c.page}
               selected={c.selected} select={c.select} go={c.go} generate={c.generate} busy={c.busy}
+              download={() => void c.exportFile('aama-graded', 'mm')}
               validate={() => void c.run(async () => {
                 await api(`/projects/${c.project!.id}/validate`, 'POST'); await c.refresh(c.project!.id);
               }, 'Validation refreshed.')} />}
-            {c.page === 'Pattern Studio' && <BlockViewer />}
           </WorkspaceBoundary>
         </div>
       </>}
