@@ -1,0 +1,6 @@
+/target
+/web/node_modules
+/web/dist
+/web/public/patternforge.wasm
+*.log
+.DS_Store
